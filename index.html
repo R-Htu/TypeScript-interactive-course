@@ -12,13 +12,31 @@
 
   </head>
   <body>
+    <div id="toast-container" class="toast-container"></div>
     <!-- Theme -->
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">😴</button>
-
+      <!-- HERO INTRO -->
+      <div class="intro-panel">
+        <div class="intro-content">
+          <div>
+            <h1>TS Academy — Learn TypeScript interactively</h1>
+            <p>Start with bite-sized lessons, practice with real code, and track progress in a game-like flow. Perfect for beginners and multitool devs who want fast results.</p>
+            <ul class="intro-steps">
+              <li><strong>1.</strong> Complete short lessons in 10-15 minutes</li>
+              <li><strong>2.</strong> Solve code tasks and earn points</li>
+              <li><strong>3.</strong> Unlock next module and build confidence</li>
+            </ul>
+          </div>
+          <button id="btn-start-lesson" class="btn-start" onclick="openLesson(1)">Start Lesson 1</button>
+        </div>
+      </div>
+      <div class="intro-continue">Continue where you left off: Lesson <span id="continue-lesson">1</span></div>
     <div class="shell">
       <!-- HEADER -->
       <div class="hdr">
-        <div class="hdr-brand">TS<span>Academy</span></div>
+        <div class="hdr-brand">
+          TS<span>Academy</span>
+        </div>
         <div
           style="
             display: flex;
@@ -63,6 +81,8 @@
           </div>
         </div>
       </div>
+
+
 
       <!-- LESSONS VIEW -->
       <div id="view-lessons" class="view active">

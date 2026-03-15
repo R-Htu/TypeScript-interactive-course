@@ -2991,6 +2991,30 @@ type UserData = MyReturnType<typeof getUser>;
         return isLessonDone(LESSONS[idx - 1].id);
       }
 
+      function getLastLesson() {
+        return +localStorage.getItem("ts_last_lesson") || 1;
+      }
+
+      function setLastLesson(id) {
+        localStorage.setItem("ts_last_lesson", String(id));
+      }
+
+      function showToast(message, type = "success") {
+        const container = document.getElementById("toast-container");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.animation = "toast-out 0.25s ease forwards";
+          setTimeout(() => toast.remove(), 250);
+        }, 2600);
+      }
+
       // ══════════════════════════════════════════
       // THEME
       // ══════════════════════════════════════════
@@ -3009,6 +3033,12 @@ type UserData = MyReturnType<typeof getUser>;
           document.documentElement.setAttribute("data-theme", "light");
           document.getElementById("themeBtn").textContent = "☀️";
         }
+        updateContinueLesson();
+
+        const last = getLastLesson();
+        if (last > 1) {
+          showToast(`Restored progress: last lesson was ${last}`, "success");
+        }
       })();
 
       // ══════════════════════════════════════════
@@ -3022,11 +3052,44 @@ type UserData = MyReturnType<typeof getUser>;
         document.getElementById("st-done").textContent = done;
         document.getElementById("prog-pct").textContent = pct + "%";
         document.getElementById("prog-fill").style.width = pct + "%";
+        updateContinueLesson();
+      }
+
+      function updateContinueLesson() {
+        const el = document.getElementById("continue-lesson");
+        const btn = document.getElementById("btn-start-lesson");
+        if (!el) return;
+
+        let suggested = getLastLesson();
+        const doneIds = LESSONS.filter((l) => isLessonDone(l.id)).map((l) => l.id);
+
+        if (activeLesson && activeLesson.id) {
+          suggested = activeLesson.id;
+        } else if (doneIds.length > 0) {
+          const maxDone = Math.max(...doneIds);
+          suggested = Math.min(maxDone + 1, LESSONS.length);
+        }
+
+        el.textContent = String(suggested);
+        if (btn) {
+          btn.textContent = `Start Lesson ${suggested}`;
+          btn.onclick = () => openLesson(suggested);
+        }
       }
 
       // ══════════════════════════════════════════
       // VIEWS
       // ══════════════════════════════════════════
+      function hideHeroIntro() {
+        document.querySelector(".intro-panel")?.classList.add("hidden");
+        document.querySelector(".intro-continue")?.classList.add("hidden");
+      }
+
+      function showHeroIntro() {
+        document.querySelector(".intro-panel")?.classList.remove("hidden");
+        document.querySelector(".intro-continue")?.classList.remove("hidden");
+      }
+
       function showView(id) {
         document
           .querySelectorAll(".view")
@@ -3036,6 +3099,8 @@ type UserData = MyReturnType<typeof getUser>;
 
       function goBack() {
         renderGrid();
+        showHeroIntro();
+        updateContinueLesson();
         showView("lessons");
       }
 
@@ -3122,6 +3187,9 @@ type UserData = MyReturnType<typeof getUser>;
         renderCodePhase();
         updatePhaseTabs();
         switchPhase(activePhase);
+        setLastLesson(id);
+        hideHeroIntro();
+        updateContinueLesson();
         showView("lesson");
       }
 
