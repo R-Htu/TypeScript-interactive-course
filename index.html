@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TS Academy — Interactive Course</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+  </head>
+  <body>
+    <!-- Theme -->
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">😴</button>
+
+    <div class="shell">
+      <!-- HEADER -->
+      <div class="hdr">
+        <div class="hdr-brand">TS<span>Academy</span></div>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            max-width: 340px;
+          "
+        >
+          <div class="prog-track" style="flex: 1">
+            <div class="prog-fill" id="prog-fill" style="width: 0%"></div>
+          </div>
+          <span
+            id="prog-pct"
+            style="
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 0.65rem;
+              color: var(--muted);
+              white-space: nowrap;
+            "
+            >0%</span
+          >
+        </div>
+        <div class="hdr-stats">
+          <div class="stat-pill">
+            <span class="val orange" id="st-streak">0</span
+            ><span style="color: var(--muted); font-size: 0.65rem"
+              >>_< streak</span
+            >
+          </div>
+          <div class="stat-pill">
+            <span class="val yellow" id="st-points">0</span
+            ><span style="color: var(--muted); font-size: 0.65rem"
+              >(*) pts</span
+            >
+          </div>
+          <div class="stat-pill">
+            <span class="val cyan" id="st-done">0</span
+            ><span style="color: var(--muted); font-size: 0.65rem"
+              >[@] done</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- LESSONS VIEW -->
+      <div id="view-lessons" class="view active">
+        <div class="lesson-grid" id="lesson-grid">
+          <div class="l-card active-now" onclick="openLesson(1)">
+            <div class="l-card-top">
+              <div class="l-icon">[?]</div>
+              <div class="l-badge open">[ >> ]</div>
+            </div>
+            <div class="l-title">Lesson 1 — What is TypeScript?</div>
+            <div class="l-desc">Intro to TS — what, why, and how it works</div>
+            <div class="l-steps">
+              <div class="step-dot active"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-2">
+            <div class="l-card-top">
+              <div class="l-icon">[#]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 2 — Primitive Types</div>
+            <div class="l-desc">string, number, boolean and special types</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-3">
+            <div class="l-card-top">
+              <div class="l-icon">[~]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 3 — Arrays & Tuples</div>
+            <div class="l-desc">
+              Typed collections and fixed-position arrays
+            </div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-4">
+            <div class="l-card-top">
+              <div class="l-icon">[{}]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 4 — Objects & Interfaces</div>
+            <div class="l-desc">Shape your data with interfaces</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-5">
+            <div class="l-card-top">
+              <div class="l-icon">[!]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 5 — Functions</div>
+            <div class="l-desc">
+              Type parameters, return values and callbacks
+            </div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-6">
+            <div class="l-card-top">
+              <div class="l-icon">[|]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 6 — Union Types</div>
+            <div class="l-desc">Values that can be one of several types</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-7">
+            <div class="l-card-top">
+              <div class="l-icon">[C]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 7 — Classes</div>
+            <div class="l-desc">Blueprints for objects — OOP in TypeScript</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-8">
+            <div class="l-card-top">
+              <div class="l-icon">[T]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 8 — Generics</div>
+            <div class="l-desc">Write once, work with any type</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-9">
+            <div class="l-card-top">
+              <div class="l-icon">[E]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 9 — Enums</div>
+            <div class="l-desc">Named constants — goodbye magic strings</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-10">
+            <div class="l-card-top">
+              <div class="l-icon">[N]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 10 — Type Narrowing</div>
+            <div class="l-desc">
+              Teach TS to figure out exact types at runtime
+            </div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-11">
+            <div class="l-card-top">
+              <div class="l-icon">[M]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 11 — Modules</div>
+            <div class="l-desc">Split code across files — the modern way</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-12">
+            <div class="l-card-top">
+              <div class="l-icon">[U]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 12 — Utility Types</div>
+            <div class="l-desc">Partial, Pick, Omit, Record and more</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-13">
+            <div class="l-card-top">
+              <div class="l-icon">[@]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 13 — Decorators</div>
+            <div class="l-desc">
+              Annotations for classes, methods and properties
+            </div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-14">
+            <div class="l-card-top">
+              <div class="l-icon">[CF]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 14 — tsconfig.json</div>
+            <div class="l-desc">Master your TypeScript compiler config</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-15">
+            <div class="l-card-top">
+              <div class="l-icon">[R]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 15 — TypeScript + React</div>
+            <div class="l-desc">Type-safe components, hooks and events</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-16">
+            <div class="l-card-top">
+              <div class="l-icon">[Nd]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 16 — TypeScript + Node.js</div>
+            <div class="l-desc">Type-safe APIs with Express and NestJS</div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+
+          <div class="l-card locked" id="card-17">
+            <div class="l-card-top">
+              <div class="l-icon">[A]</div>
+              <div class="l-badge locked-b">🔒</div>
+            </div>
+            <div class="l-title">Lesson 17 — Advanced Types</div>
+            <div class="l-desc">
+              Conditional, mapped, template literal types
+            </div>
+            <div class="l-steps">
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+              <div class="step-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LESSON VIEW -->
+      <div id="view-lesson" class="view hidden">
+        <button class="back-btn" onclick="goBack()">← Back to Lessons</button>
+
+        <!-- Phase bar -->
+        <div class="phase-bar" id="phase-bar">
+          <div
+            class="phase-tab active"
+            id="tab-learn"
+            onclick="switchPhase('learn')"
+          >
+            📖 Learn
+          </div>
+          <div
+            class="phase-tab locked-tab"
+            id="tab-quiz"
+            onclick="switchPhase('quiz')"
+          >
+            ❓ Quiz
+          </div>
+          <div
+            class="phase-tab locked-tab"
+            id="tab-code"
+            onclick="switchPhase('code')"
+          >
+            ⌨️ Challenge
+          </div>
+        </div>
+
+        <!-- LEARN PHASE -->
+        <div id="phase-learn" class="phase-card fade-in">
+          <div id="learn-content"></div>
+          <div class="btn-row">
+            <button class="btn btn-primary btn-full" onclick="finishLearn()">
+              I understand — Take Quiz [ → ]
+            </button>
+          </div>
+        </div>
+
+        <!-- QUIZ PHASE -->
+        <div id="phase-quiz" class="phase-card fade-in" style="display: none">
+          <div id="quiz-content"></div>
+        </div>
+
+        <!-- CODE CHALLENGE PHASE -->
+        <div id="phase-code" class="phase-card fade-in" style="display: none">
+          <div id="code-content"></div>
+        </div>
+      </div>
+
+      <!-- COMPLETE VIEW -->
+      <div id="view-complete" class="view hidden">
+        <div class="phase-card">
+          <div class="complete-screen" id="complete-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
