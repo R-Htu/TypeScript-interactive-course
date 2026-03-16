@@ -1785,56 +1785,427 @@ const projectOptionsByLesson = (lessonId) => {
 };
 
 const projectPresets = {
-  1: { title: "User Profile Project", desc: "Build a typed profile object and simple utility functions.", tasks: { easy: "Define a typed user object with name, age, and email. Log a message using the values.", medium: "Add a roles array and a function `isAdult(user)` that returns a boolean using age checks." } },
-  2: { title: "Primitives Practice Project", desc: "Use basic primitives and literal/unions to model user status.", tasks: { easy: "Declare typed variables for name:string, age:number, isActive:boolean. Log each value.", medium: "Add nullable and optional variables (string | null, number | undefined) and a function to normalize them." } },
-  3: { title: "Arrays & Tuples Project", desc: "Apply arrays and tuples to represent structured lists.", tasks: { easy: "Create a string[] of fruits and a tuple [string, number] for an item. Log both.", medium: "Write a function that takes string[] and returns [firstItem, length] as tuple; include safety checks." } },
-  4: { title: "Objects & Interfaces Project", desc: "Model data with interfaces and typed objects.", tasks: { easy: "Create an interface Product (id: number, name: string, price: number) and a product object.", medium: "Extend Product into DigitalProduct with downloadUrl and a function that prints a summary." } },
-  5: { title: "Functions Project", desc: "Write typed functions with parameters and return types.", tasks: { easy: "Implement `greet(name: string): string` and `formatAge(age: number): string`.", medium: "Implement `calculateDiscount(price: number, discount?: number): number` and use it with inputs." } },
-  6: { title: "Union Types Project", desc: "Work with union types and run-time type narrowing.", tasks: { easy: "Create `type Status = 'loading' | 'success' | 'error'` and a function to handle each case.", medium: "Create `type Value = string | number | boolean` and a function that returns a typed message based on typeof checks." } },
-  7: { title: "Classes Project", desc: "Build a class with methods and encapsulated state.", tasks: { easy: "Implement class `Car` with make/model/year and `getInfo()` method.", medium: "Implement class `BankAccount` with deposit/withdraw/getBalance and private balance." } },
-  8: { title: "Generics Project", desc: "Use generic functions and interfaces for reusable typed logic.", tasks: { easy: "Write generic `wrapInArray<T>(value: T): T[]` and show usage with two types.", medium: "Create generic `ApiResponse<T>` and function `formatResponse<T>(data: T): ApiResponse<T>`." } },
-  9: { title: "Enums Project", desc: "Apply enums to define fixed named values and state.", tasks: { easy: "Define `enum Season` and a function `isSummer(season: Season)`.", medium: "Write a `nextSeason(season: Season): Season` using switch and enum values." } },
-  10: { title: "Type Narrowing Project", desc: "Practice narrowing unions with control flow.", tasks: { easy: "Implement `describe(value: string | number | boolean): string` using typeof checks.", medium: "Extend to handle `null | undefined` and include an impossible `never` branch." } },
-  11: { title: "Modules Project", desc: "Simulate module exports/imports with interfaces and functions.", tasks: { easy: "Write `interface Person` + `function greet(person: Person): string` and invoke it.", medium: "Create module-style code blocks: one for model exports, one for usage." } },
-  12: { title: "Utility Types Project", desc: "Use Omit and Partial to transform types safely.", tasks: { easy: "Define type `PublicProduct = Omit<Product, 'secret'>` and use it.", medium: "Define `UpdateProduct = Partial<PublicProduct>` and apply change objects to a product instance." } },
-  13: { title: "Decorators Project", desc: "Implement class or method decorators for runtime behavior.", tasks: { easy: "Create `@Frozen` class decorator and apply to class to prevent extensions.", medium: "Add `@Log` method decorator to print name and args when methods are called." } },
-  14: { title: "tsconfig.json Project", desc: "Model tsconfig options and validate config shapes.", tasks: { easy: "Define an interface for tsconfig and build an object with target/strict/outDir/rootDir.", medium: "Write a function `isStrictConfig(config)` that narrows to strict config with guard checks." } },
-  15: { title: "TypeScript + React Project", desc: "Create typed component props and render helper logic.", tasks: { easy: "Define `CardProps` and a `renderCard(props: CardProps)` function returning a JSX-like string.", medium: "Add optional `onClick` callback and a `Card` component type that uses it safely." } },
-  16: { title: "TypeScript + Node.js Project", desc: "Type request/response objects and route handler logic.", tasks: { easy: "Define `interface Request` and `interface Response`, create `handlePost(req, res)` with typed body.", medium: "Implement `validatePost(req)` with type guards and `async createPost(req, res)` flow." } },
-  17: { title: "Advanced Types Project", desc: "Build sophisticated conditional and mapped type utilities.", tasks: { easy: "Implement `IsArray<T>` using conditional types and test it on multiple types.", medium: "Implement mapped type `ElementType<T>` (array element extraction) and test with tuple/array types." } },
+  1: {
+    title: "User Profile Project",
+    goal: "Build a typed profile object and simple utility functions.",
+    requirements: [
+      "Create a typed user object with name: string, age: number, and email: string.",
+      "Log a greeting message using template literals.",
+      "Add a roles: string[] array.",
+      "Write a function isAdult(user) that returns true if age >= 18."
+    ],
+    example: `Hello, Alice! You are 25 years old.
+Roles: ["admin", "editor"]
+Is adult: true`,
+    concepts: ["variables", "types", "arrays", "template literals", "functions"]
+  },
+  2: {
+    title: "Primitives Practice Project",
+    goal: "Use basic primitives and literal/unions to model user status.",
+    requirements: [
+      "Declare typed variables: name: string, age: number, isActive: boolean.",
+      "Log each value.",
+      "Add nullable and optional variables (string | null, number | undefined).",
+      "Write a function to normalize them."
+    ],
+    example: `Name: Bob
+Age: undefined
+Active: false
+Normalized Age: 0`,
+    concepts: ["primitives", "unions", "nullable types", "functions"]
+  },
+  3: {
+    title: "Arrays & Tuples Project",
+    goal: "Apply arrays and tuples to represent structured lists.",
+    requirements: [
+      "Create a string[] of fruits.",
+      "Create a tuple [string, number] for a fruit and quantity.",
+      "Write a function that takes string[] and returns [firstItem, length] as a tuple."
+    ],
+    example: `Fruits: ["Apple", "Banana"]
+First fruit: Apple
+Number of fruits: 2`,
+    concepts: ["arrays", "tuples", "functions"]
+  },
+  4: {
+    title: "Objects & Interfaces Project",
+    goal: "Model data with interfaces and typed objects.",
+    requirements: [
+      "Create interface Product { id: number, name: string, price: number }.",
+      "Create a product object.",
+      "Extend Product into DigitalProduct with downloadUrl: string.",
+      "Write a function to print a product summary."
+    ],
+    example: `Product: Book ($20)
+DigitalProduct: Ebook - URL: example.com/ebook`,
+    concepts: ["interfaces", "objects", "type extension"]
+  },
+  5: {
+    title: "Functions Project",
+    goal: "Write typed functions with parameters and return types.",
+    requirements: [
+      "Implement greet(name: string): string and formatAge(age: number): string.",
+      "Implement calculateDiscount(price: number, discount?: number): number.",
+      "Call functions and print results."
+    ],
+    example: `Hello, John!
+Age: 30
+Discounted price: 80`,
+    concepts: ["functions", "parameters", "return types"]
+  },
+  6: {
+    title: "Union Types Project",
+    goal: "Work with union types and run-time type narrowing.",
+    requirements: [
+      "Create type Status = 'loading' | 'success' | 'error'.",
+      "Write a function to handle each Status.",
+      "Create type Value = string | number | boolean.",
+      "Write a function returning a typed message based on typeof checks."
+    ],
+    example: `Status: success
+Value type: string`,
+    concepts: ["union types", "type narrowing", "functions"]
+  },
+  7: {
+    title: "Classes Project",
+    goal: "Build a class with methods and encapsulated state.",
+    requirements: [
+      "Implement class Car with make/model/year and getInfo() method.",
+      "Implement class BankAccount with deposit/withdraw/getBalance and private balance."
+    ],
+    example: `Car: Toyota Corolla (2020)
+Balance after deposit: 100`,
+    concepts: ["classes", "methods", "encapsulation"]
+  },
+  8: {
+    title: "Generics Project",
+    goal: "Use generic functions and interfaces for reusable typed logic.",
+    requirements: [
+      "Write generic wrapInArray<T>(value: T): T[] and show usage with multiple types.",
+      "Create generic ApiResponse<T> and function formatResponse<T>(data: T): ApiResponse<T>."
+    ],
+    example: `Wrapped number: [42]
+Wrapped string: ["hello"]
+Response: { success: true, data: {...} }`,
+    concepts: ["generics", "functions", "interfaces"]
+  },
+  9: {
+    title: "Enums Project",
+    goal: "Apply enums to define fixed named values and state.",
+    requirements: [
+      "Define enum Season.",
+      "Write function isSummer(season: Season): boolean.",
+      "Write nextSeason(season: Season): Season using switch."
+    ],
+    example: `Season: Winter
+Is summer? false
+Next season: Spring`,
+    concepts: ["enums", "switch statements", "functions"]
+  },
+  10: {
+    title: "Type Narrowing Project",
+    goal: "Practice narrowing unions with control flow.",
+    requirements: [
+      "Implement describe(value: string | number | boolean): string using typeof checks.",
+      "Extend to handle null | undefined and include an impossible never branch."
+    ],
+    example: `Value: 42
+Type: number
+Value: null
+Type: unknown`,
+    concepts: ["type narrowing", "control flow", "unions"]
+  },
+  11: {
+    title: "Modules Project",
+    goal: "Simulate module exports/imports with interfaces and functions.",
+    requirements: [
+      "Write interface Person and function greet(person: Person): string.",
+      "Invoke functions from multiple module-style blocks."
+    ],
+    example: `Hello, Alice!`,
+    concepts: ["modules", "interfaces", "functions"]
+  },
+  12: {
+    title: "Utility Types Project",
+    goal: "Use Omit and Partial to transform types safely.",
+    requirements: [
+      "Define type PublicProduct = Omit<Product, 'secret'> and use it.",
+      "Define UpdateProduct = Partial<PublicProduct> and apply changes to a product instance."
+    ],
+    example: `Updated product: { id: 1, name: "Book" }`,
+    concepts: ["utility types", "Omit", "Partial"]
+  },
+  13: {
+    title: "Decorators Project",
+    goal: "Implement class or method decorators for runtime behavior.",
+    requirements: [
+      "Create @Frozen class decorator to prevent class extensions.",
+      "Add @Log method decorator to print method name and arguments when called."
+    ],
+    example: `Method called: greet
+Args: ["Alice"]`,
+    concepts: ["decorators", "classes", "methods"]
+  },
+  14: {
+    title: "tsconfig.json Project",
+    goal: "Model tsconfig options and validate config shapes.",
+    requirements: [
+      "Define interface TsConfig with target, strict, outDir, rootDir.",
+      "Build config objects and write function isStrictConfig(config) to validate."
+    ],
+    example: `Strict config detected`,
+    concepts: ["interfaces", "type guards", "objects"]
+  },
+  15: {
+    title: "TypeScript + React Project",
+    goal: "Create typed component props and render helper logic.",
+    requirements: [
+      "Define CardProps and function renderCard(props: CardProps) returning JSX-like string.",
+      "Add optional onClick callback and ensure type safety in Card component."
+    ],
+    example: `<div>Card: title</div>`,
+    concepts: ["React", "props", "type safety"]
+  },
+  16: {
+    title: "TypeScript + Node.js Project",
+    goal: "Type request/response objects and route handler logic.",
+    requirements: [
+      "Define interface Request and interface Response.",
+      "Create handlePost(req, res) with typed body.",
+      "Implement validatePost(req) with type guards and async createPost(req, res) flow."
+    ],
+    example: `Post created successfully`,
+    concepts: ["Node.js", "TypeScript types", "functions"]
+  },
+  17: {
+    title: "Advanced Types Project",
+    goal: "Build sophisticated conditional and mapped type utilities.",
+    requirements: [
+      "Implement IsArray<T> using conditional types and test on multiple types.",
+      "Implement mapped type ElementType<T> to extract array/tuple elements."
+    ],
+    example: `ElementType<number[]> = number
+ElementType<[string, boolean]> = string | boolean`,
+    concepts: ["conditional types", "mapped types", "advanced TypeScript"]
+  },
+    18: {
+    title: "Shopping List Manager",
+    goal: "Create a program that manages a shopping list.",
+    requirements: [
+      "Create a variable shoppingList: string[].",
+      "Add at least 3 items.",
+      "Write a function addItem(item: string): void.",
+      "Write a function removeItem(item: string): void.",
+      "Print the list."
+    ],
+    example: `Shopping List:
+Milk
+Bread
+Eggs`,
+    concepts: ["arrays", "functions"]
+  },
+  19: {
+    title: "Student Grade Calculator",
+    goal: "Calculate the average grade.",
+    requirements: [
+      "Create grades: number[].",
+      "Add at least 4 grades.",
+      "Write calculateAverage(grades: number[]): number.",
+      "Print the average."
+    ],
+    example: `Average Grade: 85`,
+    concepts: ["arrays", "numbers"]
+  },
+  20: {
+    title: "Temperature Converter",
+    goal: "Convert temperatures between Celsius and Fahrenheit.",
+    requirements: [
+      "Create function celsiusToFahrenheit(c: number): number.",
+      "Create function fahrenheitToCelsius(f: number): number.",
+      "Call both functions and print results."
+    ],
+    example: `25°C = 77°F
+77°F = 25°C`,
+    concepts: ["functions", "numbers"]
+  },
+  21: {
+    title: "Age Calculator",
+    goal: "Calculate age based on birth year.",
+    requirements: [
+      "Create birthYear: number.",
+      "Create currentYear: number.",
+      "Write function calculateAge(birthYear: number): number.",
+      "Print age."
+    ],
+    example: `Age: 20`,
+    concepts: ["numbers", "functions"]
+  },
+  22: {
+    title: "Random Name Picker",
+    goal: "Select a random name from a list.",
+    requirements: [
+      "Create names: string[] with at least 5 names.",
+      "Write pickRandomName(names: string[]): string.",
+      "Print selected name."
+    ],
+    example: `Selected: Maria`,
+    concepts: ["arrays", "Math.random"]
+  },
+  23: {
+    title: "Fruit Inventory",
+    goal: "Manage inventory of fruits using interfaces.",
+    requirements: [
+      "Create interface Fruit { name: string; quantity: number }.",
+      "Create fruits: Fruit[] and add at least 3 items.",
+      "Print inventory."
+    ],
+    example: `Apple - 10
+Banana - 5
+Orange - 7`,
+    concepts: ["interfaces", "arrays"]
+  },
+  24: {
+    title: "Number Guessing Game",
+    goal: "Build a simple number guessing game.",
+    requirements: [
+      "Generate a random number.",
+      "Create function checkGuess(guess: number): boolean.",
+      "Print result depending on guess."
+    ],
+    example: `Correct guess!`,
+    concepts: ["numbers", "logic", "functions"]
+  },
+  25: {
+    title: "Color List",
+    goal: "Work with a readonly array of colors.",
+    requirements: [
+      "Create colors: readonly string[].",
+      "Add at least 4 colors.",
+      "Print all colors."
+    ],
+    example: `Colors:
+Red
+Blue
+Green
+Yellow`,
+    concepts: ["readonly arrays", "arrays"]
+  },
+  26: {
+    title: "Simple Calculator",
+    goal: "Implement basic arithmetic functions.",
+    requirements: [
+      "Write functions: add(a,b), subtract(a,b), multiply(a,b), divide(a,b).",
+      "Print results of all functions."
+    ],
+    example: `Sum: 10
+Difference: 2
+Product: 20
+Quotient: 5`,
+    concepts: ["functions", "numbers"]
+  },
+  27: {
+    title: "User Profile",
+    goal: "Define a typed user interface and create a profile.",
+    requirements: [
+      "Create interface User { name: string; age: number; email: string }.",
+      "Create one user object and print the profile."
+    ],
+    example: `Name: John
+Age: 30
+Email: john@example.com`,
+    concepts: ["interfaces", "objects"]
+  },
+  28: {
+    title: "Book List",
+    goal: "Manage a list of books.",
+    requirements: [
+      "Create books: string[].",
+      "Add at least 5 books.",
+      "Print the list of books."
+    ],
+    example: `Books:
+Book 1
+Book 2
+Book 3
+Book 4
+Book 5`,
+    concepts: ["arrays", "strings"]
+  },
+  29: {
+    title: "Daily Expenses",
+    goal: "Track daily expenses and calculate total.",
+    requirements: [
+      "Create expenses: number[].",
+      "Add at least 5 expense values.",
+      "Write totalExpenses(expenses: number[]): number.",
+      "Print the total."
+    ],
+    example: `Total: 120`,
+    concepts: ["arrays", "numbers", "functions"]
+  },
+  30: {
+    title: "Todo List Manager",
+    goal: "Manage tasks with add, remove, and complete functionality.",
+    requirements: [
+      "Create interface Todo { task: string; completed: boolean }.",
+      "Create todos: Todo[] and add 3 tasks.",
+      "Write functions addTodo, removeTodo, markComplete.",
+      "Print all todos."
+    ],
+    example: `Task: Learn TS - Completed: false
+Task: Build App - Completed: true`,
+    concepts: ["interfaces", "arrays", "functions"]
+  },
+  31: {
+    title: "Simple Timer",
+    goal: "Implement a countdown timer.",
+    requirements: [
+      "Create function startTimer(seconds: number): void.",
+      "Print remaining time each second.",
+      "Print 'Time's up!' at the end."
+    ],
+    example: `10...
+9...
+...
+Time's up!`,
+    concepts: ["functions", "timers", "logic"]
+  },
+  32: {
+    title: "Password Validator",
+    goal: "Validate passwords based on rules.",
+    requirements: [
+      "Write function validatePassword(password: string): boolean.",
+      "Check rules: min length 8, contains number and special character.",
+      "Print valid or invalid."
+    ],
+    example: `Password valid: true`,
+    concepts: ["strings", "regex", "functions"]
+  },
+  33: {
+    title: "Contact Manager",
+    goal: "Store and search contacts using interfaces.",
+    requirements: [
+      "Create interface Contact { name: string; phone: string; email?: string }.",
+      "Create contacts: Contact[] with at least 3 entries.",
+      "Write function findContact(name: string): Contact | undefined."
+    ],
+    example: `Found contact: Alice - 123456789`,
+    concepts: ["interfaces", "arrays", "functions"]
+  },
+  34: {
+    title: "BMI Calculator",
+    goal: "Calculate Body Mass Index and classify.",
+    requirements: [
+      "Write function calculateBMI(weightKg: number, heightM: number): number.",
+      "Write function classifyBMI(bmi: number): string.",
+      "Print BMI value and classification."
+    ],
+    example: `BMI: 22.5
+Classification: Normal`,
+    concepts: ["numbers", "functions", "logic"]
+  }
 };
 
-LESSONS.forEach((lesson) => {
-  const safeTitle = lesson.title;
-  const preset = projectPresets[lesson.id] || {};
-  const optionDiffs = projectOptionsByLesson(lesson.id);
-
-  if (!lesson.projects || !lesson.projects.length) {
-    lesson.projects = optionDiffs.map((difficulty, index) => {
-      const idSuffix = index === 0 ? "a" : "b";
-      return {
-        id: `${lesson.id}${idSuffix}`,
-        title: `${preset.title || safeTitle + " Project"} (${difficulty})`,
-        desc: preset.desc || `Build a mini project to apply the concepts learned in ${safeTitle}.`,
-        task: (preset.tasks && preset.tasks[difficulty]) || `Create a small TypeScript example using the main concept from this lesson.`,
-        starterCode: `// Write your project code here\n`,
-        hint: `Start with the lesson concept and use proper TypeScript type annotations.`,
-        reward: projectRewards[difficulty],
-        difficulty,
-        ascii: projectAscii[difficulty],
-        requirements: [
-          `Use the core concept from ${safeTitle} with proper TypeScript types`,
-          `Add comments explaining your approach and key decisions`,
-          `Include at least one typed function or interface`,
-        ],
-      };
-    });
-  }
-
-  if (!lesson.project) {
-    lesson.project = lesson.projects[0];
-  }
-});
 
 // ══════════════════════════════════════════
 // STATE
@@ -1964,6 +2335,81 @@ function goBack() {
 // ══════════════════════════════════════════
 // LESSON GRID
 // ══════════════════════════════════════════
+
+// ══════════════════════════════════════════
+// Project pairing map — lesson ID → [presetA, presetB]
+// ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// Project pairing map — lesson ID → [presetA, presetB]
+// ══════════════════════════════════════════
+const projectPairMap = {
+  1:[1,18], 2:[2,19], 3:[3,20], 4:[4,21], 5:[5,22],
+  6:[6,23], 7:[7,24], 8:[8,25], 9:[9,26], 10:[10,27],
+  11:[11,28], 12:[12,29], 13:[13,30], 14:[14,31], 15:[15,32],
+  16:[16,33], 17:[17,34],
+};
+
+// ══════════════════════════════════════════
+// LESSONS.forEach — TWO projects per lesson
+// Place BEFORE renderGrid, AFTER projectPresets
+// ══════════════════════════════════════════
+LESSONS.forEach((lesson) => {
+  if (!lesson.projects || !lesson.projects.length) {
+    const pair = projectPairMap[lesson.id] || [lesson.id, lesson.id];
+    const presetA = projectPresets[pair[0]] || {};
+    const presetB = projectPresets[pair[1]] || {};
+
+    const diffA = lesson.id <= 11 ? "easy" : "medium";
+    const diffB = lesson.id <= 11 ? "medium" : "hard";
+
+    lesson.projects = [
+      {
+        id: `p${pair[0]}`,
+        title: presetA.title || `${lesson.title} Project (Option A)`,
+        desc: presetA.goal || `Apply the concepts from ${lesson.title}.`,
+        task: presetA.goal || "",
+        requirements: Array.isArray(presetA.requirements) ? presetA.requirements : [
+          `Use the core concept from ${lesson.title} with proper TypeScript types`,
+          `Add comments explaining your approach`,
+          `Include at least one typed function or interface`,
+        ],
+        example: presetA.example || "",
+        concepts: presetA.concepts || [],
+        starterCode: `// Option A: ${presetA.title || lesson.title + " Project"}\n// Goal: ${presetA.goal || ""}\n\n// Write your TypeScript code here\n`,
+        hint: `Focus on: ${(presetA.concepts || [lesson.title]).join(", ")}`,
+        reward: 30,
+        difficulty: diffA,
+        ascii: diffA === "easy" ? "(^_^)" : "(^_~)",
+      },
+      {
+        id: `p${pair[1]}`,
+        title: presetB.title || `${lesson.title} Project (Option B)`,
+        desc: presetB.goal || `A harder challenge using ${lesson.title}.`,
+        task: presetB.goal || "",
+        requirements: Array.isArray(presetB.requirements) ? presetB.requirements : [
+          `Build a more advanced version using ${lesson.title}`,
+          `Combine multiple TypeScript features`,
+          `Include typed helper functions`,
+        ],
+        example: presetB.example || "",
+        concepts: presetB.concepts || [],
+        starterCode: `// Option B: ${presetB.title || lesson.title + " Project"}\n// Goal: ${presetB.goal || ""}\n\n// Write your TypeScript code here\n`,
+        hint: `Focus on: ${(presetB.concepts || [lesson.title]).join(", ")}`,
+        reward: 50,
+        difficulty: diffB,
+        ascii: diffB === "medium" ? "(^_~)" : ">(>_<)",
+      },
+    ];
+  }
+
+  if (!lesson.project) {
+    lesson.project = lesson.projects[0];
+  }
+});
+
+// ══════════════════════════════════════════
+// renderGrid — card rendering ONLY
+// ══════════════════════════════════════════
 function renderGrid() {
   updateStats();
   const grid = document.getElementById("lesson-grid");
@@ -1993,7 +2439,6 @@ function renderGrid() {
     grid.appendChild(card);
   });
 }
-
 // ══════════════════════════════════════════
 // OPEN LESSON — always starts at Learn phase
 // ══════════════════════════════════════════
@@ -2167,68 +2612,78 @@ function toggleHint() {
 // ══════════════════════════════════════════
 // PROJECT PHASE — requirements shown inside each option card
 // ══════════════════════════════════════════
+
 function renderProjectPhase() {
   const projects = activeLesson.projects?.length
     ? activeLesson.projects
-    : activeLesson.project
-      ? [activeLesson.project]
-      : [];
+    : activeLesson.project ? [activeLesson.project] : [];
+
   const done = lessonProgress(activeLesson.id).project;
   if (!activeProjectId && projects.length > 0) activeProjectId = projects[0].id;
+
   if (!projects.length) {
     document.getElementById("project-content").innerHTML =
       `<div class="project-header"><div class="project-title">No project available for this lesson yet.</div></div>`;
     return;
   }
+
   const selectedProject = projects.find((p) => p.id === activeProjectId) || projects[0];
 
-  // ── Project option selector — requirements INSIDE each card ──────────
+  // ── Option selector cards (side by side) ─────────────────────────────
   let selectorHtml = `<div class="project-selector">`;
   projects.forEach((p, idx) => {
     const isSelected = activeProjectId === p.id;
     const diffClass = p.difficulty === "easy" ? "diff-easy" : p.difficulty === "medium" ? "diff-medium" : "diff-hard";
-    const optionLabel = projects.length > 1
-      ? `Option ${String.fromCharCode(65 + idx)} — ${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}`
-      : "Project Option";
+    const optionLabel = `Option ${String.fromCharCode(65 + idx)} — ${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}`;
     const reqs = Array.isArray(p.requirements) ? p.requirements : [];
+    const concepts = Array.isArray(p.concepts) ? p.concepts : [];
 
-    selectorHtml += `<div class="project-option ${isSelected ? "selected" : ""}" onclick="selectProject('${p.id}')">
+    selectorHtml += `
+    <div class="project-option ${isSelected ? "selected" : ""}" onclick="selectProject('${p.id}')">
       <div class="project-option-num">${optionLabel}</div>
-      <div class="project-option-name">${p.title || p.name || ""}</div>
-      <div class="project-option-desc">${p.desc || ""}</div>
-      <div class="project-difficulty ${diffClass}">⬥ ${p.difficulty}</div>
+      <div class="project-option-name">${escHtml(p.title || "")}</div>
+      <div class="project-option-desc">${escHtml(p.desc || "")}</div>
+      <div class="project-difficulty ${diffClass}">⬥ ${p.difficulty} &nbsp;·&nbsp; +${p.reward || 50} XP</div>
+
+      ${concepts.length ? `
+      <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:4px;">
+        ${concepts.map(c => `<span style="font-family:'JetBrains Mono',monospace; font-size:.6rem; padding:2px 7px; border-radius:4px; background:rgba(99,179,237,.1); color:var(--blue); border:1px solid rgba(99,179,237,.2);">${escHtml(c)}</span>`).join("")}
+      </div>` : ""}
+
       ${reqs.length ? `
       <div style="margin-top:10px; border-top:1px solid var(--border); padding-top:8px;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:6px;">📋 Requirements</div>
-        ${reqs.map(r => `
-        <div style="display:flex; align-items:flex-start; gap:6px; font-size:.75rem; color:var(--muted); margin-bottom:4px; line-height:1.4;">
-          <span style="color:var(--blue); flex-shrink:0;">◆</span>
-          <span>${r}</span>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:6px;">📋 Steps</div>
+        ${reqs.map((r, i) => `
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:5px; line-height:1.4;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--blue); font-weight:700; flex-shrink:0;">Step ${i + 1}</span>
+          <span style="font-size:.75rem; color:var(--muted);">${escHtml(r)}</span>
         </div>`).join("")}
+      </div>` : ""}
+
+      ${p.example ? `
+      <div style="margin-top:8px; background:rgba(72,187,120,.05); border:1px solid rgba(72,187,120,.15); border-radius:6px; padding:8px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:.55rem; text-transform:uppercase; color:var(--green); margin-bottom:4px;">💡 Expected Output</div>
+        <pre style="font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--muted); margin:0; white-space:pre-wrap;">${escHtml(p.example)}</pre>
       </div>` : ""}
     </div>`;
   });
   selectorHtml += `</div>`;
 
-  // ── Selected task details + editor ───────────────────────────────────
+  // ── Full layout ───────────────────────────────────────────────────────
   let html = `
 <div class="project-header">
   <div class="project-title-bar">
     <div>
-      <div class="project-title">🏗️ Mini Project</div>
-      <div class="project-subtitle">Choose an option — each has its own requirements shown above</div>
+      <div class="project-title">🏗️ Mini Project — Choose Your Option</div>
+      <div class="project-subtitle">Both options cover the same lesson concepts at different depths</div>
     </div>
-    <div class="xp-badge">+${selectedProject.reward || 50} XP</div>
   </div>
   ${selectorHtml}
-  <div class="challenge-task" style="margin-bottom:16px;">
-    <div class="challenge-task-label">Selected Task</div>
-    <div class="challenge-task-text">${selectedProject.task || ""}</div>
-  </div>
 </div>
+
 <div class="project-editor-wrap">
-  <div class="project-editor-label">Your Project Code</div>
-  <textarea class="code-editor project-editor" id="project-editor" spellcheck="false" style="min-height:280px">${done ? "// Project completed! Try the other option or practice more.\n" : selectedProject.starterCode}</textarea>
+  <div class="project-editor-label">Your Project Code — ${escHtml(selectedProject.title || "")}</div>
+  <textarea class="code-editor project-editor" id="project-editor" spellcheck="false" style="min-height:280px">${done ? "// Project completed! Practice more below.\n" : escHtml(selectedProject.starterCode || "// Write your project code here\n")}</textarea>
 </div>
 <div class="thinking project-thinking" id="project-thinking">
   <span style="font-family:'JetBrains Mono',monospace">Reviewing your project</span>
@@ -2243,8 +2698,10 @@ function renderProjectPhase() {
   if (done) {
     html += `<div style="margin-top:16px"><button class="btn btn-primary btn-full" onclick="completionScreen()">Lesson Complete — Continue [ → ]</button></div>`;
   }
+
   document.getElementById("project-content").innerHTML = html;
 }
+
 
 function selectProject(projectId) {
   activeProjectId = projectId;
@@ -2263,414 +2720,527 @@ function resetProjectCode() {
 }
 
 // ══════════════════════════════════════════
-// PROJECT VALIDATORS
+// FULL PROJECT VALIDATORS (p1–p34)
 // ══════════════════════════════════════════
 const PROJECT_VALIDATORS = {
-  "1a": function (code) {
-    const c = stripComments(code);
-    const hasName = /let\s+name\s*:\s*string/i.test(c) || /const\s+name\s*:\s*string/i.test(c);
-    const hasAge = /age\s*:\s*number/i.test(c);
-    const hasOnline = /isOnline\s*:\s*boolean/i.test(c);
-    const hasTemplate = /`[^`]*\$\{/i.test(c);
-    if (hasName && hasAge && hasOnline && hasTemplate) return { pass: true, title: "Personal Info Card built!", feedback: "Great job! You declared typed variables for name, age, isOnline and used template literals." };
-    const missing = [];
-    if (!hasName) missing.push("name: string variable");
-    if (!hasAge) missing.push("age: number variable");
-    if (!hasOnline) missing.push("isOnline: boolean variable");
-    if (!hasTemplate) missing.push("a template literal greeting with ${}");
-    return { pass: false, title: "Profile incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "1b": function (code) {
-    const c = stripComments(code);
-    const hasCelsius = /celsius\s*:\s*number/i.test(c);
-    const hasFahrenheit = /fahrenheit\s*:\s*number/i.test(c);
-    const hasKm = /kilometers\s*:\s*number/i.test(c);
-    const hasMiles = /miles\s*:\s*number/i.test(c);
-    if (hasCelsius && hasFahrenheit && hasKm && hasMiles) return { pass: true, title: "Unit Converter complete!", feedback: "All four typed variables declared!" };
-    const missing = [];
-    if (!hasCelsius) missing.push("celsius: number");
-    if (!hasFahrenheit) missing.push("fahrenheit: number");
-    if (!hasKm) missing.push("kilometers: number");
-    if (!hasMiles) missing.push("miles: number");
-    return { pass: false, title: "Converter incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "2a": function (code) {
-    const c = stripComments(code);
-    const hasColor = /colorName\s*:\s*string/i.test(c);
-    const hasR = /\br\s*:\s*number/i.test(c);
-    const isDark = /isDark\s*:\s*boolean/i.test(c);
-    const hasOpacity = /opacity\s*:\s*number/i.test(c);
-    if (hasColor && hasR && isDark && hasOpacity) return { pass: true, title: "Color Palette complete!", feedback: "All color properties typed correctly!" };
-    return { pass: false, title: "Color properties incomplete", feedback: "Ensure you have colorName: string, r/g/b: number, isDark: boolean, opacity: number." };
-  },
-  "2b": function (code) {
-    const c = stripComments(code);
-    const hasUnknown = /rawData\s*:\s*unknown/i.test(c);
-    const hasTypeCheck = /typeof\s+\w+/i.test(c);
-    const hasAny = /:\s*any\b/i.test(c);
-    if (hasUnknown && hasTypeCheck && hasAny) return { pass: true, title: "Safe API Handler complete!", feedback: "Used unknown for raw data, typeof guard, and showed any risk!" };
-    const missing = [];
-    if (!hasUnknown) missing.push("rawData: unknown declaration");
-    if (!hasTypeCheck) missing.push("typeof guard for safe narrowing");
-    if (!hasAny) missing.push("any type to show the risk");
-    return { pass: false, title: "Handler incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "3a": function (code) {
-    const c = stripComments(code);
-    const hasStudents = /students\s*:\s*string\s*\[\]/i.test(c);
-    const hasGrades = /grades\s*:\s*number\s*\[\]/i.test(c);
-    const hasMap = /\.map\s*\(/i.test(c);
-    const hasFilter = /\.filter\s*\(/i.test(c);
-    if (hasStudents && hasGrades && hasMap && hasFilter) return { pass: true, title: "Gradebook complete!", feedback: "Typed string[] and number[] arrays with .map() and .filter()!" };
-    const missing = [];
-    if (!hasStudents) missing.push("students: string[] array");
-    if (!hasGrades) missing.push("grades: number[] array");
-    if (!hasMap) missing.push(".map() usage");
-    if (!hasFilter) missing.push(".filter() usage");
-    return { pass: false, title: "Gradebook incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "3b": function (code) {
-    const c = stripComments(code);
-    const hasRGB = /type\s+RGB\s*=\s*\[/i.test(c);
-    const hasPalette = /readonly\s+RGB\s*\[\]/i.test(c) || /:\s*readonly\s+RGB\[\]/i.test(c);
-    const hasDestruct = /const\s+\[\s*r\s*,/i.test(c);
-    const hasBrightness = /brightness/i.test(c);
-    if (hasRGB && hasPalette && hasDestruct && hasBrightness) return { pass: true, title: "Color Manager complete!", feedback: "RGB tuple type, readonly palette, destructuring, and brightness calculation!" };
-    const missing = [];
-    if (!hasRGB) missing.push("type RGB = [number, number, number]");
-    if (!hasPalette) missing.push("readonly RGB[] palette");
-    if (!hasDestruct) missing.push("const [r, g, b] = destructuring");
-    if (!hasBrightness) missing.push("brightness calculation");
-    return { pass: false, title: "Color manager incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "4a": function (code) {
-    const c = stripComments(code);
-    const hasBook = /interface\s+Book\s*\{/i.test(c);
-    const hasLibrary = /interface\s+Library\s*\{/i.test(c);
-    const hasReadonlyId = /readonly\s+id\s*:\s*number/i.test(c);
-    const hasBooks = /books\s*:\s*Book\s*\[\]/i.test(c);
-    if (hasBook && hasLibrary && hasReadonlyId && hasBooks) return { pass: true, title: "Library System complete!", feedback: "Book interface, Library with Book[], readonly id!" };
-    const missing = [];
-    if (!hasBook) missing.push("interface Book { ... }");
-    if (!hasLibrary) missing.push("interface Library { ... }");
-    if (!hasReadonlyId) missing.push("readonly id: number in Book");
-    if (!hasBooks) missing.push("books: Book[] in Library");
-    return { pass: false, title: "Library system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "4b": function (code) {
-    const c = stripComments(code);
-    const hasAddress = /interface\s+Address\s*\{/i.test(c);
-    const hasSocial = /interface\s+SocialProfile\s*\{/i.test(c);
-    const hasNested = /address\s*:\s*Address/i.test(c);
-    const hasFn = /function\s+displayProfile|displayProfile\s*=/i.test(c);
-    if (hasAddress && hasSocial && hasNested && hasFn) return { pass: true, title: "Social Profile complete!", feedback: "Nested Address in SocialProfile and displayProfile function!" };
-    const missing = [];
-    if (!hasAddress) missing.push("interface Address");
-    if (!hasSocial) missing.push("interface SocialProfile");
-    if (!hasNested) missing.push("address: Address inside SocialProfile");
-    if (!hasFn) missing.push("displayProfile function");
-    return { pass: false, title: "Profile incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "5a": function (code) {
-    const c = stripComments(code);
-    const hasAdd = /function\s+add\s*\(/i.test(c);
-    const hasDivide = /function\s+divide\s*\(/i.test(c);
-    const hasPower = /function\s+power\s*\(/i.test(c);
-    const hasReturn0 = /return\s+0/i.test(c);
-    if (hasAdd && hasDivide && hasPower && !hasReturn0) return { pass: true, title: "Math Library complete!", feedback: "All math functions implemented and typed!" };
-    if (hasAdd && hasDivide && hasPower) return { pass: false, title: "Functions need implementation", feedback: "Functions found but some still return 0. Complete the function bodies." };
-    const missing = [];
-    if (!hasAdd) missing.push("function add(a, b): number");
-    if (!hasDivide) missing.push("function divide(a, b): number");
-    if (!hasPower) missing.push("function power(base, exp): number");
-    return { pass: false, title: "Math library incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "5b": function (code) {
-    const c = stripComments(code);
-    const hasCap = /function\s+capitalize/i.test(c);
-    const hasTrunc = /function\s+truncate/i.test(c);
-    const hasPad = /function\s+padNumber/i.test(c);
-    const hasCurrency = /function\s+formatCurrency/i.test(c);
-    if (hasCap && hasTrunc && hasPad && hasCurrency) return { pass: true, title: "String Toolkit complete!", feedback: "All 4 string utilities implemented!" };
-    const missing = [];
-    if (!hasCap) missing.push("capitalize function");
-    if (!hasTrunc) missing.push("truncate function");
-    if (!hasPad) missing.push("padNumber function");
-    if (!hasCurrency) missing.push("formatCurrency function");
-    return { pass: false, title: "Toolkit incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "6a": function (code) {
-    const c = stripComments(code);
-    const hasNotifType = /type\s+NotificationType\s*=/i.test(c);
-    const hasPriority = /type\s+NotificationPriority\s*=/i.test(c);
-    const hasIface = /interface\s+Notification\s*\{/i.test(c);
-    const hasGetIcon = /function\s+getIcon/i.test(c);
-    if (hasNotifType && hasPriority && hasIface && hasGetIcon) return { pass: true, title: "Notification System built!", feedback: "Union types, interface, and getIcon function all present!" };
-    const missing = [];
-    if (!hasNotifType) missing.push("type NotificationType union");
-    if (!hasPriority) missing.push("type NotificationPriority union");
-    if (!hasIface) missing.push("interface Notification");
-    if (!hasGetIcon) missing.push("function getIcon");
-    return { pass: false, title: "Notification system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "6b": function (code) {
-    const c = stripComments(code);
-    const hasCircle = /interface\s+Circle\s*\{/i.test(c);
-    const hasRect = /interface\s+Rectangle\s*\{/i.test(c);
-    const hasGetArea = /function\s+getArea/i.test(c);
-    const hasSwitch = /switch\s*\(/i.test(c);
-    if (hasCircle && hasRect && hasGetArea && hasSwitch) return { pass: true, title: "Shape Calculator complete!", feedback: "Discriminated union with switch on kind!" };
-    const missing = [];
-    if (!hasCircle) missing.push("interface Circle with kind");
-    if (!hasRect) missing.push("interface Rectangle with kind");
-    if (!hasGetArea) missing.push("function getArea(shape: Shape)");
-    if (!hasSwitch) missing.push("switch on shape.kind");
-    return { pass: false, title: "Shape calculator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "7a": function (code) {
-    const c = stripComments(code);
-    const hasCharacter = /class\s+Character\s*\{/i.test(c);
-    const hasWarrior = /class\s+Warrior\s+extends\s+Character/i.test(c);
-    const hasMage = /class\s+Mage\s+extends\s+Character/i.test(c);
-    const hasSuper = /super\s*\(/i.test(c);
-    if (hasCharacter && hasWarrior && hasMage && hasSuper) return { pass: true, title: "RPG System complete!", feedback: "Character base class with Warrior and Mage subclasses using super()!" };
-    const missing = [];
-    if (!hasCharacter) missing.push("class Character base");
-    if (!hasWarrior) missing.push("class Warrior extends Character");
-    if (!hasMage) missing.push("class Mage extends Character");
-    if (!hasSuper) missing.push("super() call in subclass constructors");
-    return { pass: false, title: "RPG system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "7b": function (code) {
-    const c = stripComments(code);
-    const hasBankAccount = /class\s+BankAccount\s*\{/i.test(c);
-    const hasPrivate = /private\s+balance/i.test(c);
-    const hasDeposit = /deposit\s*\(\s*amount\s*:\s*number/i.test(c);
-    const hasWithdraw = /withdraw\s*\(\s*amount\s*:\s*number/i.test(c);
-    const hasReturn = /return\s+(true|false)/i.test(c);
-    if (hasBankAccount && hasPrivate && hasDeposit && hasWithdraw && hasReturn) return { pass: true, title: "Bank Account System complete!", feedback: "Private balance with deposit/withdraw/getBalance!" };
-    const missing = [];
-    if (!hasBankAccount) missing.push("class BankAccount");
-    if (!hasPrivate) missing.push("private balance property");
-    if (!hasDeposit) missing.push("deposit(amount: number) method");
-    if (!hasWithdraw) missing.push("withdraw returning boolean");
-    return { pass: false, title: "Bank account incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "8a": function (code) {
-    const c = stripComments(code);
-    const hasClass = /class\s+DataStore\s*<\s*T\s*>/i.test(c);
-    const hasAdd = /add\s*\(\s*item\s*:\s*T/i.test(c);
-    const hasFind = /find\s*\(/i.test(c);
-    if (hasClass && hasAdd && hasFind) return { pass: true, title: "Generic DataStore built!", feedback: "DataStore<T> with typed add and find methods!" };
-    const missing = [];
-    if (!hasClass) missing.push("class DataStore<T>");
-    if (!hasAdd) missing.push("add(item: T) method");
-    if (!hasFind) missing.push("find(predicate) method");
-    return { pass: false, title: "DataStore incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "8b": function (code) {
-    const c = stripComments(code);
-    const hasInterface = /interface\s+ApiResponse\s*<\s*T\s*>/i.test(c);
-    const hasCreateSuccess = /function\s+createSuccess\s*<\s*T\s*>/i.test(c);
-    const hasCreateError = /function\s+createError\s*<\s*T\s*>/i.test(c);
-    const hasUser = /interface\s+User\s*\{/i.test(c);
-    const hasProduct = /interface\s+Product\s*\{/i.test(c);
-    if (hasInterface && hasCreateSuccess && hasCreateError && hasUser && hasProduct) return { pass: true, title: "API Response System complete!", feedback: "Generic ApiResponse<T> with typed success and error factories!" };
-    const missing = [];
-    if (!hasInterface) missing.push("interface ApiResponse<T>");
-    if (!hasCreateSuccess) missing.push("function createSuccess<T>");
-    if (!hasCreateError) missing.push("function createError<T>");
-    if (!hasUser) missing.push("interface User");
-    if (!hasProduct) missing.push("interface Product");
-    return { pass: false, title: "API system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "9a": function (code) {
-    const c = stripComments(code);
-    const hasLight = /enum\s+TrafficLight\s*\{/i.test(c);
-    const hasAction = /enum\s+Action\s*\{/i.test(c);
-    const hasGetAction = /function\s+getAction/i.test(c);
-    const hasGetNext = /function\s+getNextLight/i.test(c);
-    const hasLoop = /for\s*\(/i.test(c);
-    if (hasLight && hasAction && hasGetAction && hasGetNext && hasLoop) return { pass: true, title: "Traffic Light Simulator complete!", feedback: "Two string enums, action mapping, state machine logic, and a simulation loop!" };
-    const missing = [];
-    if (!hasLight) missing.push("enum TrafficLight");
-    if (!hasAction) missing.push("enum Action");
-    if (!hasGetAction) missing.push("function getAction");
-    if (!hasGetNext) missing.push("function getNextLight");
-    if (!hasLoop) missing.push("simulation loop");
-    return { pass: false, title: "Simulator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "9b": function (code) {
-    const c = stripComments(code);
-    const hasRole = /enum\s+Role\s*\{/i.test(c);
-    const hasPerm = /enum\s+Permission\s*\{/i.test(c);
-    const hasRecord = /Record\s*<\s*Role/i.test(c);
-    const hasFn = /function\s+hasPermission/i.test(c);
-    if (hasRole && hasPerm && hasRecord && hasFn) return { pass: true, title: "Permission System complete!", feedback: "Role and Permission enums + Record + hasPermission function!" };
-    const missing = [];
-    if (!hasRole) missing.push("enum Role");
-    if (!hasPerm) missing.push("enum Permission");
-    if (!hasRecord) missing.push("Record<Role, Permission[]> permissions map");
-    if (!hasFn) missing.push("function hasPermission");
-    return { pass: false, title: "Permission system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "10a": function (code) {
-    const c = stripComments(code);
-    const hasInterfaces = /interface\s+ClickEvent\s*\{/i.test(c);
-    const hasUnion = /type\s+AppEvent\s*=/i.test(c);
-    const hasHandler = /function\s+handleEvent/i.test(c);
-    const hasSwitch = /switch\s*\(\s*event\.type/i.test(c);
-    if (hasInterfaces && hasUnion && hasHandler && hasSwitch) return { pass: true, title: "Event System complete!", feedback: "Discriminated union with exhaustive switch!" };
-    const missing = [];
-    if (!hasInterfaces) missing.push("ClickEvent, KeyEvent, ResizeEvent interfaces");
-    if (!hasUnion) missing.push("type AppEvent = union");
-    if (!hasHandler) missing.push("function handleEvent(event: AppEvent)");
-    if (!hasSwitch) missing.push("switch on event.type");
-    return { pass: false, title: "Event system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "10b": function (code) {
-    const c = stripComments(code);
-    const hasValidInput = /type\s+ValidInput\s*=/i.test(c);
-    const hasTypePred = /v\s+is\s+string/i.test(c);
-    const hasSanitize = /function\s+sanitize/i.test(c);
-    if (hasValidInput && hasTypePred && hasSanitize) return { pass: true, title: "Input Validator complete!", feedback: "ValidInput union, type predicates, and sanitize function!" };
-    const missing = [];
-    if (!hasValidInput) missing.push("type ValidInput union");
-    if (!hasTypePred) missing.push("type predicate (v is string)");
-    if (!hasSanitize) missing.push("function sanitize");
-    return { pass: false, title: "Validator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "11a": function (code) {
-    const c = stripComments(code);
-    const hasMath = /MathUtils\s*=/i.test(c) || /const\s+MathUtils/i.test(c);
-    const hasString = /StringUtils\s*=/i.test(c) || /const\s+StringUtils/i.test(c);
-    const hasArray = /ArrayUtils\s*=/i.test(c) || /const\s+ArrayUtils/i.test(c);
-    const hasClamp = /clamp\s*:/i.test(c);
-    const hasSlugify = /slugify\s*:/i.test(c);
-    if (hasMath && hasString && hasArray && hasClamp && hasSlugify) return { pass: true, title: "Utility Module System built!", feedback: "MathUtils, StringUtils, ArrayUtils organized as typed namespace objects!" };
-    const missing = [];
-    if (!hasMath || !hasClamp) missing.push("MathUtils with clamp and lerp");
-    if (!hasString || !hasSlugify) missing.push("StringUtils with slugify and wordCount");
-    if (!hasArray) missing.push("ArrayUtils with unique and chunk");
-    return { pass: false, title: "Utility system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "11b": function (code) {
-    const c = stripComments(code);
-    const hasInterface = /interface\s+Plugin\s*\{/i.test(c);
-    const hasManager = /class\s+PluginManager\s*\{/i.test(c);
-    const hasRegister = /register\s*\(\s*plugin\s*:\s*Plugin/i.test(c);
-    const hasThreePlugins = (c.match(/const\s+\w+Plugin/g) || []).length >= 3;
-    if (hasInterface && hasManager && hasRegister && hasThreePlugins) return { pass: true, title: "Plugin Architecture complete!", feedback: "Plugin interface, PluginManager, and 3 concrete plugins!" };
-    const missing = [];
-    if (!hasInterface) missing.push("interface Plugin with execute method");
-    if (!hasManager) missing.push("class PluginManager");
-    if (!hasRegister) missing.push("register(plugin: Plugin) method");
-    if (!hasThreePlugins) missing.push("at least 3 Plugin objects");
-    return { pass: false, title: "Plugin system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "12a": function (code) {
-    const c = stripComments(code);
-    const hasCreateUser = /type\s+CreateUser\s*=\s*Omit/i.test(c);
-    const hasUpdateUser = /type\s+UpdateUser\s*=\s*Partial/i.test(c);
-    const hasSummary = /type\s+UserSummary\s*=\s*Pick/i.test(c);
-    const hasFn = /function\s+createUser/i.test(c);
-    if (hasCreateUser && hasUpdateUser && hasSummary && hasFn) return { pass: true, title: "User Manager complete!", feedback: "CreateUser with Omit, UpdateUser with Partial, UserSummary with Pick!" };
-    const missing = [];
-    if (!hasCreateUser) missing.push("type CreateUser = Omit<User, 'id'>");
-    if (!hasUpdateUser) missing.push("type UpdateUser = Partial<Omit<...>>");
-    if (!hasSummary) missing.push("type UserSummary = Pick<...>");
-    if (!hasFn) missing.push("function createUser");
-    return { pass: false, title: "User manager incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "12b": function (code) {
-    const c = stripComments(code);
-    const hasRequired = /type\s+RequiredConfig\s*=\s*Required/i.test(c);
-    const hasOptional = /type\s+OptionalConfig\s*=\s*Partial/i.test(c);
-    const hasFull = /type\s+FullConfig\s*=/i.test(c);
-    const hasRecord = /Record\s*<\s*ConfigKeys/i.test(c);
-    if (hasRequired && hasOptional && hasFull && hasRecord) return { pass: true, title: "Config System complete!", feedback: "Required+Optional split with intersection and Record!" };
-    const missing = [];
-    if (!hasRequired) missing.push("RequiredConfig = Required<Pick<...>>");
-    if (!hasOptional) missing.push("OptionalConfig = Partial<Omit<...>>");
-    if (!hasFull) missing.push("FullConfig = RequiredConfig & OptionalConfig");
-    if (!hasRecord) missing.push("Record<ConfigKeys, string> for descriptions");
-    return { pass: false, title: "Config system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "13a": function (code) {
-    const c = stripComments(code);
-    const hasMinLength = /function\s+MinLength/i.test(c);
-    const hasTimed = /function\s+Timed/i.test(c);
-    const hasDescriptor = /descriptor\.value\s*=/i.test(c);
-    const hasClass = /class\s+UserForm\s*\{/i.test(c);
-    if (hasMinLength && hasTimed && hasDescriptor && hasClass) return { pass: true, title: "Validation Decorators complete!", feedback: "MinLength and Timed decorators with UserForm class!" };
-    const missing = [];
-    if (!hasMinLength) missing.push("function MinLength(min: number) decorator factory");
-    if (!hasTimed) missing.push("function Timed method decorator");
-    if (!hasDescriptor) missing.push("descriptor.value = ... wrapping in Timed");
-    if (!hasClass) missing.push("class UserForm with decorators applied");
-    return { pass: false, title: "Validators incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "14a": function (code) {
-    const c = stripComments(code);
-    const hasType = /type\s+Target\s*=/i.test(c);
-    const hasInterface = /interface\s+TsConfig\s*\{/i.test(c);
-    const hasFn = /function\s+createConfig/i.test(c);
-    const has3Calls = (c.match(/createConfig\s*\(/g) || []).length >= 3;
-    if (hasType && hasInterface && hasFn && has3Calls) return { pass: true, title: "Config Generator complete!", feedback: "Target union, TsConfig interface, createConfig with 3 variant calls!" };
-    const missing = [];
-    if (!hasType) missing.push("type Target union");
-    if (!hasInterface) missing.push("interface TsConfig");
-    if (!hasFn) missing.push("function createConfig");
-    if (!has3Calls) missing.push("at least 3 config calls");
-    return { pass: false, title: "Generator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "15a": function (code) {
-    const c = stripComments(code);
-    const hasFormField = /interface\s+FormField\s*\{/i.test(c);
-    const hasFormProps = /interface\s+FormProps\s*\{/i.test(c);
-    const hasOnSubmit = /onSubmit\s*:/i.test(c);
-    const hasState = /useState/i.test(c);
-    const hasChange = /handleChange|onChange/i.test(c);
-    if (hasFormField && hasFormProps && hasOnSubmit && hasState && hasChange) return { pass: true, title: "Form Builder complete!", feedback: "FormField and FormProps interfaces, typed useState, onChange handlers!" };
-    const missing = [];
-    if (!hasFormField) missing.push("interface FormField");
-    if (!hasFormProps) missing.push("interface FormProps with onSubmit");
-    if (!hasState) missing.push("useState for form values");
-    if (!hasChange) missing.push("onChange handler");
-    return { pass: false, title: "Form builder incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "16a": function (code) {
-    const c = stripComments(code);
-    const hasTodo = /interface\s+Todo\s*\{/i.test(c);
-    const hasCreate = /type\s+CreateTodoDto\s*=\s*Omit/i.test(c);
-    const hasUpdate = /type\s+UpdateTodoDto\s*=\s*Partial/i.test(c);
-    const hasApi = /interface\s+ApiResponse\s*<\s*T\s*>/i.test(c);
-    const hasHandler = /const\s+getAll\s*=/i.test(c);
-    if (hasTodo && hasCreate && hasUpdate && hasApi && hasHandler) return { pass: true, title: "REST API Simulator complete!", feedback: "Todo CRUD with Omit/Partial DTOs, generic ApiResponse<T>, and typed handlers!" };
-    const missing = [];
-    if (!hasTodo) missing.push("interface Todo");
-    if (!hasCreate) missing.push("type CreateTodoDto = Omit<Todo, ...>");
-    if (!hasUpdate) missing.push("type UpdateTodoDto = Partial<...>");
-    if (!hasApi) missing.push("interface ApiResponse<T>");
-    if (!hasHandler) missing.push("typed handler functions");
-    return { pass: false, title: "API simulator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-  "17a": function (code) {
-    const c = stripComments(code);
-    const hasNullable = /type\s+IsNullable\s*<\s*T\s*>/i.test(c);
-    const hasRequired = /type\s+RequiredFields\s*<\s*T\s*>/i.test(c);
-    const hasDeepReadonly = /type\s+DeepReadonly\s*<\s*T\s*>/i.test(c);
-    const hasEvent = /type\s+EventHandlerName\s*<\s*T/i.test(c);
-    if (hasNullable && hasRequired && hasDeepReadonly && hasEvent) return { pass: true, title: "Type Schema complete! You've mastered TypeScript! 🎉", feedback: "IsNullable, RequiredFields, DeepReadonly, EventHandlerName — all defined! Congratulations!" };
-    const missing = [];
-    if (!hasNullable) missing.push("type IsNullable<T>");
-    if (!hasRequired) missing.push("type RequiredFields<T>");
-    if (!hasDeepReadonly) missing.push("type DeepReadonly<T> (recursive)");
-    if (!hasEvent) missing.push("type EventHandlerName<T>");
-    return { pass: false, title: "Type schema incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
-  },
-};
 
+  // ── Lesson 1 Option A: User Profile Project ──────────────────────────
+  "p1": function(code) {
+    const c = stripComments(code)
+    const hasName = /name\s*:\s*string/i.test(c)
+    const hasAge = /age\s*:\s*number/i.test(c)
+    const hasEmail = /email\s*:\s*string/i.test(c)
+    const hasTemplate = /`[^`]*\$\{/i.test(c)
+    const hasIsAdult = /function\s+isAdult/i.test(c)
+    if (hasName && hasAge && hasEmail && hasTemplate && hasIsAdult)
+      return { pass: true, title: "User Profile complete!", feedback: "Typed user object, template literal greeting, and isAdult function all present!" }
+    const missing = []
+    if (!hasName) missing.push("name: string property")
+    if (!hasAge) missing.push("age: number property")
+    if (!hasEmail) missing.push("email: string property")
+    if (!hasTemplate) missing.push("template literal greeting with ${}")
+    if (!hasIsAdult) missing.push("function isAdult(user)")
+    return { pass: false, title: "User Profile incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 1 Option B: Shopping List Manager ─────────────────────────
+  "p18": function(code) {
+    const c = stripComments(code)
+    const hasList = /shoppingList\s*:\s*string\s*\[\]/i.test(c)
+    const hasAdd = /function\s+addItem\s*\(\s*item\s*:\s*string/i.test(c)
+    const hasRemove = /function\s+removeItem\s*\(\s*item\s*:\s*string/i.test(c)
+    if (hasList && hasAdd && hasRemove)
+      return { pass: true, title: "Shopping List Manager complete!", feedback: "shoppingList: string[], addItem, removeItem all present!" }
+    const missing = []
+    if (!hasList) missing.push("shoppingList: string[]")
+    if (!hasAdd) missing.push("function addItem(item: string)")
+    if (!hasRemove) missing.push("function removeItem(item: string)")
+    return { pass: false, title: "Shopping List incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 2 Option A: Primitives Practice ───────────────────────────
+  "p2": function(code) {
+    const c = stripComments(code)
+    const hasName = /name\s*:\s*string/i.test(c)
+    const hasAge = /age\s*:\s*number/i.test(c)
+    const hasActive = /isActive\s*:\s*boolean/i.test(c)
+    const hasNullable = /string\s*\|\s*null|number\s*\|\s*undefined/i.test(c)
+    if (hasName && hasAge && hasActive && hasNullable)
+      return { pass: true, title: "Primitives Project complete!", feedback: "All typed variables and nullable types present!" }
+    const missing = []
+    if (!hasName) missing.push("name: string")
+    if (!hasAge) missing.push("age: number")
+    if (!hasActive) missing.push("isActive: boolean")
+    if (!hasNullable) missing.push("nullable type (string | null or number | undefined)")
+    return { pass: false, title: "Primitives incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 2 Option B: Student Grade Calculator ──────────────────────
+  "p19": function(code) {
+    const c = stripComments(code)
+    const hasGrades = /grades\s*:\s*number\s*\[\]/i.test(c)
+    const hasFn = /function\s+calculateAverage/i.test(c)
+    if (hasGrades && hasFn)
+      return { pass: true, title: "Grade Calculator complete!", feedback: "grades: number[] and calculateAverage function found!" }
+    const missing = []
+    if (!hasGrades) missing.push("grades: number[]")
+    if (!hasFn) missing.push("function calculateAverage")
+    return { pass: false, title: "Grade Calculator incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 3 Option A: Arrays & Tuples ───────────────────────────────
+  "p3": function(code) {
+    const c = stripComments(code)
+    const hasFruits = /fruits\s*:\s*string\s*\[\]/i.test(c)
+    const hasTuple = /:\s*\[string,\s*number\]/i.test(c)
+    const hasFn = /function\s+\w+\s*\(\s*\w+\s*:\s*string\s*\[\]/i.test(c)
+    if (hasFruits && hasTuple && hasFn)
+      return { pass: true, title: "Arrays & Tuples complete!", feedback: "fruits: string[], [string, number] tuple, and array function all present!" }
+    const missing = []
+    if (!hasFruits) missing.push("fruits: string[] array")
+    if (!hasTuple) missing.push("tuple type [string, number]")
+    if (!hasFn) missing.push("function taking string[] parameter")
+    return { pass: false, title: "Arrays & Tuples incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 3 Option B: Temperature Converter ─────────────────────────
+  "p20": function(code) {
+    const c = stripComments(code)
+    const hasC = /function\s+celsiusToFahrenheit/i.test(c)
+    const hasF = /function\s+fahrenheitToCelsius/i.test(c)
+    if (hasC && hasF)
+      return { pass: true, title: "Temperature Converter complete!", feedback: "Both conversion functions implemented!" }
+    const missing = []
+    if (!hasC) missing.push("function celsiusToFahrenheit")
+    if (!hasF) missing.push("function fahrenheitToCelsius")
+    return { pass: false, title: "Converter incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 4 Option A: Objects & Interfaces ──────────────────────────
+  "p4": function(code) {
+    const c = stripComments(code)
+    const hasProduct = /interface\s+Product\s*\{/i.test(c)
+    const hasDigital = /interface\s+DigitalProduct/i.test(c) || /DigitalProduct/i.test(c)
+    const hasFn = /function\s+\w+.*Product/i.test(c) || /printSummary|displayProduct|productSummary/i.test(c)
+    if (hasProduct && hasDigital && hasFn)
+      return { pass: true, title: "Objects & Interfaces complete!", feedback: "Product, DigitalProduct interfaces and summary function present!" }
+    const missing = []
+    if (!hasProduct) missing.push("interface Product")
+    if (!hasDigital) missing.push("DigitalProduct extending Product")
+    if (!hasFn) missing.push("function to print product summary")
+    return { pass: false, title: "Interfaces incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 4 Option B: Age Calculator ────────────────────────────────
+  "p21": function(code) {
+    const c = stripComments(code)
+    const hasBirth = /birthYear\s*:\s*number/i.test(c)
+    const hasFn = /function\s+calculateAge/i.test(c)
+    if (hasBirth && hasFn)
+      return { pass: true, title: "Age Calculator complete!", feedback: "birthYear: number and calculateAge function found!" }
+    const missing = []
+    if (!hasBirth) missing.push("birthYear: number")
+    if (!hasFn) missing.push("function calculateAge")
+    return { pass: false, title: "Age Calculator incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 5 Option A: Functions Project ─────────────────────────────
+  "p5": function(code) {
+    const c = stripComments(code)
+    const hasGreet = /function\s+greet/i.test(c)
+    const hasFormat = /function\s+formatAge/i.test(c)
+    const hasDiscount = /function\s+calculateDiscount/i.test(c)
+    if (hasGreet && hasFormat && hasDiscount)
+      return { pass: true, title: "Functions Project complete!", feedback: "greet, formatAge, and calculateDiscount functions all present!" }
+    const missing = []
+    if (!hasGreet) missing.push("function greet(name: string): string")
+    if (!hasFormat) missing.push("function formatAge(age: number): string")
+    if (!hasDiscount) missing.push("function calculateDiscount(price, discount?)")
+    return { pass: false, title: "Functions incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 5 Option B: Random Name Picker ────────────────────────────
+  "p22": function(code) {
+    const c = stripComments(code)
+    const hasNames = /names\s*:\s*string\s*\[\]/i.test(c)
+    const hasFn = /function\s+pickRandomName/i.test(c)
+    const hasRandom = /Math\.random/i.test(c)
+    if (hasNames && hasFn && hasRandom)
+      return { pass: true, title: "Random Name Picker complete!", feedback: "names: string[], pickRandomName, and Math.random all present!" }
+    const missing = []
+    if (!hasNames) missing.push("names: string[] with 5+ names")
+    if (!hasFn) missing.push("function pickRandomName(names: string[])")
+    if (!hasRandom) missing.push("Math.random() usage")
+    return { pass: false, title: "Name Picker incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 6 Option A: Union Types Project ───────────────────────────
+  "p6": function(code) {
+    const c = stripComments(code)
+    const hasStatus = /type\s+Status\s*=.*loading.*success.*error/i.test(c) || /type\s+Status\s*=/i.test(c)
+    const hasValue = /type\s+Value\s*=\s*string\s*\|\s*number\s*\|\s*boolean/i.test(c)
+    const hasFn = /function\s+\w+.*Status|typeof\s+\w+/i.test(c)
+    if (hasStatus && hasValue && hasFn)
+      return { pass: true, title: "Union Types complete!", feedback: "Status and Value union types with handling function present!" }
+    const missing = []
+    if (!hasStatus) missing.push("type Status = 'loading' | 'success' | 'error'")
+    if (!hasValue) missing.push("type Value = string | number | boolean")
+    if (!hasFn) missing.push("function handling each type/status")
+    return { pass: false, title: "Union Types incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 6 Option B: Fruit Inventory ───────────────────────────────
+  "p23": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+Fruit\s*\{/i.test(c)
+    const hasArray = /fruits\s*:\s*Fruit\s*\[\]/i.test(c)
+    if (hasInterface && hasArray)
+      return { pass: true, title: "Fruit Inventory complete!", feedback: "Fruit interface and fruits: Fruit[] array present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface Fruit { name: string; quantity: number }")
+    if (!hasArray) missing.push("fruits: Fruit[] array with 3+ items")
+    return { pass: false, title: "Fruit Inventory incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 7 Option A: Classes Project ───────────────────────────────
+  "p7": function(code) {
+    const c = stripComments(code)
+    const hasCar = /class\s+Car\s*\{/i.test(c)
+    const hasGetInfo = /getInfo\s*\(/i.test(c)
+    const hasBank = /class\s+BankAccount/i.test(c)
+    const hasPrivate = /private\s+balance/i.test(c)
+    if (hasCar && hasGetInfo && hasBank && hasPrivate)
+      return { pass: true, title: "Classes Project complete!", feedback: "Car class with getInfo and BankAccount with private balance found!" }
+    const missing = []
+    if (!hasCar) missing.push("class Car with make/model/year")
+    if (!hasGetInfo) missing.push("getInfo() method")
+    if (!hasBank) missing.push("class BankAccount")
+    if (!hasPrivate) missing.push("private balance property")
+    return { pass: false, title: "Classes incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 7 Option B: Number Guessing Game ──────────────────────────
+  "p24": function(code) {
+    const c = stripComments(code)
+    const hasRandom = /Math\.random/i.test(c)
+    const hasFn = /function\s+checkGuess/i.test(c)
+    const hasBoolean = /:\s*boolean/i.test(c)
+    if (hasRandom && hasFn && hasBoolean)
+      return { pass: true, title: "Number Guessing Game complete!", feedback: "Random number, checkGuess function, and boolean return present!" }
+    const missing = []
+    if (!hasRandom) missing.push("Math.random() for random number")
+    if (!hasFn) missing.push("function checkGuess(guess: number): boolean")
+    if (!hasBoolean) missing.push("boolean return type")
+    return { pass: false, title: "Guessing Game incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 8 Option A: Generics Project ──────────────────────────────
+  "p8": function(code) {
+    const c = stripComments(code)
+    const hasWrap = /function\s+wrapInArray\s*<\s*T\s*>/i.test(c)
+    const hasApiResponse = /interface\s+ApiResponse\s*<\s*T\s*>/i.test(c)
+    const hasFormat = /function\s+formatResponse\s*<\s*T\s*>/i.test(c)
+    if (hasWrap && hasApiResponse && hasFormat)
+      return { pass: true, title: "Generics Project complete!", feedback: "wrapInArray<T>, ApiResponse<T>, and formatResponse<T> all present!" }
+    const missing = []
+    if (!hasWrap) missing.push("function wrapInArray<T>(value: T): T[]")
+    if (!hasApiResponse) missing.push("interface ApiResponse<T>")
+    if (!hasFormat) missing.push("function formatResponse<T>")
+    return { pass: false, title: "Generics incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 8 Option B: Color List ────────────────────────────────────
+  "p25": function(code) {
+    const c = stripComments(code)
+    const hasReadonly = /colors\s*:\s*readonly\s+string\s*\[\]/i.test(c) || /readonly\s+string\s*\[\]/i.test(c)
+    if (hasReadonly)
+      return { pass: true, title: "Color List complete!", feedback: "readonly string[] colors array present!" }
+    return { pass: false, title: "Color List incomplete", feedback: "Need colors: readonly string[] with at least 4 colors." }
+  },
+
+  // ── Lesson 9 Option A: Enums Project ─────────────────────────────────
+  "p9": function(code) {
+    const c = stripComments(code)
+    const hasEnum = /enum\s+Season\s*\{/i.test(c)
+    const hasIsSummer = /function\s+isSummer/i.test(c)
+    const hasNextSeason = /function\s+nextSeason/i.test(c)
+    const hasSwitch = /switch\s*\(/i.test(c)
+    if (hasEnum && hasIsSummer && hasNextSeason && hasSwitch)
+      return { pass: true, title: "Enums Project complete!", feedback: "Season enum, isSummer and nextSeason functions with switch present!" }
+    const missing = []
+    if (!hasEnum) missing.push("enum Season")
+    if (!hasIsSummer) missing.push("function isSummer(season: Season): boolean")
+    if (!hasNextSeason) missing.push("function nextSeason(season: Season): Season")
+    if (!hasSwitch) missing.push("switch statement")
+    return { pass: false, title: "Enums incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 9 Option B: Simple Calculator ─────────────────────────────
+  "p26": function(code) {
+    const c = stripComments(code)
+    const hasAdd = /function\s+add\s*\(/i.test(c)
+    const hasSub = /function\s+subtract\s*\(/i.test(c)
+    const hasMul = /function\s+multiply\s*\(/i.test(c)
+    const hasDiv = /function\s+divide\s*\(/i.test(c)
+    if (hasAdd && hasSub && hasMul && hasDiv)
+      return { pass: true, title: "Simple Calculator complete!", feedback: "add, subtract, multiply, divide functions all present!" }
+    const missing = []
+    if (!hasAdd) missing.push("function add(a, b)")
+    if (!hasSub) missing.push("function subtract(a, b)")
+    if (!hasMul) missing.push("function multiply(a, b)")
+    if (!hasDiv) missing.push("function divide(a, b)")
+    return { pass: false, title: "Calculator incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 10 Option A: Type Narrowing Project ───────────────────────
+  "p10": function(code) {
+    const c = stripComments(code)
+    const hasDescribe = /function\s+describe/i.test(c)
+    const hasUnion = /string\s*\|\s*number\s*\|\s*boolean/i.test(c)
+    const hasTypeof = /typeof\s+\w+\s*===?\s*["']string["']/i.test(c)
+    const hasNever = /never/i.test(c)
+    if (hasDescribe && hasUnion && hasTypeof && hasNever)
+      return { pass: true, title: "Type Narrowing complete!", feedback: "describe function, union type, typeof guards, and never branch present!" }
+    const missing = []
+    if (!hasDescribe) missing.push("function describe(value: string | number | boolean)")
+    if (!hasUnion) missing.push("string | number | boolean union")
+    if (!hasTypeof) missing.push("typeof guard checks")
+    if (!hasNever) missing.push("never branch for impossible case")
+    return { pass: false, title: "Type Narrowing incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 10 Option B: User Profile (interface) ─────────────────────
+  "p27": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+User\s*\{/i.test(c)
+    const hasName = /name\s*:\s*string/i.test(c)
+    const hasAge = /age\s*:\s*number/i.test(c)
+    const hasEmail = /email\s*:\s*string/i.test(c)
+    if (hasInterface && hasName && hasAge && hasEmail)
+      return { pass: true, title: "User Profile complete!", feedback: "User interface with name, age, email present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface User")
+    if (!hasName) missing.push("name: string")
+    if (!hasAge) missing.push("age: number")
+    if (!hasEmail) missing.push("email: string")
+    return { pass: false, title: "User Profile incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 11 Option A: Modules Project ──────────────────────────────
+  "p11": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+Person\s*\{/i.test(c)
+    const hasGreet = /function\s+greet/i.test(c)
+    const hasExport = /export\s+(function|interface|const)/i.test(c)
+    if (hasInterface && hasGreet && hasExport)
+      return { pass: true, title: "Modules Project complete!", feedback: "Person interface, greet function, and export statements present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface Person")
+    if (!hasGreet) missing.push("function greet(person: Person): string")
+    if (!hasExport) missing.push("export statement")
+    return { pass: false, title: "Modules incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 11 Option B: Book List ────────────────────────────────────
+  "p28": function(code) {
+    const c = stripComments(code)
+    const hasBooks = /books\s*:\s*string\s*\[\]/i.test(c)
+    const hasFive = (() => {
+      const m = c.match(/books\s*(?::\s*string\s*\[\]\s*)?=\s*\[([^\]]*)\]/i)
+      return m ? (m[1].match(/,/g) || []).length + 1 >= 5 : false
+    })()
+    if (hasBooks && hasFive)
+      return { pass: true, title: "Book List complete!", feedback: "books: string[] with 5+ books present!" }
+    const missing = []
+    if (!hasBooks) missing.push("books: string[] array")
+    if (!hasFive) missing.push("at least 5 books in the array")
+    return { pass: false, title: "Book List incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 12 Option A: Utility Types Project ────────────────────────
+  "p12": function(code) {
+    const c = stripComments(code)
+    const hasPublic = /type\s+PublicProduct\s*=\s*Omit/i.test(c)
+    const hasUpdate = /type\s+UpdateProduct\s*=\s*Partial/i.test(c)
+    if (hasPublic && hasUpdate)
+      return { pass: true, title: "Utility Types complete!", feedback: "PublicProduct with Omit and UpdateProduct with Partial present!" }
+    const missing = []
+    if (!hasPublic) missing.push("type PublicProduct = Omit<Product, 'secret'>")
+    if (!hasUpdate) missing.push("type UpdateProduct = Partial<PublicProduct>")
+    return { pass: false, title: "Utility Types incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 12 Option B: Daily Expenses ───────────────────────────────
+  "p29": function(code) {
+    const c = stripComments(code)
+    const hasExpenses = /expenses\s*:\s*number\s*\[\]/i.test(c)
+    const hasFn = /function\s+totalExpenses/i.test(c)
+    if (hasExpenses && hasFn)
+      return { pass: true, title: "Daily Expenses complete!", feedback: "expenses: number[] and totalExpenses function present!" }
+    const missing = []
+    if (!hasExpenses) missing.push("expenses: number[] with 5+ values")
+    if (!hasFn) missing.push("function totalExpenses(expenses: number[]): number")
+    return { pass: false, title: "Expenses incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 13 Option A: Decorators Project ───────────────────────────
+  "p13": function(code) {
+    const c = stripComments(code)
+    const hasFrozen = /function\s+Frozen/i.test(c)
+    const hasFreeze = /Object\.freeze/i.test(c)
+    const hasLog = /function\s+Log/i.test(c)
+    const hasDescriptor = /descriptor\.value\s*=/i.test(c)
+    if (hasFrozen && hasFreeze && hasLog && hasDescriptor)
+      return { pass: true, title: "Decorators Project complete!", feedback: "@Frozen class decorator and @Log method decorator present!" }
+    const missing = []
+    if (!hasFrozen) missing.push("function Frozen class decorator")
+    if (!hasFreeze) missing.push("Object.freeze() inside Frozen")
+    if (!hasLog) missing.push("function Log method decorator")
+    if (!hasDescriptor) missing.push("descriptor.value wrapping in Log")
+    return { pass: false, title: "Decorators incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 13 Option B: Todo List Manager ────────────────────────────
+  "p30": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+Todo\s*\{/i.test(c)
+    const hasArray = /todos\s*:\s*Todo\s*\[\]/i.test(c)
+    const hasAdd = /function\s+addTodo|addTodo\s*=/i.test(c)
+    const hasRemove = /function\s+removeTodo|removeTodo\s*=/i.test(c)
+    const hasComplete = /function\s+markComplete|markComplete\s*=/i.test(c)
+    if (hasInterface && hasArray && hasAdd && hasRemove && hasComplete)
+      return { pass: true, title: "Todo List Manager complete!", feedback: "Todo interface, todos array, addTodo, removeTodo, markComplete all present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface Todo { task: string; completed: boolean }")
+    if (!hasArray) missing.push("todos: Todo[]")
+    if (!hasAdd) missing.push("function addTodo")
+    if (!hasRemove) missing.push("function removeTodo")
+    if (!hasComplete) missing.push("function markComplete")
+    return { pass: false, title: "Todo Manager incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 14 Option A: tsconfig Project ─────────────────────────────
+  "p14": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+TsConfig\s*\{/i.test(c)
+    const hasTarget = /target\s*:\s*["']ES2021["']/i.test(c)
+    const hasStrict = /strict\s*:\s*true/i.test(c)
+    const hasFn = /function\s+isStrictConfig/i.test(c)
+    if (hasInterface && hasTarget && hasStrict && hasFn)
+      return { pass: true, title: "tsconfig Project complete!", feedback: "TsConfig interface, ES2021 target, strict mode, and isStrictConfig function present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface TsConfig")
+    if (!hasTarget) missing.push('target: "ES2021"')
+    if (!hasStrict) missing.push("strict: true")
+    if (!hasFn) missing.push("function isStrictConfig(config)")
+    return { pass: false, title: "tsconfig incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 14 Option B: Simple Timer ─────────────────────────────────
+  "p31": function(code) {
+    const c = stripComments(code)
+    const hasFn = /function\s+startTimer/i.test(c)
+    const hasSeconds = /seconds\s*:\s*number/i.test(c)
+    if (hasFn && hasSeconds)
+      return { pass: true, title: "Simple Timer complete!", feedback: "startTimer(seconds: number) function present!" }
+    const missing = []
+    if (!hasFn) missing.push("function startTimer(seconds: number): void")
+    if (!hasSeconds) missing.push("seconds: number parameter")
+    return { pass: false, title: "Timer incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 15 Option A: React Project ────────────────────────────────
+  "p15": function(code) {
+    const c = stripComments(code)
+    const hasCardProps = /interface\s+CardProps\s*\{/i.test(c)
+    const hasRender = /function\s+renderCard|renderCard\s*=/i.test(c)
+    const hasOnClick = /onClick\s*\?/i.test(c)
+    if (hasCardProps && hasRender && hasOnClick)
+      return { pass: true, title: "React Project complete!", feedback: "CardProps interface, renderCard function, optional onClick all present!" }
+    const missing = []
+    if (!hasCardProps) missing.push("interface CardProps")
+    if (!hasRender) missing.push("function renderCard(props: CardProps)")
+    if (!hasOnClick) missing.push("optional onClick?: () => void")
+    return { pass: false, title: "React project incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 15 Option B: Password Validator ───────────────────────────
+  "p32": function(code) {
+    const c = stripComments(code)
+    const hasFn = /function\s+validatePassword/i.test(c)
+    const hasBoolean = /:\s*boolean/i.test(c)
+    const hasLength = /\.length/i.test(c)
+    if (hasFn && hasBoolean && hasLength)
+      return { pass: true, title: "Password Validator complete!", feedback: "validatePassword function with length check and boolean return present!" }
+    const missing = []
+    if (!hasFn) missing.push("function validatePassword(password: string): boolean")
+    if (!hasBoolean) missing.push("boolean return type")
+    if (!hasLength) missing.push("length check (min 8 chars)")
+    return { pass: false, title: "Password Validator incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 16 Option A: Node.js Project ──────────────────────────────
+  "p16": function(code) {
+    const c = stripComments(code)
+    const hasReq = /interface\s+(Request|PostParams)\s*\{/i.test(c)
+    const hasRes = /interface\s+(Response|PostBody)\s*\{/i.test(c)
+    const hasFn = /function\s+handlePost|const\s+handlePost|validatePost|createPost/i.test(c)
+    if (hasReq && hasRes && hasFn)
+      return { pass: true, title: "Node.js Project complete!", feedback: "Request/Response interfaces and handler function present!" }
+    const missing = []
+    if (!hasReq) missing.push("interface Request or PostParams")
+    if (!hasRes) missing.push("interface Response or PostBody")
+    if (!hasFn) missing.push("handler function (handlePost/validatePost/createPost)")
+    return { pass: false, title: "Node.js project incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 16 Option B: Contact Manager ──────────────────────────────
+  "p33": function(code) {
+    const c = stripComments(code)
+    const hasInterface = /interface\s+Contact\s*\{/i.test(c)
+    const hasArray = /contacts\s*:\s*Contact\s*\[\]/i.test(c)
+    const hasFn = /function\s+findContact/i.test(c)
+    if (hasInterface && hasArray && hasFn)
+      return { pass: true, title: "Contact Manager complete!", feedback: "Contact interface, contacts array, and findContact function present!" }
+    const missing = []
+    if (!hasInterface) missing.push("interface Contact { name, phone, email? }")
+    if (!hasArray) missing.push("contacts: Contact[]")
+    if (!hasFn) missing.push("function findContact(name: string): Contact | undefined")
+    return { pass: false, title: "Contact Manager incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 17 Option A: Advanced Types Project ───────────────────────
+  "p17": function(code) {
+    const c = stripComments(code)
+    const hasIsArray = /type\s+IsArray\s*<\s*T\s*>/i.test(c)
+    const hasConditional = /T\s+extends\s+any\s*\[\]/i.test(c)
+    const hasElementType = /type\s+ElementType\s*<\s*T\s*>/i.test(c)
+    if (hasIsArray && hasConditional && hasElementType)
+      return { pass: true, title: "Advanced Types complete! 🎉", feedback: "IsArray<T> conditional type and ElementType<T> mapped type both present!" }
+    const missing = []
+    if (!hasIsArray) missing.push("type IsArray<T> conditional type")
+    if (!hasConditional) missing.push("T extends any[] condition")
+    if (!hasElementType) missing.push("type ElementType<T> for array element extraction")
+    return { pass: false, title: "Advanced Types incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+
+  // ── Lesson 17 Option B: BMI Calculator ───────────────────────────────
+  "p34": function(code) {
+    const c = stripComments(code)
+    const hasCalc = /function\s+calculateBMI/i.test(c)
+    const hasClassify = /function\s+classifyBMI/i.test(c)
+    const hasWeight = /weightKg\s*:\s*number/i.test(c)
+    const hasHeight = /heightM\s*:\s*number/i.test(c)
+    if (hasCalc && hasClassify && hasWeight && hasHeight)
+      return { pass: true, title: "BMI Calculator complete!", feedback: "calculateBMI and classifyBMI functions with typed parameters present!" }
+    const missing = []
+    if (!hasCalc) missing.push("function calculateBMI(weightKg: number, heightM: number): number")
+    if (!hasClassify) missing.push("function classifyBMI(bmi: number): string")
+    if (!hasWeight) missing.push("weightKg: number parameter")
+    if (!hasHeight) missing.push("heightM: number parameter")
+    return { pass: false, title: "BMI Calculator incomplete", feedback: `Missing:\n${missing.map(m => " • " + m).join("\n")}` }
+  },
+}
 function submitProject() {
   const code = document.getElementById("project-editor").value.trim();
   const thinking = document.getElementById("project-thinking");
@@ -2702,7 +3272,7 @@ function submitProject() {
       resultEl.className = "project-result pass show";
       resultEl.innerHTML = `
 <div class="project-result-hdr">
-  <div class="project-result-icon">🎉</div>
+  <div class="project-result-icon">(*^▽^*)</div>
   <div class="project-result-title">${escHtml(result.title)}</div>
   <div class="xp-badge">+50 XP</div>
 </div>

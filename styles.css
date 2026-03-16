@@ -185,7 +185,7 @@ body::before {
   font-family: "Syne", sans-serif;
   font-size: 1.35rem;
   font-weight: 900;
-  color: #4000ff;
+  background: linear-gradient(90deg, #016df1 0%, #dbcabd 50%, #edf3f2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;;
   line-height: 1.2;
   text-shadow: 0 0 10px rgba(30, 239, 255, 0.1);
 }
@@ -1420,11 +1420,7 @@ textarea.project-editor:focus {
     font-size: 0.6rem;
     padding: 12px 6px;
   }
-  #prog-fill {
-    /* I cannot see the progress bar for phone size can you fix it */
-    background: red;
-    width: 100% !important;
-    height: 100% !important;
-
+ .ai-result-icon {
+    font-size: 1rem;
   }
 }
