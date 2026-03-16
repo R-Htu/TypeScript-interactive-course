@@ -160,12 +160,12 @@ body::before {
   background:
     radial-gradient(
       circle at 20% 25%,
-      rgba(0, 221, 255, 0.18),
+      rgba(0, 7, 31, 0.18),
       transparent 36%
     ),
     radial-gradient(
       circle at 80% 70%,
-      rgba(143, 80, 255, 0.15),
+      rgba(53, 155, 3, 0.15),
       transparent 35%
     );
   filter: blur(8px);
@@ -185,9 +185,9 @@ body::before {
   font-family: "Syne", sans-serif;
   font-size: 1.35rem;
   font-weight: 900;
-  color: #157786;
+  color: #4000ff;
   line-height: 1.2;
-  text-shadow: 0 0 14px rgba(30, 239, 255, 0.2);
+  text-shadow: 0 0 10px rgba(30, 239, 255, 0.1);
 }
 .intro-panel p {
   margin: 0 0 12px;
@@ -234,7 +234,7 @@ body::before {
   padding: 10px;
   border-radius: 10px;
   background: rgba(12, 33, 57, 0.65);
-  box-shadow: 0 6px 12px rgba(193, 186, 186, 0.22);
+  box-shadow: 0 6px 12px rgba(66, 65, 65, 0.22);
   color: #def3ff;
   font-size: 0.82rem;
 }
@@ -311,24 +311,6 @@ body::before {
   color: #1d4e80;
 }
 
-.prog-track {
-  width: 100%;
-  height: 16px;            /* fixed height for mobile */
-  background: #eee;        /* light gray track */
-  border-radius: 8px;
-  overflow: hidden;        /* clip the fill */
-  flex: 1;                 /* keep flex behavior */
-}
-
-/* Progress bar fill */
-#prog-fill {
-  background: var(--blue);
-  height: 100%;            /* fill the track's height */
-  width: 0%;               /* this will be updated dynamically via JS */
-  border-radius: 8px;
-  transition: width 0.3s ease; /* smooth animation */
-  display: block;
-}
 .stat-pill {
   display: flex;
   align-items: center;
@@ -1438,9 +1420,11 @@ textarea.project-editor:focus {
     font-size: 0.6rem;
     padding: 12px 6px;
   }
-  @media (max-width: 600px) {
   #prog-fill {
-    height: 16px;          /* ensure visible on small screens */
+    /* I cannot see the progress bar for phone size can you fix it */
+    background: red;
+    width: 100% !important;
+    height: 100% !important;
+
   }
-}
 }
