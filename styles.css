@@ -145,7 +145,7 @@ body::before {
   overflow: hidden;
   background: linear-gradient(
     135deg,
-    rgba(0, 16, 43, 0.94),
+    rgba(5, 5, 5, 0.94),
     rgba(2, 12, 30, 0.95)
   );
   border-radius: 40px 0 40px 0;
@@ -185,9 +185,9 @@ body::before {
   font-family: "Syne", sans-serif;
   font-size: 1.35rem;
   font-weight: 900;
-  color: #9ef2ff;
+  color: #157786;
   line-height: 1.2;
-  text-shadow: 0 0 14px rgba(30, 239, 255, 0.4);
+  text-shadow: 0 0 14px rgba(30, 239, 255, 0.2);
 }
 .intro-panel p {
   margin: 0 0 12px;
@@ -205,8 +205,8 @@ body::before {
   font-weight: 700;
   font-size: 0.82rem;
   text-transform: uppercase;
-  padding: 10px 18px;
-  border-radius: 999px;
+  padding: 10px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 173, 255, 0.34);
   transition:
@@ -255,6 +255,7 @@ body::before {
   margin-right: 0.3rem;
 }
 .intro-continue {
+  cursor: pointer;
   margin: 18px auto 14px;
   font-family: "JetBrains Mono", monospace;
   color: #bcdcff;
@@ -263,8 +264,8 @@ body::before {
   background: rgba(24, 40, 73, 0.62);
   border: 1px solid rgba(0, 212, 255, 0.32);
   border-radius: 10px;
-  padding: 8px 12px;
-  max-width: 470px;
+  padding: 8px;
+  max-width: 370px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
 }
 .intro-continue span {
@@ -310,6 +311,24 @@ body::before {
   color: #1d4e80;
 }
 
+.prog-track {
+  width: 100%;
+  height: 16px;            /* fixed height for mobile */
+  background: #eee;        /* light gray track */
+  border-radius: 8px;
+  overflow: hidden;        /* clip the fill */
+  flex: 1;                 /* keep flex behavior */
+}
+
+/* Progress bar fill */
+#prog-fill {
+  background: var(--blue);
+  height: 100%;            /* fill the track's height */
+  width: 0%;               /* this will be updated dynamically via JS */
+  border-radius: 8px;
+  transition: width 0.3s ease; /* smooth animation */
+  display: block;
+}
 .stat-pill {
   display: flex;
   align-items: center;
@@ -1419,4 +1438,9 @@ textarea.project-editor:focus {
     font-size: 0.6rem;
     padding: 12px 6px;
   }
+  @media (max-width: 600px) {
+  #prog-fill {
+    height: 16px;          /* ensure visible on small screens */
+  }
+}
 }

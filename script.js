@@ -112,7 +112,7 @@ node hello.js   // Output will display in console`,
             "It only runs in browsers",
             "It requires a compiler",
             "It cannot use JavaScript libraries",
-            "It doesn’t support objects",
+            "It doesn't support objects",
           ],
           correct: 1,
           explain:
@@ -270,23 +270,17 @@ let names: string[] = ["Alice", "Bob"];
 let flags: Array<boolean> = [true, false];
 
 // Common methods
-scores.push(99);        // add to end → scores: [95, 87, 100, 99]
-scores.pop();           // remove from end → scores: [95, 87, 100]
+scores.push(99);        // add to end
+scores.pop();           // remove from end
 let top = scores[0];    // index access → top: 95
 
 // Array iteration methods
-let doubled = scores.map(score => score * 2);    // map → doubled: [190, 174, 200]
-let passed = scores.filter(score => score >= 90);  // filter → passed: [95, 100]
-scores.forEach(score => console.log(score));       
-// forEach output:
-// 95
-// 87
-// 100
+let doubled = scores.map(score => score * 2);
+let passed = scores.filter(score => score >= 90);
+scores.forEach(score => console.log(score));
 
 // Union type arrays
-let mixed: (string | number)[] = ["hello", 42, "world"];
-console.log(mixed);
-// Output: ["hello", 42, "world"]`,
+let mixed: (string | number)[] = ["hello", 42, "world"];`,
         },
         {
           type: "code",
@@ -413,37 +407,6 @@ let person: readonly [string, number] = ["Alice", 25];
       Interfaces are <strong>reusable</strong> and can be extended.`,
         },
         {
-          type: "text",
-          heading: "Difference Between Objects and Interfaces",
-          body: `- Objects are actual values at runtime; they hold data.<br>
-      - Interfaces are TypeScript-only constructs; they exist at compile time to check types.<br>
-      - You can type an object inline without an interface, but that type cannot be reused.<br>
-      - Interfaces make your code more maintainable, especially for large projects.`,
-        },
-        {
-          type: "text",
-          heading: "Benefits of Interfaces",
-          body: `- <strong>Reusable</strong>: Define once, use many times.<br>
-      - <strong>Readable</strong>: Makes your code self-documenting.<br>
-      - <strong>Extendable</strong>: Can extend other interfaces to build complex types.<br>
-      - <strong>Optional & readonly properties</strong>: Enforce rules on objects.`,
-        },
-        {
-          type: "code",
-          heading: "Inline Object Types",
-          file: "objects.ts",
-          code: `// Inline object type — works but not reusable
-let user: { name: string; age: number } = {
-  name: "Alice",
-  age: 25
-};
-
-// Optional property with ?
-let product: { name: string; price?: number } = {
-  name: "Laptop"  // price is optional
-};`,
-        },
-        {
           type: "code",
           heading: "Interfaces — Reusable Shapes",
           file: "interfaces.ts",
@@ -482,20 +445,6 @@ const rex: Dog = {
 };`,
         },
         {
-          type: "code",
-          heading: "Interface with Methods",
-          file: "methods.ts",
-          code: `interface Calculator {
-  add(a: number, b: number): number;
-  multiply?(a: number, b: number): number; // optional method
-}
-
-const calc: Calculator = {
-  add: (x, y) => x + y
-  // multiply is optional
-};`,
-        },
-        {
           type: "points",
           heading: "Key Notes About Interfaces",
           points: [
@@ -504,7 +453,6 @@ const calc: Calculator = {
             "Use ? to mark a property as optional.",
             "Interfaces can extend other interfaces to combine shapes.",
             "You can type objects inline, but interfaces are reusable and clearer.",
-            "Interfaces improve maintainability in large codebases.",
           ],
         },
       ],
@@ -575,19 +523,7 @@ Then create a variable of type Product.`,
         {
           type: "text",
           heading: "What are Functions in TypeScript?",
-          body: `Functions are reusable blocks of code that perform tasks. In TypeScript, you can explicitly type:
-        - <strong>parameters</strong>: the type of data the function accepts
-        - <strong>return type</strong>: the type of data it returns
-
-        This prevents errors like passing the wrong type of arguments or misusing return values.`,
-        },
-        {
-          type: "text",
-          heading: "Benefits of Typed Functions",
-          body: `- Catch errors at compile time before running code.<br>
-        - Makes your code more readable and self-documenting.<br>
-        - Helps IDEs provide better autocomplete and type hints.<br>
-        - Ensures callbacks and higher-order functions have the correct types.`,
+          body: `Functions are reusable blocks of code that perform tasks. In TypeScript, you can explicitly type parameters and return types. This prevents errors like passing the wrong type of arguments or misusing return values.`,
         },
         {
           type: "code",
@@ -601,7 +537,6 @@ Then create a variable of type Product.`,
     return \`Hello, \${name}!\`;
   };
 
-  // void = function returns nothing
   function log(msg: string): void {
     console.log(msg);
   }`,
@@ -610,51 +545,17 @@ Then create a variable of type Product.`,
           type: "code",
           heading: "Optional & Default Parameters",
           file: "params.ts",
-          code: `// Optional parameter with ?
-  function greetUser(name: string, title?: string): string {
+          code: `function greetUser(name: string, title?: string): string {
     return title ? \`Hi \${title} \${name}\` : \`Hi \${name}\`;
   }
 
-  console.log(greetUser("Alice"));          // Hi Alice
-  console.log(greetUser("Alice", "Dr."));   // Hi Dr. Alice
-
-  // Default parameter
   function createUser(name: string, role: string = "guest") {
     return { name, role };
   }
 
-  console.log(createUser("Bob"));           // { name: "Bob", role: "guest" }
-  console.log(createUser("Bob", "admin"));  // { name: "Bob", role: "admin" }
-
-  // Rest parameters
   function sum(...nums: number[]): number {
     return nums.reduce((a, b) => a + b, 0);
-  }
-
-  console.log(sum(1, 2, 3, 4)); // 10
-  `,
-        },
-        {
-          type: "code",
-          heading: "Function Types as Variables & Callbacks",
-          file: "fn-types.ts",
-          code: `// Type a function variable
-  let calc: (a: number, b: number) => number;
-
-  calc = (x, y) => x + y;  // OK
-  calc = (x, y) => x * y;  // OK
-
-  // Callback function
-  function process(arr: string[], cb: (s: string) => void) {
-    arr.forEach(cb);
-  }
-
-  // Example usage
-  process(["a", "b", "c"], (letter) => console.log(letter));
-  // Output:
-  // a
-  // b
-  // c`,
+  }`,
         },
         {
           type: "points",
@@ -664,8 +565,6 @@ Then create a variable of type Product.`,
             "Use optional parameters (?) when a value is not always required.",
             "Default values can make parameters optional without undefined.",
             "Rest parameters (...) allow passing multiple arguments as an array.",
-            "Functions can be typed when assigned to variables.",
-            "Callbacks should have typed parameters and return type.",
           ],
         },
       ],
@@ -722,27 +621,20 @@ Then create a variable of type Product.`,
           ],
           correct: 2,
           explain:
-            "(a: number, b: number) => number explicitly types the function variable parameters and return type.",
+            "(a: number, b: number) => number explicitly types the function variable.",
         },
       ],
       challenge: {
         title: "Type a Function",
-        desc: "Write a properly typed TypeScript function with parameters, optional values, and return type.",
-        task: `Write a function called <strong>formatName</strong> that:
-  - Takes <strong>firstName</strong> (string)
-  - <strong>lastName</strong> (string)
-  - Optional <strong>title</strong> (string)
-  - Returns a formatted string combining the inputs.
-
-  All parameters and the return type must be explicitly typed.`,
-        starterCode: `// Write the formatName function with typed params and return type
-  function formatName(firstName: string, lastName: string, title?: string): string {
+        desc: "Write a properly typed TypeScript function.",
+        task: `Write a function called <strong>formatName</strong> that takes <strong>firstName</strong> (string), <strong>lastName</strong> (string), optional <strong>title</strong> (string), and returns a formatted string. All parameters and the return type must be explicitly typed.`,
+        starterCode: `function formatName(firstName: string, lastName: string, title?: string): string {
     // Your code here
     return "";
   }`,
         hint: `function formatName(firstName: string, lastName: string, title?: string): string { ... }`,
         checks:
-          "Check that formatName has firstName and lastName typed as string, an optional title parameter, returns string, and combines inputs correctly.",
+          "Check that formatName has firstName and lastName typed as string, an optional title parameter, returns string.",
       },
     },
     {
@@ -754,60 +646,42 @@ Then create a variable of type Product.`,
         {
           type: "text",
           heading: "What Are Union Types?",
-          body: `Union types let a variable hold values of <strong>more than one type</strong> using the <code>|</code> (pipe) operator.  
-      This is safer than <code>any</code> because TypeScript still knows the possible types and provides type checking.  
-      <br><br>
-      <strong>Benefits:</strong>
-      <ul>
-        <li>Allows flexibility without losing type safety</li>
-        <li>Supports type narrowing using typeof, instanceof, or in</li>
-        <li>Works well with type aliases for readability</li>
-        <li>Can combine multiple literal types for stricter allowed values</li>
-      </ul>`,
+          body: `Union types let a variable hold values of <strong>more than one type</strong> using the <code>|</code> (pipe) operator.`,
         },
         {
           type: "code",
           heading: "Basic Union Example",
           file: "unions.ts",
           code: `let id: string | number;
-
 id = "USER_123"; // OK
 id = 42;         // OK
 
 function printId(id: string | number): void {
   if (typeof id === "string") {
-    console.log(id.toUpperCase()); // string methods safe here
+    console.log(id.toUpperCase());
   } else {
-    console.log(id.toFixed(2));   // number methods safe here
+    console.log(id.toFixed(2));
   }
-}
-
-printId("abc"); // Output: ABC
-printId(123);   // Output: 123.00`,
+}`,
         },
         {
           type: "code",
           heading: "Type Aliases with Unions",
           file: "aliases.ts",
-          code: `// Give union types a name
-type ID = string | number;
+          code: `type ID = string | number;
 type Status = "pending" | "approved" | "rejected";
-type Direction = "north" | "south" | "east" | "west";
 
 let orderId: ID = "ORD-001";
-let status: Status = "pending";  // only these 3 values allowed
-let dir: Direction = "north";
-
-// status = "shipped"; // ❌ Error! Not allowed`,
+let status: Status = "pending";
+// status = "shipped"; // ❌ Error!`,
         },
         {
           type: "points",
           heading: "Type Narrowing with Unions",
           points: [
-            "Use typeof checks to narrow primitive types (string, number, boolean).",
+            "Use typeof checks to narrow primitive types.",
             "Use instanceof to narrow class instances.",
             "Use the in operator to check for specific properties.",
-            "TypeScript tracks which branch you are in to enforce correct operations.",
             "Type aliases make union types easier to read and reuse.",
           ],
         },
@@ -823,8 +697,7 @@ let dir: Direction = "north";
           q: "Which is valid for: let x: string | number",
           choices: ["x = true", "x = []", 'x = "hello"', "x = {}"],
           correct: 2,
-          explain:
-            '"hello" is a string, which is in the string | number union.',
+          explain: '"hello" is a string, which is in the string | number union.',
         },
         {
           q: "What is a literal type?",
@@ -836,8 +709,7 @@ let dir: Direction = "north";
             "A boolean type",
           ],
           correct: 1,
-          explain:
-            "Literal types restrict a variable to specific exact values.",
+          explain: "Literal types restrict a variable to specific exact values.",
         },
         {
           q: "Which TypeScript feature is safer than using any?",
@@ -856,7 +728,7 @@ let dir: Direction = "north";
           ],
           correct: 1,
           explain:
-            "Type aliases allow you to name a union (or other types) for readability and reuse.",
+            "Type aliases allow you to name a union for readability and reuse.",
         },
       ],
       challenge: {
@@ -871,11 +743,9 @@ let dir: Direction = "north";
 `,
         hint: 'type Result = string | number | boolean; type Theme = "light" | "dark"; let currentTheme: Theme = "light";',
         checks:
-          'Verify Result type alias is defined as string | number | boolean, Theme type alias is defined as "light" | "dark", and currentTheme variable is assigned either "light" or "dark".',
+          'Verify Result, Theme type aliases, and currentTheme variable are all defined correctly.',
       },
     },
-
-    // ── LESSON 7 ──
     {
       id: 7,
       icon: "[C]",
@@ -885,16 +755,7 @@ let dir: Direction = "north";
         {
           type: "text",
           heading: "What are Classes?",
-          body: `Classes are <strong>blueprints for creating objects</strong>. They allow you to define properties and methods for objects.
-        TypeScript adds <strong>access modifiers</strong> (public, private, protected) and strict typing on top of JavaScript classes, making object-oriented programming (OOP) safer and more expressive.
-        <br><br>
-        Benefits:
-        <ul>
-          <li>Reusable blueprints for objects</li>
-          <li>Type-safe properties and methods</li>
-          <li>Supports inheritance and code reuse</li>
-          <li>Access modifiers improve encapsulation</li>
-        </ul>`,
+          body: `Classes are <strong>blueprints for creating objects</strong>. TypeScript adds access modifiers and strict typing on top of JavaScript classes.`,
         },
         {
           type: "code",
@@ -903,19 +764,16 @@ let dir: Direction = "north";
           code: `class Person {
     name: string;
     age: number;
-
     constructor(name: string, age: number) {
       this.name = name;
       this.age  = age;
     }
-
     greet(): string {
       return \`Hi, I'm \${this.name}!\`;
     }
   }
-
   const alice = new Person("Alice", 25);
-  console.log(alice.greet()); // Output: Hi, I'm Alice!`,
+  console.log(alice.greet());`,
         },
         {
           type: "points",
@@ -928,78 +786,16 @@ let dir: Direction = "north";
         },
         {
           type: "code",
-          heading: "Shorthand Constructor",
-          file: "shorthand.ts",
-          code: `// Verbose way:
-  class Dog {
-    name: string;
-    constructor(name: string) { this.name = name; }
-  }
-
-  // Shorthand — declare + assign in one step:
-  class DogShort {
-    constructor(public name: string, public breed: string) {}
-  }
-
-  const rex = new DogShort("Rex", "Labrador");
-  console.log(rex.name); // Output: Rex`,
-        },
-        {
-          type: "code",
           heading: "Inheritance",
           file: "inheritance.ts",
           code: `class Animal {
     constructor(public name: string) {}
-    
-    speak(): string {
-      return \`\${this.name} makes a sound.\`;
-    }
+    speak(): string { return \`\${this.name} makes a sound.\`; }
   }
-
   class Dog extends Animal {
-    constructor(name: string, public breed: string) {
-      super(name); // Call parent constructor
-    }
-
-    speak(): string {
-      return \`\${this.name} barks!\`;
-    }
-  }
-
-  const dog = new Dog("Rex", "Labrador");
-  console.log(dog.speak()); // Output: Rex barks!`,
-        },
-        {
-          type: "code",
-          heading: "Using Private & Protected",
-          file: "private-protected.ts",
-          code: `class BankAccount {
-    constructor(public owner: string, private balance: number) {}
-
-    deposit(amount: number): void {
-      this.balance += amount;
-    }
-
-    getBalance(): number {
-      return this.balance;
-    }
-  }
-
-  const account = new BankAccount("Alice", 1000);
-  account.deposit(500);
-  console.log(account.getBalance()); // Output: 1500
-  // console.log(account.balance); // ❌ Error: 'balance' is private`,
-        },
-        {
-          type: "points",
-          heading: "Key Notes About Classes",
-          points: [
-            "Classes define blueprints, not actual objects — use `new` to create instances.",
-            "Access modifiers control visibility of properties and methods.",
-            "Shorthand constructors reduce boilerplate.",
-            "Inheritance allows reusing code and overriding methods.",
-            "TypeScript enforces types in properties, constructor parameters, and methods.",
-          ],
+    constructor(name: string, public breed: string) { super(name); }
+    speak(): string { return \`\${this.name} barks!\`; }
+  }`,
         },
       ],
       quiz: [
@@ -1007,8 +803,7 @@ let dir: Direction = "north";
           q: "What keyword creates a class?",
           choices: ["object", "type", "class", "interface"],
           correct: 2,
-          explain:
-            "The class keyword defines a blueprint for creating objects.",
+          explain: "The class keyword defines a blueprint for creating objects.",
         },
         {
           q: "What does private mean?",
@@ -1019,8 +814,7 @@ let dir: Direction = "north";
             "Read-only",
           ],
           correct: 1,
-          explain:
-            "private means only code inside the same class can access that property.",
+          explain: "private means only code inside the same class can access that property.",
         },
         {
           q: "What does super() do in a subclass?",
@@ -1031,8 +825,7 @@ let dir: Direction = "north";
             "Makes a method public",
           ],
           correct: 1,
-          explain:
-            "super() calls the constructor of the parent class — required when extending.",
+          explain: "super() calls the constructor of the parent class.",
         },
         {
           q: "Which is true about protected?",
@@ -1043,8 +836,7 @@ let dir: Direction = "north";
             "Same as public",
           ],
           correct: 1,
-          explain:
-            "protected allows access in the class and its subclasses only.",
+          explain: "protected allows access in the class and its subclasses only.",
         },
         {
           q: "What is shorthand constructor syntax?",
@@ -1055,28 +847,18 @@ let dir: Direction = "north";
             "Use arrow functions",
           ],
           correct: 0,
-          explain:
-            "You can declare and initialize properties directly in constructor parameters using access modifiers.",
+          explain: "You can declare and initialize properties directly in constructor parameters.",
         },
       ],
       challenge: {
         title: "Build a Class",
-        desc: "Create a TypeScript class with typed properties, access modifiers, and a method.",
-        task: `Create a class called <strong>Car</strong> with:
-  - <strong>public make</strong> (string)
-  - <strong>public model</strong> (string)
-  - <strong>private year</strong> (number)
-  - Add a method called <strong>getInfo()</strong> that returns a string like "Make Model (Year)".
-  - Use shorthand constructor syntax if possible.`,
-        starterCode: `// Create the Car class
-  `,
+        desc: "Create a TypeScript class with typed properties and a method.",
+        task: `Create a class called <strong>Car</strong> with public make/model, private year, and a getInfo() method returning "Make Model (Year)".`,
+        starterCode: `// Create the Car class\n`,
         hint: `class Car { constructor(public make: string, public model: string, private year: number) {} getInfo(): string { return \`\${this.make} \${this.model} (\${this.year})\`; } }`,
-        checks:
-          "Verify that Car class has public make/model, private year, a getInfo method returning a string. Shorthand constructor is optional but recommended.",
+        checks: "Verify Car class has public make/model, private year, a getInfo method returning a string.",
       },
     },
-
-    // ── LESSON 8 ──
     {
       id: 8,
       icon: "[T]",
@@ -1086,40 +868,17 @@ let dir: Direction = "north";
         {
           type: "text",
           heading: "What Are Generics?",
-          body: `Generics allow you to write **reusable code** that works with different types while still being **type-safe**.  
-      Without generics, you would need to write separate functions, classes, or interfaces for each type.  
-
-      <br><br>
-      Generics use the syntax <code>&lt;T&gt;</code> (T stands for "type", but you can name it anything).  
-      You can think of generics as **placeholders for types** that get specified when the code is used.  
-
-      <br><br>
-      <strong>Benefits of Generics:</strong>
-      <ul>
-        <li>Write one function or class that works with any type</li>
-        <li>Maintain type safety — TypeScript knows the type at compile time</li>
-        <li>Improve code reuse and reduce duplication</li>
-        <li>Combine with constraints to enforce required properties</li>
-        <li>Works with functions, interfaces, classes, and type aliases</li>
-      </ul>`,
+          body: `Generics allow you to write <strong>reusable code</strong> that works with different types while still being <strong>type-safe</strong>. Generics use the syntax <code>&lt;T&gt;</code>.`,
         },
         {
           type: "code",
           heading: "Generic Function Example",
           file: "generics.ts",
-          code: `// Without generics — duplicate functions for each type
-function getFirstNumber(arr: number[]): number { return arr[0]; }
-function getFirstString(arr: string[]): string  { return arr[0]; }
-
-// With generics — one function handles ANY type
-function getFirst<T>(arr: T[]): T {
+          code: `function getFirst<T>(arr: T[]): T {
   return arr[0];
 }
-
-// Usage examples
 getFirst<number>([1, 2, 3]);     // 1
-getFirst<string>(["a", "b"]);    // "a"
-getFirst([true, false]);         // TypeScript infers boolean automatically`,
+getFirst<string>(["a", "b"]);    // "a"`,
         },
         {
           type: "code",
@@ -1129,42 +888,7 @@ getFirst([true, false]);         // TypeScript infers boolean automatically`,
   data: T;
   success: boolean;
   message: string;
-}
-
-interface User { name: string; email: string; }
-
-const userRes: ApiResponse<User> = {
-  data: { name: "Alice", email: "a@example.com" },
-  success: true,
-  message: "User found"
-};
-
-const countRes: ApiResponse<number> = {
-  data: 42,
-  success: true,
-  message: "Count retrieved"
-};`,
-        },
-        {
-          type: "code",
-          heading: "Generics with Constraints",
-          file: "constraints.ts",
-          code: `// T must have a .length property
-function logLength<T extends { length: number }>(value: T): void {
-  console.log(value.length);
-}
-
-logLength("hello");      // 5
-logLength([1, 2, 3]);    // 3
-// logLength(42);         // ❌ Error - number has no .length
-
-// Multiple type parameters
-function merge<T, U>(a: T, b: U): T & U {
-  return { ...a, ...b } as T & U;
-}
-
-const merged = merge({ name: "Alice" }, { age: 25 });
-// merged: { name: string, age: number }`,
+}`,
         },
         {
           type: "points",
@@ -1172,9 +896,7 @@ const merged = merge({ name: "Alice" }, { age: 25 });
           points: [
             "Write flexible, reusable functions, interfaces, and classes.",
             "Maintain strong type safety across multiple uses.",
-            "Combine with type inference for cleaner code.",
             "Add constraints to ensure certain properties exist on generic types.",
-            "Reduces duplicate code and improves maintainability.",
           ],
         },
       ],
@@ -1213,36 +935,24 @@ const merged = merge({ name: "Alice" }, { age: 25 });
             "Force all values to be strings",
           ],
           correct: 1,
-          explain:
-            "Generics allow one function to work with multiple types safely, improving reuse.",
+          explain: "Generics allow one function to work with multiple types safely.",
         },
         {
           q: "Where can generics be used?",
           choices: ["Functions", "Interfaces", "Classes", "All of the above"],
           correct: 3,
-          explain:
-            "Generics can be applied to functions, interfaces, classes, and type aliases.",
+          explain: "Generics can be applied to functions, interfaces, classes, and type aliases.",
         },
       ],
       challenge: {
         title: "Write a Generic Function",
         desc: "Practice the generic <T> syntax.",
-        task: `Write a generic function called <strong>wrapInArray</strong> that:
-1. Takes a value of type <strong>T</strong>
-2. Returns it wrapped in an array of type <strong>T[]</strong>
-3. Call it at least twice, once with a string and once with a number.`,
-        starterCode: `// Generic function
-
-// Call with a string
-
-// Call with a number
-`,
+        task: `Write a generic function called <strong>wrapInArray</strong> that takes a value of type T and returns T[]. Call it at least twice.`,
+        starterCode: `// Generic function\n\n// Call with a string\n\n// Call with a number\n`,
         hint: "function wrapInArray<T>(value: T): T[] { return [value]; }",
-        checks:
-          "Verify wrapInArray is a generic function using <T>, takes a parameter of type T, and returns an array of T. Ensure it is called with at least two different types (e.g., string and number).",
+        checks: "Verify wrapInArray uses <T>, takes T, returns T[], called with at least two types.",
       },
     },
-    // lesson 9
     {
       id: 9,
       icon: "[E]",
@@ -1252,91 +962,32 @@ const merged = merge({ name: "Alice" }, { age: 25 });
         {
           type: "text",
           heading: "What Are Enums?",
-          body: `Enums let you define a set of **named constants**, which makes your code **more readable** and **self-documenting**.  
-      Instead of using "magic numbers" or strings, enums give meaningful names to values.  
-
-      <br><br>
-      Benefits of using enums:
-      <ul>
-        <li>Replace magic strings or numbers with readable names</li>
-        <li>Make code easier to maintain and refactor</li>
-        <li>Provide type safety — only valid enum values can be used</li>
-        <li>Work well with switch statements, comparisons, and mappings</li>
-        <li>Support numeric, string, and const enums (zero runtime cost)</li>
-      </ul>`,
-        },
-        {
-          type: "code",
-          heading: "Numeric Enums",
-          file: "numeric-enum.ts",
-          code: `enum Direction {
-  Up,     // 0
-  Down,   // 1
-  Left,   // 2
-  Right   // 3
-}
-
-let move: Direction = Direction.Up;
-console.log(move); // 0
-
-// You can set a custom start value
-enum Priority { 
-  Low = 1, 
-  Medium = 2, 
-  High = 3 
-}
-
-console.log(Priority.Medium); // 2`,
+          body: `Enums let you define a set of <strong>named constants</strong>, making your code more readable and self-documenting.`,
         },
         {
           type: "code",
           heading: "String Enums (preferred)",
           file: "string-enum.ts",
-          code: `// String enums are more readable
-enum Status {
+          code: `enum Status {
   Pending  = "PENDING",
   Active   = "ACTIVE",
   Inactive = "INACTIVE"
-}
-
-enum UserRole {
-  Admin = "admin",
-  User  = "user",
-  Guest = "guest"
 }
 
 function checkRole(role: UserRole): void {
   if (role === UserRole.Admin) {
     console.log("Welcome, admin!");
   }
-}
-
-checkRole(UserRole.Admin); // Welcome, admin!`,
-        },
-        {
-          type: "code",
-          heading: "Const Enum — zero runtime cost",
-          file: "const-enum.ts",
-          code: `// const enum values are inlined and removed at compile time
-const enum Color {
-  Red = "RED",
-  Green = "GREEN",
-  Blue = "BLUE"
-}
-
-let fav: Color = Color.Blue;
-// Compiles to: let fav = "BLUE"
-// The enum object is not included in JavaScript output`,
+}`,
         },
         {
           type: "points",
           heading: "Tips & Best Practices",
           points: [
             "Prefer string enums for readability and debugging.",
-            "Use numeric enums only when you need automatic numbering or bit flags.",
-            "Use const enums for performance when values are fixed and won’t need the object at runtime.",
+            "Use numeric enums only when you need automatic numbering.",
+            "Use const enums for performance when values are fixed.",
             "Enums can be used in switch statements for exhaustive checks.",
-            "TypeScript ensures only valid enum values can be assigned.",
           ],
         },
       ],
@@ -1345,20 +996,13 @@ let fav: Color = Color.Blue;
           q: "What is the default value of the first enum member?",
           choices: ["1", "undefined", "0", '"first"'],
           correct: 2,
-          explain:
-            "Numeric enums auto-number from 0 unless you specify a starting value.",
+          explain: "Numeric enums auto-number from 0 unless you specify a starting value.",
         },
         {
           q: "Which enum type is preferred in modern TypeScript?",
-          choices: [
-            "Numeric enum",
-            "Const enum",
-            "String enum",
-            "Boolean enum",
-          ],
+          choices: ["Numeric enum", "Const enum", "String enum", "Boolean enum"],
           correct: 2,
-          explain:
-            "String enums are preferred because the values are readable when debugging.",
+          explain: "String enums are preferred because the values are readable when debugging.",
         },
         {
           q: "What does a const enum do?",
@@ -1369,8 +1013,7 @@ let fav: Color = Color.Blue;
             "Prevents enum mutation",
           ],
           correct: 1,
-          explain:
-            "const enum values are inlined directly — no enum object exists at runtime.",
+          explain: "const enum values are inlined directly — no enum object exists at runtime.",
         },
         {
           q: "Can you assign a value outside the enum?",
@@ -1381,38 +1024,24 @@ let fav: Color = Color.Blue;
             "Only for string enums",
           ],
           correct: 1,
-          explain:
-            "TypeScript prevents assigning values that are not part of the enum type.",
+          explain: "TypeScript prevents assigning values that are not part of the enum type.",
         },
         {
           q: "Which is more readable when debugging?",
           choices: ["Numeric enum", "String enum", "Const enum", "Any type"],
           correct: 1,
-          explain:
-            "String enums provide clear readable values instead of numbers.",
+          explain: "String enums provide clear readable values instead of numbers.",
         },
       ],
       challenge: {
         title: "Create and Use an Enum",
         desc: "Practice defining and using TypeScript enums.",
-        task: `1. Create a <strong>string enum</strong> called <strong>Season</strong> with four members:
-- Spring = "spring"
-- Summer = "summer"
-- Autumn = "autumn"
-- Winter = "winter"  
-
-2. Declare a variable <strong>currentSeason</strong> of type Season and assign one of the enum values.`,
-        starterCode: `// Define Season enum
-
-// Declare currentSeason
-`,
+        task: `1. Create a <strong>string enum</strong> called <strong>Season</strong> with Spring/Summer/Autumn/Winter members.<br>2. Declare a variable <strong>currentSeason</strong> of type Season.`,
+        starterCode: `// Define Season enum\n\n// Declare currentSeason\n`,
         hint: 'enum Season { Spring = "spring", Summer = "summer", Autumn = "autumn", Winter = "winter" }',
-        checks:
-          "Verify that Season is a string enum with all four members assigned string values. Check that currentSeason is declared with type Season and assigned a valid enum value.",
+        checks: "Verify Season is a string enum with all four members, currentSeason is typed as Season.",
       },
     },
-
-    // ── LESSON 10 ──
     {
       id: 10,
       icon: "[N]",
@@ -1422,94 +1051,42 @@ let fav: Color = Color.Blue;
         {
           type: "text",
           heading: "What is Type Narrowing?",
-          body: `Type narrowing is how TypeScript <strong>figures out a more specific type</strong> from a broad one. 
-      When you have a union type (like <code>string | number</code>), TypeScript cannot automatically use type-specific methods. 
-      Type narrowing allows you to safely tell TypeScript the exact type at runtime using guards or assertions.`,
-        },
-        {
-          type: "text",
-          heading: "Why Use Type Narrowing?",
-          body: `- Prevents runtime errors by letting TypeScript know the exact type.<br>
-      - Allows safe use of type-specific methods (like <code>toUpperCase()</code> for strings).<br>
-      - Works well with <strong>union types</strong> and complex objects.<br>
-      - Improves IDE support and autocomplete.`,
+          body: `Type narrowing is how TypeScript <strong>figures out a more specific type</strong> from a broad one using guards or assertions.`,
         },
         {
           type: "code",
           heading: "Using typeof Guard",
           file: "typeof-guard.ts",
-          code: `// ID 10-1: typeof guard
-function formatValue(value: string | number): string {
+          code: `function formatValue(value: string | number): string {
   if (typeof value === "string") {
-    // TypeScript knows value is string
     return value.toUpperCase();
   } else {
-    // TypeScript knows value is number
     return value.toFixed(2);
   }
-}
-
-console.log(formatValue("hello")); // "HELLO"
-console.log(formatValue(3.14));    // "3.14"`,
+}`,
         },
         {
           type: "code",
           heading: "Using instanceof Guard",
           file: "instanceof-guard.ts",
-          code: `// ID 10-2: instanceof guard
-class Cat { meow() { return "Meow!"; } }
+          code: `class Cat { meow() { return "Meow!"; } }
 class Dog { bark() { return "Woof!"; } }
 
 function makeSound(animal: Cat | Dog): string {
   if (animal instanceof Cat) {
-    return animal.meow(); // TS knows it's Cat
+    return animal.meow();
   }
-  return animal.bark();   // TS knows it's Dog
-}
-
-console.log(makeSound(new Cat())); // "Meow!"
-console.log(makeSound(new Dog())); // "Woof!"`,
-        },
-        {
-          type: "code",
-          heading: 'Using "in" Operator Guard',
-          file: "in-guard.ts",
-          code: `// ID 10-3: "in" operator guard
-interface Admin       { name: string; adminLevel: number; }
-interface RegularUser { name: string; email: string; }
-
-function describeUser(user: Admin | RegularUser): string {
-  if ("adminLevel" in user) {
-    return \`Admin level: \${user.adminLevel}\`;
-  }
-  return \`Email: \${user.email}\`;
-}
-
-const admin: Admin = { name: "Alice", adminLevel: 3 };
-const user: RegularUser = { name: "Bob", email: "bob@example.com" };
-
-console.log(describeUser(admin)); // "Admin level: 3"
-console.log(describeUser(user));  // "Email: bob@example.com"`,
-        },
-        {
-          type: "code",
-          heading: "Type Assertion (as)",
-          file: "type-assertion.ts",
-          code: `// ID 10-4: type assertion
-const input = document.createElement("input") as HTMLInputElement;
-input.value = "Hello TypeScript";
-console.log(input.value); // "Hello TypeScript"`,
+  return animal.bark();
+}`,
         },
         {
           type: "points",
           heading: "Key Notes About Type Narrowing",
           points: [
-            "Type narrowing helps TS figure out the exact type in union types.",
             "Use typeof for primitive types: string, number, boolean.",
             "Use instanceof for class instances.",
             'Use "in" to check for object property existence.',
             "Type assertions (as) override type inference — be careful!",
-            "Narrowing allows safe use of type-specific methods and prevents errors.",
           ],
         },
       ],
@@ -1518,15 +1095,13 @@ console.log(input.value); // "Hello TypeScript"`,
           q: "Which guard works best for primitive types?",
           choices: ["instanceof", "in operator", "typeof", "as assertion"],
           correct: 2,
-          explain:
-            "typeof is the right tool for string, number, boolean primitives.",
+          explain: "typeof is the right tool for string, number, boolean primitives.",
         },
         {
           q: "Which guard checks if a property exists on an object?",
           choices: ["typeof", "instanceof", "in", "as"],
           correct: 2,
-          explain:
-            "The in operator checks for the existence of a property on an object.",
+          explain: "The in operator checks for the existence of a property on an object.",
         },
         {
           q: 'What does the "as" keyword do?',
@@ -1537,33 +1112,18 @@ console.log(input.value); // "Hello TypeScript"`,
             "Narrows a union",
           ],
           correct: 1,
-          explain:
-            '"as" is a type assertion — you tell TypeScript the type. Use with caution!',
+          explain: '"as" is a type assertion — use with caution!',
         },
       ],
       challenge: {
         title: "Narrow a Union Type",
         desc: "Use typeof to safely work with a union type.",
-        task: `Write a function called <strong>describe</strong> that takes a parameter <strong>value</strong> of type <code>string | number | boolean</code>. 
-Use <strong>typeof</strong> guards to return different strings: 
-- If string → return its length
-- If number → return it doubled
-- If boolean → return "yes" or "no"`,
-        starterCode: `// ID 10-5: Challenge
-function describe(value: string | number | boolean): string {
-  // Your code here
-  return "";
-}`,
-        hint: `Use typeof checks: 
-if (typeof value === "string") { ... } 
-else if (typeof value === "number") { ... } 
-else { ... }`,
-        checks:
-          "Verify describe function takes a string | number | boolean union parameter and uses typeof guards to handle each type differently, returning a string in all branches.",
+        task: `Write a function called <strong>describe</strong> that takes <code>string | number | boolean</code> and uses typeof guards to handle each type.`,
+        starterCode: `function describe(value: string | number | boolean): string {\n  // Your code here\n  return "";\n}`,
+        hint: `Use typeof checks for "string", "number", else handle boolean.`,
+        checks: "Verify describe uses typeof guards for string, number, and boolean branches.",
       },
     },
-
-    // ── LESSON 11 ──
     {
       id: 11,
       icon: "[M]",
@@ -1573,84 +1133,32 @@ else { ... }`,
         {
           type: "text",
           heading: "What are Modules?",
-          body: `As projects grow, managing all code in a single file becomes messy. Modules allow you to split code into <strong>separate files</strong>. 
-      TypeScript supports ES Modules — the modern standard — letting you <code>export</code> and <code>import</code> functions, variables, classes, or types. 
-      This keeps your code organized, reusable, and maintainable.`,
-        },
-        {
-          type: "text",
-          heading: "Why Use Modules?",
-          body: `- **Organize code**: Keep related functions/types together.<br>
-      - **Reusability**: Share code across multiple files or projects.<br>
-      - **Tree-shaking**: Only include what is used in the final bundle.<br>
-      - **Type safety**: Import types explicitly for safer code.<br>
-      - **Easier collaboration**: Multiple developers can work on separate modules without conflicts.`,
+          body: `Modules allow you to split code into <strong>separate files</strong> using <code>export</code> and <code>import</code>.`,
         },
         {
           type: "code",
           heading: "Exporting Code",
           file: "math.ts",
-          code: `// ID 11-1: Named exports
-      export function add(a: number, b: number): number {
-        return a + b;
-      }
-
-      export function subtract(a: number, b: number): number {
-        return a - b;
-      }
-
-      export const PI: number = 3.14159;
-
-      // Default export — one per file
-      export default function multiply(a: number, b: number): number {
-        return a * b;
-      }`,
+          code: `export function add(a: number, b: number): number { return a + b; }
+export const PI: number = 3.14159;
+export default function multiply(a: number, b: number): number { return a * b; }`,
         },
         {
           type: "code",
           heading: "Importing Code",
           file: "app.ts",
-          code: `// ID 11-2: Named imports
-      import { add, subtract, PI } from "./math";
-
-      // Default import
-      import multiply from "./math";
-
-      // Import everything as namespace
-      import * as MathUtils from "./math";
-
-      console.log(add(2, 3));          // 5
-      console.log(PI);                 // 3.14159
-      console.log(multiply(3, 4));     // 12
-      console.log(MathUtils.add(1, 2));// 3`,
+          code: `import { add, PI } from "./math";
+import multiply from "./math";
+import * as MathUtils from "./math";`,
         },
         {
-          type: "code",
-          heading: "Exporting Types",
-          file: "types.ts",
-          code: `// ID 11-3: Export interfaces and type aliases
-      export interface User {
-        id: number;
-        name: string;
-        email: string;
-      }
-
-      export type Status = "active" | "inactive" | "banned";
-
-      // In another file — use "import type" for type-only imports
-      import type { User, Status } from "./types";
-
-      function getUser(id: number): User {
-        return { id, name: "Alice", email: "a@example.com" };
-      }`,
-        },
-        {
-          type: "text",
+          type: "points",
           heading: "Best Practices for Modules",
-          body: `- Put all shared interfaces/types in a dedicated <code>types/</code> folder.<br>
-            - Use <code>import type</code> when importing types only — this speeds up compilation.<br>
-            - Limit files to a single default export; prefer named exports for flexibility.<br>
-            - Always organize related code together to make modules self-contained and readable.`,
+          points: [
+            "Put all shared interfaces/types in a dedicated types/ folder.",
+            'Use import type when importing types only.',
+            "Prefer named exports for flexibility.",
+          ],
         },
       ],
       quiz: [
@@ -1658,16 +1166,14 @@ else { ... }`,
           q: "Which keyword makes a function available to other files?",
           choices: ["public", "export", "import", "expose"],
           correct: 1,
-          explain:
-            "export makes declarations available for import in other files.",
+          explain: "export makes declarations available for import in other files.",
         },
         {
           q: "How do you import a default export?",
           code: 'import ___ from "./math";',
           choices: ["{multiply}", "* as multiply", "multiply", "(multiply)"],
           correct: 2,
-          explain:
-            'Default exports are imported without curly braces: import multiply from "./math".',
+          explain: 'Default exports are imported without curly braces.',
         },
         {
           q: 'What is the benefit of "import type"?',
@@ -1678,8 +1184,7 @@ else { ... }`,
             "Prevents circular imports",
           ],
           correct: 2,
-          explain:
-            '"import type" is erased at compile time, making builds faster and cleaner.',
+          explain: '"import type" is erased at compile time.',
         },
         {
           q: "How can you import all named exports under one namespace?",
@@ -1690,66 +1195,26 @@ else { ... }`,
             'import all from "./file"',
           ],
           correct: 1,
-          explain:
-            'Use import * as NS from "./file" to access all exports as NS.exportName.',
+          explain: 'Use import * as NS from "./file" to access all exports as NS.exportName.',
         },
         {
           q: "Which type of export is preferred for multiple functions?",
-          choices: [
-            "default export",
-            "named export",
-            "public export",
-            "global export",
-          ],
+          choices: ["default export", "named export", "public export", "global export"],
           correct: 1,
-          explain:
-            "Named exports are easier to maintain and allow tree-shaking; default exports are limited to one per file.",
+          explain: "Named exports are easier to maintain and allow tree-shaking.",
         },
       ],
       challenge: {
-        title: "Advanced Module Challenge",
-        desc: "Practice creating modules with functions, types, and classes and importing them correctly.",
-        task: `Create three files: 
-      1. <code>utils.ts</code> — export a function <strong>greet(name: string)</strong> returning "Hello, name!" and export an interface <strong>Person</strong> with <strong>name</strong> and <strong>age</strong> properties.
-      2. <code>math.ts</code> — export a function <strong>square(n: number)</strong> returning the square of the number and a default export function <strong>cube(n: number)</strong> returning the cube.
-      3. <code>app.ts</code> — import all functions and the interface, create a <strong>Person</strong> object, greet them, and calculate square and cube of a number.`,
-        starterCode: `// utils.ts
-      export function greet(name: string): string {
-        return "";
-      }
-
-      export interface Person {
-        name: string;
-        age: number;
-      }
-
-      // math.ts
-      export function square(n: number): number {
-        return 0;
-      }
-      export default function cube(n: number): number {
-        return 0;
-      }
-
-      // app.ts
-      // Import statements here
-
-      // Create a Person object
-      // Call greet
-      // Call square and cube functions`,
-        hint: `Use:
-      export function greet(name: string): string { ... }
-      export interface Person { ... }
-      export function square(n: number): number { ... }
-      export default function cube(n: number): number { ... }
-      import multiply from "./math";
-      import { greet, Person, square } from "./utils or math";`,
-        checks:
-          "Check that utils.ts exports greet and Person, math.ts exports square and a default cube function. app.ts imports everything correctly, creates a Person object, and calls all functions with proper arguments.",
+        title: "Module Exports & Imports",
+        desc: "Practice module syntax.",
+        task: `Export a function <strong>greet(name: string)</strong> and an interface <strong>Person</strong> with name and age. Write import statements for both.`,
+        starterCode: `export function greet(name: string): string { return ""; }
+export interface Person { name: string; age: number; }
+import { } from "./utils";`,
+        hint: `export function greet(name: string): string { return \`Hello, \${name}!\`; }`,
+        checks: "Check that greet and Person are exported, and import statements are present.",
       },
     },
-
-    // ── LESSON 12 ──
     {
       id: 12,
       icon: "[U]",
@@ -1759,98 +1224,25 @@ else { ... }`,
         {
           type: "text",
           heading: "What are Utility Types?",
-          body: `TypeScript comes with several <strong>built-in generic types</strong> that help you transform or manipulate existing types without rewriting them.  
-      Instead of manually creating similar types, you can <strong>compose and transform types</strong> to make your code safer and more maintainable.  
-
-      Common utility types:
-      - <code>Partial&lt;T&gt;</code> — makes all properties optional  
-      - <code>Required&lt;T&gt;</code> — makes all properties required  
-      - <code>Pick&lt;T,K&gt;</code> — select only certain keys  
-      - <code>Omit&lt;T,K&gt;</code> — remove certain keys  
-      - <code>Record&lt;K,V&gt;</code> — create a typed key-value map  
-      - <code>ReturnType&lt;T&gt;</code> — infer the return type of a function  
-      - <code>NonNullable&lt;T&gt;</code> — remove <code>null</code> and <code>undefined</code>`,
+          body: `TypeScript comes with built-in generic types: <code>Partial</code>, <code>Required</code>, <code>Pick</code>, <code>Omit</code>, <code>Record</code>, <code>ReturnType</code>, <code>NonNullable</code>.`,
         },
         {
           type: "code",
-          heading: "Partial<T> and Required<T>",
-          file: "partial-required.ts",
-          code: `interface User {
-  name: string;
-  age: number;
-  email: string;
-}
+          heading: "Partial<T> and Omit<T,K>",
+          file: "utility.ts",
+          code: `interface User { id: number; name: string; email: string; password: string; }
 
-// Partial — all properties optional
-function updateUser(id: number, data: Partial<User>): void {
-  // data can have any subset of User fields
-}
-
-updateUser(1, { name: "Alice" });   // OK — just name
-updateUser(2, { age: 30 });         // OK — just age
-
-// Required — all optional become required
-interface Config { host?: string; port?: number; }
-function saveConfig(cfg: Required<Config>): void {
-  console.log(cfg.host, cfg.port); // guaranteed to exist
-}`,
-        },
-        {
-          type: "code",
-          heading: "Pick<T,K> and Omit<T,K>",
-          file: "pick-omit.ts",
-          code: `interface User {
-  id: number;
-  name: string;
-  email: string;
-  password: string;  // sensitive!
-}
-
-// Pick — keep only what you need
-type UserCard = Pick<User, "id" | "name" | "email">;
-// { id: number; name: string; email: string }
-
-// Omit — remove what you don't want
 type PublicUser = Omit<User, "password">;
-// { id, name, email } — password removed!
-
-function getProfile(user: User): PublicUser {
-  const { password, ...rest } = user;
-  return rest;
-}`,
-        },
-        {
-          type: "code",
-          heading: "Record<K,V>, ReturnType<T>, NonNullable<T>",
-          file: "record-returntype.ts",
-          code: `// Record — typed key-value map
-type Fruit = "apple" | "banana" | "orange";
-const inventory: Record<Fruit, number> = {
-  apple: 50, banana: 30, orange: 20
-};
-
-// ReturnType — extract function return type
-function getUser() {
-  return { name: "Alice", age: 25 };
-}
-type UserData = ReturnType<typeof getUser>;
-// { name: string; age: number }
-
-// NonNullable — remove null and undefined
-type MaybeString = string | null | undefined;
-type DefiniteString = NonNullable<MaybeString>; // string`,
+function updateUser(id: number, data: Partial<User>): void {}`,
         },
         {
           type: "points",
           heading: "Key Notes About Utility Types",
           points: [
             "Use Partial<T> when updating objects without all fields.",
-            "Required<T> ensures all optional fields are present.",
             "Pick<T,K> extracts only certain keys from a type.",
-            "Omit<T,K> removes keys from a type — useful for hiding sensitive data.",
+            "Omit<T,K> removes keys — useful for hiding sensitive data.",
             "Record<K,V> creates a map with fixed keys and typed values.",
-            "ReturnType<T> infers a function’s return type, helpful for reusable types.",
-            "NonNullable<T> removes null and undefined from union types.",
           ],
         },
       ],
@@ -1864,8 +1256,7 @@ type DefiniteString = NonNullable<MaybeString>; // string`,
             "Picks some properties",
           ],
           correct: 1,
-          explain:
-            "Partial<T> makes every property in T optional by adding ? to each.",
+          explain: "Partial<T> makes every property in T optional.",
         },
         {
           q: "When should you use Omit<T, K>?",
@@ -1876,8 +1267,7 @@ type DefiniteString = NonNullable<MaybeString>; // string`,
             "When types are unknown",
           ],
           correct: 1,
-          explain:
-            "Use Omit when you want everything except specific fields — like removing a password field.",
+          explain: "Use Omit when you want everything except specific fields.",
         },
         {
           q: "What does ReturnType<typeof fn> give you?",
@@ -1894,8 +1284,7 @@ type DefiniteString = NonNullable<MaybeString>; // string`,
           q: "Which utility type makes all optional fields required?",
           choices: ["Partial", "Required", "Pick", "Omit"],
           correct: 1,
-          explain:
-            "Required<T> converts optional properties into required ones.",
+          explain: "Required<T> converts optional properties into required ones.",
         },
         {
           q: "What is Record<K,V> used for?",
@@ -1922,45 +1311,16 @@ type DefiniteString = NonNullable<MaybeString>; // string`,
       ],
       challenge: {
         title: "Advanced Utility Types Challenge",
-        desc: "Combine multiple utility types to create safer interfaces.",
-        task: `Given an interface <strong>Product</strong>:
-      - id: number  
-      - name: string  
-      - price: number  
-      - secret: string  
-
-      Do the following:
-      1. Create a type <strong>PublicProduct</strong> using <code>Omit</code> to remove the secret field.  
-      2. Create a type <strong>UpdateProduct</strong> using <code>Partial</code> on PublicProduct.  
-      3. Create a type <strong>ProductMap</strong> using <code>Record&lt;number, PublicProduct&gt;</code> to represent multiple products keyed by id.  
-      4. Create a type <strong>ProductReturn</strong> using <code>ReturnType</code> from a function <code>getProduct</code> that returns a Product.`,
-        starterCode: `interface Product {
-        id: number;
-        name: string;
-        price: number;
-        secret: string;
-      }
-
-      // Create PublicProduct using Omit
-
-      // Create UpdateProduct using Partial
-
-      // Create ProductMap using Record
-
-      // Create ProductReturn using ReturnType
-      function getProduct(): Product {
-        return { id: 1, name: "Laptop", price: 999, secret: "top-secret" };
-      }`,
-        hint: `type PublicProduct = Omit<Product, "secret">;
-      type UpdateProduct = Partial<PublicProduct>;
-      type ProductMap = Record<number, PublicProduct>;
-      type ProductReturn = ReturnType<typeof getProduct>;`,
-        checks:
-          "Verify PublicProduct uses Omit to remove secret. UpdateProduct uses Partial on PublicProduct. ProductMap uses Record<number, PublicProduct>. ProductReturn correctly uses ReturnType<typeof getProduct>.",
+        desc: "Combine multiple utility types.",
+        task: `Given interface Product (id, name, price, secret): 1. Create <strong>PublicProduct</strong> using Omit. 2. Create <strong>UpdateProduct</strong> using Partial. 3. Create <strong>ProductMap</strong> using Record.`,
+        starterCode: `interface Product { id: number; name: string; price: number; secret: string; }
+// Create PublicProduct
+// Create UpdateProduct
+// Create ProductMap`,
+        hint: `type PublicProduct = Omit<Product, "secret">; type UpdateProduct = Partial<PublicProduct>; type ProductMap = Record<number, PublicProduct>;`,
+        checks: "Verify PublicProduct, UpdateProduct, ProductMap are all correctly defined.",
       },
     },
-
-    // ── LESSON 13 ──
     {
       id: 13,
       icon: "[@]",
@@ -1970,52 +1330,7 @@ type DefiniteString = NonNullable<MaybeString>; // string`,
         {
           type: "text",
           heading: "What are Decorators?",
-          body: `Decorators are <strong>functions that wrap other code</strong>. They start with <code>@</code> and sit above a class, method, property, or parameter.  
-      TypeScript calls the decorator function and passes the target (class, property, method, etc.) to it.  
-
-      Common use cases:
-      - Logging method calls  
-      - Freezing or sealing classes  
-      - Adding metadata for frameworks (Angular, NestJS)  
-      - Validating or transforming class properties`,
-        },
-        {
-          type: "code",
-          heading: "Enable decorators in tsconfig.json",
-          file: "tsconfig.json",
-          code: `{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "target": "ES2021"
-  }
-}`,
-        },
-        {
-          type: "code",
-          heading: "Class Decorator",
-          file: "class-decorator.ts",
-          code: `// Simple class decorator
-function Sealed(constructor: Function) {
-  Object.seal(constructor);
-  Object.seal(constructor.prototype);
-}
-
-@Sealed
-class BankAccount {
-  owner: string;
-  constructor(owner: string) { this.owner = owner; }
-}
-
-// Decorator factory (with arguments)
-function Controller(path: string) {
-  return function(constructor: Function) {
-    Reflect.defineMetadata('path', path, constructor);
-  };
-}
-
-@Controller('/users')
-class UserController { /* handles /users routes */ }`,
+          body: `Decorators are <strong>functions that wrap other code</strong>. They start with <code>@</code> and sit above a class, method, property, or parameter.`,
         },
         {
           type: "code",
@@ -2035,37 +1350,6 @@ class UserController { /* handles /users routes */ }`,
 class Calculator {
   @Log
   add(a: number, b: number): number { return a + b; }
-}
-
-const calc = new Calculator();
-calc.add(3, 4);
-// Output:
-// Calling add with: [3, 4]
-// add returned: 7`,
-        },
-        {
-          type: "code",
-          heading: "Property & Parameter Decorators",
-          file: "property-parameter-decorator.ts",
-          code: `// Property decorator
-function Readonly(target: any, key: string) {
-  Object.defineProperty(target, key, { writable: false });
-}
-
-class Settings {
-  @Readonly
-  version = "1.0";
-}
-
-// Parameter decorator
-function LogParam(target: any, methodName: string, paramIndex: number) {
-  console.log(\`Parameter at position \${paramIndex} in method \${methodName} is decorated\`);
-}
-
-class Greeter {
-  greet(@LogParam message: string) {
-    console.log(message);
-  }
 }`,
         },
         {
@@ -2073,7 +1357,7 @@ class Greeter {
           heading: "5 Types of Decorators",
           points: [
             "@ClassDecorator — applied to the constructor",
-            "@MethodDecorator — wraps a method (target, key, descriptor)",
+            "@MethodDecorator — wraps a method",
             "@PropertyDecorator — applied to class fields",
             "@ParameterDecorator — applied to function parameters",
             "@AccessorDecorator — applied to getters/setters",
@@ -2085,111 +1369,52 @@ class Greeter {
           q: "What symbol starts a decorator?",
           choices: ["#", "$", "@", "!"],
           correct: 2,
-          explain:
-            "Decorators always start with @ placed directly above the target.",
+          explain: "Decorators always start with @ placed directly above the target.",
         },
         {
           q: "What must you enable in tsconfig for decorators?",
-          choices: [
-            "strictDecorators",
-            "allowDecorators",
-            "experimentalDecorators",
-            "useDecorators",
-          ],
+          choices: ["strictDecorators", "allowDecorators", "experimentalDecorators", "useDecorators"],
           correct: 2,
-          explain:
-            'Set "experimentalDecorators": true in compilerOptions to enable decorators.',
+          explain: 'Set "experimentalDecorators": true in compilerOptions.',
         },
         {
           q: "Which framework uses decorators as its entire API?",
           choices: ["React", "Vue", "Svelte", "NestJS"],
           correct: 3,
-          explain:
-            "NestJS is built around decorators — @Controller, @Get, @Post, @Body etc.",
+          explain: "NestJS is built around decorators.",
         },
         {
           q: "Which decorator type wraps a method and has access to descriptor?",
-          choices: [
-            "ClassDecorator",
-            "MethodDecorator",
-            "PropertyDecorator",
-            "ParameterDecorator",
-          ],
+          choices: ["ClassDecorator", "MethodDecorator", "PropertyDecorator", "ParameterDecorator"],
           correct: 1,
-          explain:
-            "MethodDecorators get target, key, and descriptor — allowing wrapping/modifying the method.",
+          explain: "MethodDecorators get target, key, and descriptor.",
         },
         {
           q: "What does a property decorator typically receive?",
-          choices: [
-            "target, key, descriptor",
-            "target, key",
-            "constructor only",
-            "method and parameters",
-          ],
+          choices: ["target, key, descriptor", "target, key", "constructor only", "method and parameters"],
           correct: 1,
-          explain:
-            "Property decorators receive target (prototype) and key (property name).",
+          explain: "Property decorators receive target (prototype) and key (property name).",
         },
       ],
       challenge: {
-        title: "Advanced Decorator Challenge",
-        desc: "Combine class, property, and method decorators.",
-        task: `1. Write a <strong>class decorator</strong> called <strong>Frozen</strong> that freezes the class prototype.<br>
-    2. Write a <strong>property decorator</strong> called <strong>ReadOnly</strong> that makes a property non-writable.<br>
-    3. Write a <strong>method decorator</strong> called <strong>LogCalls</strong> that logs arguments and return value.<br>
-    4. Create a class <strong>AppConfig</strong> with a property <strong>version</strong> (string) and a method <strong>updateVersion(newVer: string)</strong>. Apply the decorators appropriately.`,
-        starterCode: `// Class decorator
-    function Frozen(constructor: Function) {
-      // your code here
-    }
-
-    // Property decorator
-    function ReadOnly(target: any, key: string) {
-      // your code here
-    }
-
-    // Method decorator
-    function LogCalls(target: any, key: string, descriptor: PropertyDescriptor) {
-      // your code here
-    }
-
-    // Apply decorators to AppConfig
-    @Frozen
-    class AppConfig {
-      @ReadOnly
-      version: string = "1.0";
-
-      @LogCalls
-      updateVersion(newVer: string) {
-        // your code here
-      }
-    }`,
-        hint: `Frozen freezes the prototype. ReadOnly sets writable: false. LogCalls wraps the original method to log args and result. Decorators are applied above class/property/method. `,
-        checks:
-          "Verify Frozen class decorator exists and freezes prototype. ReadOnly decorator exists and makes version property non-writable. LogCalls method decorator exists and logs arguments and return value when updateVersion is called. AppConfig class uses all three decorators correctly.",
+        title: "Write a Decorator",
+        desc: "Create and apply a class decorator.",
+        task: `Write a <strong>class decorator</strong> called <strong>Frozen</strong> that freezes the class prototype. Apply it to class <strong>AppConfig</strong>.`,
+        starterCode: `function Frozen(constructor: Function) {\n  // your code here\n}\n\n@Frozen\nclass AppConfig {\n  version: string = "1.0";\n}`,
+        hint: `function Frozen(constructor: Function) { Object.freeze(constructor.prototype); }`,
+        checks: "Verify Frozen decorator freezes prototype and is applied to AppConfig.",
       },
     },
-
-    // ── LESSON 14 ──
     {
       id: 14,
       icon: "[CF]",
       title: "tsconfig.json",
-      desc: "Master your TypeScript compiler configuration and project setup",
+      desc: "Master your TypeScript compiler configuration",
       content: [
         {
           type: "text",
           heading: "What is tsconfig.json?",
-          body: `TypeScript uses <code>tsconfig.json</code> to understand <strong>how to compile your project</strong>.  
-      It controls:
-      - <strong>target</strong>: which JS version to generate  
-      - <strong>module</strong>: CommonJS, ES Modules, etc.  
-      - <strong>strictness</strong>: type checks  
-      - <strong>paths & aliases</strong>: cleaner imports  
-      - <strong>rootDir / outDir</strong>: input/output folders  
-
-      You can generate it with <code>tsc --init</code>.`,
+          body: `TypeScript uses <code>tsconfig.json</code> to understand how to compile your project. Generate it with <code>tsc --init</code>.`,
         },
         {
           type: "code",
@@ -2197,14 +1422,14 @@ class Greeter {
           file: "tsconfig.json",
           code: `{
   "compilerOptions": {
-    "target": "ES2021",       // output JS version
-    "module": "commonjs",     // module system
-    "strict": true,           // enable ALL strict checks
-    "outDir": "./dist",       // compiled JS goes here
-    "rootDir": "./src",       // your TS source lives here
-    "sourceMap": true,        // generate .map files for debugging
-    "esModuleInterop": true,  // better CommonJS/ESM interop
-    "resolveJsonModule": true // allow importing .json files
+    "target": "ES2021",
+    "module": "commonjs",
+    "strict": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
@@ -2212,135 +1437,56 @@ class Greeter {
         },
         {
           type: "points",
-          heading: "Target — Which JS version to output",
-          points: [
-            '"ES5" — widest browser support, no arrow functions',
-            '"ES2017" — async/await native, Node.js 8+',
-            '"ES2021" — recommended for most projects',
-            '"ESNext" — latest features, may not run everywhere',
-          ],
-        },
-        {
-          type: "code",
-          heading: "Path Aliases — Clean Imports",
-          file: "tsconfig.json (paths)",
-          code: `{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"],
-      "@components/*": ["src/components/*"]
-    }
-  }
-}
-
-// Before (ugly):
-import { formatDate } from '../../../utils/date';
-
-// After (clean):
-import { formatDate } from '@utils/date';`,
-        },
-        {
-          type: "text",
           heading: "Best Practices",
-          body: `- Always use <code>strict: true</code> for maximum type safety.<br>
-      - Organize your code with <code>rootDir</code> and <code>outDir</code>.<br>
-      - Use <code>paths</code> to avoid long relative imports.<br>
-      - Include only the necessary files (<code>include</code>) and exclude build/output folders (<code>exclude</code>).<br>
-      - Enable <code>esModuleInterop</code> for smooth CommonJS/ESM usage.`,
+          points: [
+            'Always use strict: true for maximum type safety.',
+            "Organize your code with rootDir and outDir.",
+            "Use paths to avoid long relative imports.",
+            "Enable esModuleInterop for smooth CommonJS/ESM usage.",
+          ],
         },
       ],
       quiz: [
         {
           q: 'What does "strict": true enable?',
-          choices: [
-            "Only null checks",
-            "Only implicit any checks",
-            "A collection of all strict type checks",
-            "Faster compilation",
-          ],
+          choices: ["Only null checks", "Only implicit any checks", "A collection of all strict type checks", "Faster compilation"],
           correct: 2,
-          explain:
-            '"strict": true enables strictNullChecks, noImplicitAny, strictFunctionTypes and more — all at once.',
+          explain: '"strict": true enables strictNullChecks, noImplicitAny, and more.',
         },
         {
           q: 'What is the "outDir" option?',
-          choices: [
-            "Where TypeScript source lives",
-            "Where compiled JavaScript output goes",
-            "The entry point file",
-            "The module resolution strategy",
-          ],
+          choices: ["Where TypeScript source lives", "Where compiled JavaScript output goes", "The entry point file", "The module resolution strategy"],
           correct: 1,
-          explain:
-            '"outDir" specifies the folder where tsc puts the compiled .js files.',
+          explain: '"outDir" specifies the folder where tsc puts the compiled .js files.',
         },
         {
-          q: "What command generates a tsconfig.json automatically?",
-          choices: [
-            "tsc --config",
-            "tsc --setup",
-            "tsc --init",
-            "npx tsconfig",
-          ],
+          q: "What command generates a tsconfig.json?",
+          choices: ["tsc --config", "tsc --setup", "tsc --init", "npx tsconfig"],
           correct: 2,
-          explain:
-            '"tsc --init" creates a tsconfig.json with all options commented.',
+          explain: '"tsc --init" creates a tsconfig.json with all options commented.',
         },
         {
           q: "Which option allows importing JSON files directly?",
-          choices: [
-            "resolveJsonModule",
-            "allowJsonImport",
-            "esModuleInterop",
-            "includeJson",
-          ],
+          choices: ["resolveJsonModule", "allowJsonImport", "esModuleInterop", "includeJson"],
           correct: 0,
-          explain:
-            "resolveJsonModule allows importing JSON files and gets their types automatically.",
+          explain: "resolveJsonModule allows importing JSON files.",
         },
         {
           q: 'What does "esModuleInterop" do?',
-          choices: [
-            "Enables default imports from CommonJS",
-            "Converts ES Modules to CommonJS",
-            "Adds strict type checking",
-            "Generates source maps",
-          ],
+          choices: ["Enables default imports from CommonJS", "Converts ES Modules to CommonJS", "Adds strict type checking", "Generates source maps"],
           correct: 0,
-          explain:
-            "esModuleInterop allows default imports from CommonJS modules to work seamlessly.",
+          explain: "esModuleInterop allows default imports from CommonJS modules.",
         },
       ],
       challenge: {
-        title: "Advanced tsconfig Challenge",
-        desc: "Create a tsconfig with strict checks, output folder, and path aliases.",
-        task: `Write a <code>tsconfig.json</code> object (as JS object here) that satisfies:
-      - target: "ES2021"
-      - strict: true
-      - outDir: "./dist"
-      - rootDir: "./src"
-      - paths:
-        - "@utils/*" -> "src/utils/*"
-        - "@components/*" -> "src/components/*"
-      - include only "src/**/*"
-      - exclude "node_modules" and "dist"`,
-        starterCode: `// tsconfig as JS object
-      const config = {
-        compilerOptions: {
-          // your settings here
-        },
-        include: [],
-        exclude: []
-      };`,
-        hint: `compilerOptions: { target: "ES2021", strict: true, outDir: "./dist", rootDir: "./src", paths: { "@utils/*": ["src/utils/*"], "@components/*": ["src/components/*"] } }, include: ["src/**/*"], exclude: ["node_modules", "dist"]`,
-        checks:
-          'Verify compilerOptions.target = "ES2021", strict = true, outDir = "./dist", rootDir = "./src", paths includes "@utils/*" and "@components/*", include is ["src/**/*"], exclude is ["node_modules","dist"].',
+        title: "Configure tsconfig.json",
+        desc: "Create a tsconfig with strict checks and output folder.",
+        task: `Write a tsconfig object with target "ES2021", strict true, outDir "./dist", rootDir "./src".`,
+        starterCode: `const config = {\n  compilerOptions: {\n    // your settings here\n  },\n  include: [],\n  exclude: []\n};`,
+        hint: `compilerOptions: { target: "ES2021", strict: true, outDir: "./dist", rootDir: "./src" }`,
+        checks: 'Verify target, strict, outDir, rootDir are all set correctly.',
       },
     },
-
-    // ── LESSON 15 ──
     {
       id: 15,
       icon: "[R]",
@@ -2350,13 +1496,7 @@ import { formatDate } from '@utils/date';`,
         {
           type: "text",
           heading: "Why Use TypeScript with React?",
-          body: `TypeScript enhances React development by adding **static typing**.  
-      Benefits include:
-      - Typed props for components, preventing wrong prop types.
-      - Typed state using useState, reducing runtime errors.
-      - Typed refs using useRef to avoid null errors.
-      - Typed events for form elements and custom components.
-      - Autocompletion and better tooling in IDEs.`,
+          body: `TypeScript enhances React with typed props, typed state, typed refs, and typed events.`,
         },
         {
           type: "code",
@@ -2365,44 +1505,12 @@ import { formatDate } from '@utils/date';`,
           code: `interface ButtonProps {
   label: string;
   onClick: () => void;
-  variant?: "primary" | "secondary" | "danger"; // optional prop
-  disabled?: boolean;                              // optional prop
+  variant?: "primary" | "secondary" | "danger";
+  disabled?: boolean;
 }
 
 function Button({ label, onClick, variant = "primary", disabled }: ButtonProps) {
-  return (
-    <button onClick={onClick} disabled={disabled}
-      className={\`btn btn-\${variant}\`}>
-      {label}
-    </button>
-  );
-}
-
-// Usage — TypeScript will catch missing props
-// <Button label="Save" onClick={() => save()} />     // OK
-// <Button />                                        // Error: missing label and onClick`,
-        },
-        {
-          type: "code",
-          heading: "Typing useState and useRef",
-          file: "hooks.tsx",
-          code: `import { useState, useRef } from 'react';
-
-function UserProfile() {
-  // TS infers number automatically
-  const [count, setCount] = useState(0);
-
-  // Explicit typing — starts null
-  const [user, setUser] = useState<User | null>(null);
-
-  // Typing a DOM ref
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const focusInput = () => {
-    inputRef.current?.focus(); // safe access
-  };
-
-  return <input ref={inputRef} />;
+  return <button onClick={onClick} disabled={disabled}>{label}</button>;
 }`,
         },
         {
@@ -2412,131 +1520,74 @@ function UserProfile() {
           code: `import { ChangeEvent, FormEvent } from 'react';
 
 function LoginForm() {
-  // Input change event
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value); // TS knows .value exists
+    console.log(e.target.value);
   };
-
-  // Form submit event
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // process form...
   };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input onChange={handleChange} />
-    </form>
-  );
+  return <form onSubmit={handleSubmit}><input onChange={handleChange} /></form>;
 }`,
         },
         {
-          type: "text",
+          type: "points",
           heading: "Best Practices",
-          body: `- Always define interfaces or types for props.<br>
-      - Prefer explicit generics for useState when null or undefined is possible.<br>
-      - Type refs with the specific HTML element.<br>
-      - Type event handlers with React.ChangeEvent or React.FormEvent.<br>
-      - Optional props should be marked with ?.`,
+          points: [
+            "Always define interfaces or types for props.",
+            "Prefer explicit generics for useState when null is possible.",
+            "Type refs with the specific HTML element.",
+            "Optional props should be marked with ?.",
+          ],
         },
       ],
       quiz: [
         {
           q: "How do you type React component props?",
-          choices: [
-            "Using a class",
-            "Using an interface or type alias",
-            "Using any",
-            "Using generics only",
-          ],
+          choices: ["Using a class", "Using an interface or type alias", "Using any", "Using generics only"],
           correct: 1,
-          explain:
-            "Define an interface or type alias for props, then annotate the parameter: ({ label }: ButtonProps).",
+          explain: "Define an interface or type alias for props.",
         },
         {
           q: "What is the type of an input change event?",
-          choices: [
-            "InputEvent",
-            "ChangeEvent<HTMLInputElement>",
-            "Event<input>",
-            "FormEvent",
-          ],
+          choices: ["InputEvent", "ChangeEvent<HTMLInputElement>", "Event<input>", "FormEvent"],
           correct: 1,
-          explain:
-            "React exports ChangeEvent<T> — parameterized with the element type.",
+          explain: "React exports ChangeEvent<T> parameterized with the element type.",
         },
         {
           q: "How do you type a useRef for an input element?",
-          choices: [
-            "useRef(null)",
-            "useRef<input>(null)",
-            "useRef<HTMLInputElement>(null)",
-            "useRef<Element>()",
-          ],
+          choices: ["useRef(null)", "useRef<input>(null)", "useRef<HTMLInputElement>(null)", "useRef<Element>()"],
           correct: 2,
-          explain:
-            "Pass the HTML element type as generic: useRef<HTMLInputElement>(null).",
+          explain: "Pass the HTML element type as generic: useRef<HTMLInputElement>(null).",
         },
         {
           q: "How do you type a button click event handler?",
-          choices: [
-            "() => void",
-            "MouseEvent",
-            "React.MouseEvent<HTMLButtonElement>",
-            "any",
-          ],
+          choices: ["() => void", "MouseEvent", "React.MouseEvent<HTMLButtonElement>", "any"],
           correct: 2,
-          explain: "Use React.MouseEvent<T> to type mouse events on elements.",
+          explain: "Use React.MouseEvent<T> to type mouse events.",
         },
         {
           q: "How do you mark a prop as optional?",
           choices: ["prop?: type", "prop: optional", "prop!", "prop?=type"],
           correct: 0,
-          explain:
-            "Use the ? symbol after the property name to make it optional.",
+          explain: "Use the ? symbol after the property name to make it optional.",
         },
       ],
       challenge: {
-        title: "Advanced React Component Challenge",
-        desc: "Combine required and optional props with typed events and state.",
-        task: `1. Define an interface <strong>CardProps</strong> with:
-   - title: string (required)
-   - description: string (required)
-   - onClick: optional function returning void
-2. Create a functional component <strong>Card</strong> that:
-   - Uses CardProps
-   - Has a button inside that calls onClick if provided
-   - Maintains an internal counter state (useState<number>)
-   - Updates the counter when the button is clicked`,
+        title: "Typed React Component",
+        desc: "Create typed component props.",
+        task: `Define interface <strong>CardProps</strong> with title/description (string) and optional onClick. Create a Card component with internal counter state.`,
         starterCode: `import { useState } from "react";
-
 // 1. Define CardProps interface
 
 // 2. Create Card component
 function Card({ title, description, onClick }: CardProps) {
   const [counter, setCounter] = useState(0);
-
-      const handleClick = () => {
-        setCounter(counter + 1);
-        onClick?.(); // call optional prop if exists
-      };
-
-      return (
-        <div>
-          <h2>{title}</h2>
-          <p>{description}</p>
-          <button onClick={handleClick}>Click me ({counter})</button>
-        </div>
-      );
-    }`,
-        hint: `interface CardProps { title: string; description: string; onClick?: () => void }
-    function Card({ title, description, onClick }: CardProps) { const [counter, setCounter] = useState<number>(0); onClick?.(); }`,
-        checks:
-          "Check that CardProps has title and description as string, onClick optional. Card uses CardProps, has internal counter state, and calls onClick if provided.",
+  return <div><h2>{title}</h2><p>{description}</p></div>;
+}`,
+        hint: `interface CardProps { title: string; description: string; onClick?: () => void }`,
+        checks: "Check CardProps has title, description, optional onClick. Card uses useState.",
       },
     },
-
-    // ── LESSON 16 ──
     {
       id: 16,
       icon: "[Nd]",
@@ -2546,301 +1597,112 @@ function Card({ title, description, onClick }: CardProps) {
         {
           type: "text",
           heading: "TypeScript on the Backend",
-          body: `TypeScript works seamlessly on the server. By combining TypeScript with Node.js frameworks like Express or NestJS, you can:
-      - Type HTTP route parameters, query strings, and request bodies.
-      - Ensure middleware functions are type-safe.
-      - Reduce runtime errors and improve developer experience with autocompletion.
-      - Integrate with popular Node packages while maintaining type safety.`,
+          body: `TypeScript works seamlessly with Node.js and Express for type-safe server code.`,
         },
         {
           type: "code",
-          heading: "Setup TypeScript for Node.js",
-          file: "terminal",
-          code: `npm init -y
-npm install typescript ts-node @types/node --save-dev
-npm install express
-npm install @types/express --save-dev
-npx tsc --init
-
-# Optional: Use tsx for fast dev server restarts
-npm install tsx --save-dev
-# Add script in package.json: "dev": "tsx watch src/index.ts"`,
-        },
-        {
-          type: "text",
-          heading: "Typed Express Routes",
-          body: `With TypeScript, you can type route parameters, request bodies, and responses.  
-      This ensures your route handlers only receive the data they expect and improves IDE autocomplete.`,
-        },
-        {
-          type: "code",
-          heading: "Example: Typed GET routes",
+          heading: "Typed GET routes",
           file: "src/index.ts",
           code: `import express, { Request, Response } from 'express';
-
 const app = express();
 app.use(express.json());
 
 interface User { id: number; name: string; email: string; }
 
-const users: User[] = [
-  { id: 1, name: "Alice", email: "alice@example.com" }
-];
-
-// GET all users
-app.get('/users', (req: Request, res: Response) => {
-  res.json(users);
-});
-
-// GET user by ID — typed route params
 app.get('/users/:id',
   (req: Request<{ id: string }>, res: Response) => {
-    const user = users.find(u => u.id === +req.params.id);
-    if (!user) return res.status(404).json({ error: 'Not found' });
-    res.json(user);
+    res.json({ id: req.params.id });
   }
-);
-
-app.listen(3000, () => console.log('Server running on :3000'));`,
-        },
-        {
-          type: "text",
-          heading: "Typed Middleware",
-          body: `TypeScript allows you to extend existing types, such as Express's Request, to include custom properties.  
-      Example: attach a logged-in user object to the request, ensuring that every route accessing req.user is type-safe.`,
-        },
-        {
-          type: "code",
-          heading: "Example: Typed Middleware",
-          file: "auth.ts",
-          code: `import { Request, Response, NextFunction } from 'express';
-
-// Extend Express Request globally
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { id: number; role: string };
-    }
-  }
-}
-
-// Auth middleware
-export function authMiddleware(
-  req: Request, res: Response, next: NextFunction
-): void {
-  const token = req.headers.authorization;
-  if (!token) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  req.user = { id: 1, role: 'admin' }; // attach typed user
-  next();
-}
-
-// req.user is now typed in all routes!`,
+);`,
         },
         {
           type: "points",
-          heading: "Best Practices for TS + Node.js",
+          heading: "Best Practices",
           points: [
-            "Always install @types/node and @types/express for full type safety.",
+            "Always install @types/node and @types/express.",
             "Type route parameters, query strings, and request bodies.",
-            "Extend Express Request if you attach custom properties like req.user.",
-            "Use tsx or ts-node for faster development server restarts.",
-            "Keep middleware and route handlers strictly typed to prevent runtime errors.",
+            "Extend Express Request for custom properties like req.user.",
+            "Use tsx or ts-node for faster development.",
           ],
         },
       ],
       quiz: [
         {
           q: "Which package provides TypeScript types for Express?",
-          choices: [
-            "typescript-express",
-            "@types/express",
-            "express-types",
-            "ts-express",
-          ],
+          choices: ["typescript-express", "@types/express", "express-types", "ts-express"],
           correct: 1,
-          explain:
-            "@types/express is the DefinitelyTyped package providing type definitions for Express.",
+          explain: "@types/express provides type definitions for Express.",
         },
         {
           q: "How do you type route parameters in Express?",
-          choices: [
-            "Request<Params>",
-            "Request(Params)",
-            "Request[Params]",
-            "TypedRequest",
-          ],
+          choices: ["Request<Params>", "Request(Params)", "Request[Params]", "TypedRequest"],
           correct: 0,
-          explain:
-            "Request is a generic: Request<Params, ResBody, ReqBody, Query>. Pass your params interface as the first argument.",
+          explain: "Request is a generic: Request<Params, ResBody, ReqBody, Query>.",
         },
         {
           q: "What tool gives the fastest dev server restarts for TS?",
           choices: ["ts-node", "tsc --watch", "tsx", "babel"],
           correct: 2,
-          explain:
-            "tsx is faster than ts-node; it runs TypeScript directly without precompilation.",
+          explain: "tsx is faster than ts-node.",
         },
         {
           q: "How do you attach a typed user to req?",
-          choices: [
-            "req.user = any",
-            "req.user = unknown",
-            "Extend Express.Request with interface",
-            "No typing needed",
-          ],
+          choices: ["req.user = any", "req.user = unknown", "Extend Express.Request with interface", "No typing needed"],
           correct: 2,
-          explain:
-            "Extend the Express.Request interface in a global namespace to type req.user.",
+          explain: "Extend the Express.Request interface in a global namespace.",
         },
         {
-          q: "What type of values does req.params.id have in Request<{ id: string }>?",
+          q: "What type does req.params.id have in Request<{ id: string }>?",
           choices: ["number", "string", "any", "undefined"],
           correct: 1,
-          explain:
-            "Route parameters are always strings unless you transform them.",
+          explain: "Route parameters are always strings unless you transform them.",
         },
       ],
       challenge: {
-        title: "Advanced Typed Route Challenge",
-        desc: "Combine typed route params, typed request body, and middleware.",
-        task: `1. Define an interface <strong>PostParams</strong> with <strong>id: string</strong>.
-          2. Define an interface <strong>PostBody</strong> with <strong>title: string</strong> and <strong>content: string</strong>.
-          3. Write a typed Express arrow function <strong>updatePost</strong> that takes <code>req: Request&lt;PostParams, any, PostBody&gt;</code> and <code>res: Response</code>.
-          4. Inside the function, return a JSON object combining <code>req.params.id</code> with <code>req.body</code>.`,
+        title: "Typed Express Route",
+        desc: "Combine typed route params and typed request body.",
+        task: `Define <strong>PostParams</strong> (id: string) and <strong>PostBody</strong> (title, content). Write typed <strong>updatePost</strong> handler.`,
         starterCode: `import { Request, Response } from "express";
-
-          // 1. PostParams interface
-
-          // 2. PostBody interface
-
-          // 3. Write the updatePost handler
-          const updatePost = (req: Request<PostParams, any, PostBody>, res: Response) => {
-            // Your code here
-          }`,
-        hint: `interface PostParams { id: string }
-          interface PostBody { title: string; content: string }
-
-          const updatePost = (req: Request<PostParams, any, PostBody>, res: Response) => {
-            res.json({ id: req.params.id, ...req.body });
-          };`,
-        checks:
-          "Verify PostParams has id: string. PostBody has title and content. updatePost uses Request<PostParams, any, PostBody> and Response, returning JSON combining params and body.",
+// 1. PostParams interface
+// 2. PostBody interface
+// 3. Write the updatePost handler
+const updatePost = (req: Request<PostParams, any, PostBody>, res: Response) => {
+  // Your code here
+}`,
+        hint: `interface PostParams { id: string } interface PostBody { title: string; content: string }`,
+        checks: "Verify PostParams, PostBody, and updatePost with correct typed parameters.",
       },
     },
-
-    // ── LESSON 17 ──
     {
       id: 17,
       icon: "[A]",
       title: "Advanced Types",
-      desc: "Conditional, mapped, template literal types, and infer — power-user TypeScript",
+      desc: "Conditional, mapped, template literal types, and infer",
       content: [
         {
           type: "text",
           heading: "The Deep End of TypeScript",
-          body: `Advanced types let TypeScript power users build **utility libraries, expressive APIs, and complex type logic**. 
-      These tools include:
-      - <strong>Conditional types</strong>: pick types based on conditions
-      - <strong>Mapped types</strong>: transform all properties of a type
-      - <strong>Template literal types</strong>: create dynamic string types
-      - <strong>infer</strong>: capture a type from another type
-
-      Once you master these, you can write highly reusable, type-safe, and expressive code.`,
-        },
-        {
-          type: "text",
-          heading: "Conditional Types",
-          body: `Conditional types act like type-level ternaries: <code>T extends U ? X : Y</code>. 
-      They evaluate one type based on whether it extends/assignable to another type.  
-      They are extremely useful for building utility types like <code>Awaited</code>, <code>ReturnType</code>, or custom type transformations.`,
+          body: `Advanced types: <strong>Conditional types</strong>, <strong>Mapped types</strong>, <strong>Template literal types</strong>, <strong>infer</strong>.`,
         },
         {
           type: "code",
-          heading: "Conditional types examples",
-          file: "conditional.ts",
-          code: `// ID 17-1: Conditional type example
-type IsString<T> = T extends string ? "yes" : "no";
-
-type A = IsString<string>; // "yes"
-type B = IsString<number>; // "no"
-
-// Unwrap Promise type
-type Awaited<T> = T extends Promise<infer R> ? R : T;
-
-type C = Awaited<Promise<string>>; // string
-type D = Awaited<number>;          // number (passes through)
-
-// Distribute over unions
-type ToArray<T> = T extends any ? T[] : never;
-type StrOrNumArr = ToArray<string | number>; 
-// string[] | number[]`,
-        },
-        {
-          type: "text",
-          heading: "Mapped Types",
-          body: `Mapped types let you create new types by iterating over keys of existing types.
-      They power built-in types like <code>Partial</code>, <code>Readonly</code>, and <code>Pick</code>. 
-      You can also rename keys or wrap values in other types, e.g., getters or promises.`,
-        },
-        {
-          type: "code",
-          heading: "Mapped types examples",
-          file: "mapped.ts",
-          code: `interface User { name: string; age: number; email: string; }
-
-// Partial: makes all properties optional
+          heading: "Conditional & Mapped types",
+          file: "advanced.ts",
+          code: `type IsString<T> = T extends string ? "yes" : "no";
 type MyPartial<T> = { [K in keyof T]?: T[K]; };
-
-// Readonly: makes all properties readonly
-type MyReadonly<T> = { readonly [K in keyof T]: T[K]; };
-
-// Transform properties to getters
 type Getters<T> = {
   [K in keyof T as \`get\${Capitalize<string & K>}\`]: () => T[K];
 };
-
-type UserGetters = Getters<User>;
-// { getName: () => string; getAge: () => number; getEmail: () => string }`,
-        },
-        {
-          type: "text",
-          heading: "Template Literal Types & infer",
-          body: `Template literal types allow you to construct string types dynamically:
-- You can capitalize parts of keys for event handlers.
-- Combined with unions, you can create very specific string patterns.
-- <code>infer</code> allows capturing types from another type, often in conditional types, e.g., extracting the return type of a function.`,
-        },
-        {
-          type: "code",
-          heading: "Template literals and infer examples",
-          file: "advanced.ts",
-          code: `// Template literal types
-type EventName<T extends string> = \`on\${Capitalize<T>}\`;
-type ClickEvent = EventName<"click">; // "onClick"
-
-type Side = "top" | "right" | "bottom" | "left";
-type MarginProp = \`margin-\${Side}\`; 
-// "margin-top" | "margin-right" | "margin-bottom" | "margin-left"
-
-// infer — capture type from function
-type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
-
-function getUser() { return { name: "Alice", age: 25 }; }
-type UserData = MyReturnType<typeof getUser>; 
-// { name: string; age: number }`,
+type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never;`,
         },
         {
           type: "points",
-          heading: "Key Takeaways for Advanced Types",
+          heading: "Key Takeaways",
           points: [
-            "Conditional types work like a ternary for types: T extends U ? X : Y.",
-            "Mapped types allow transforming all properties of a type.",
-            "Template literal types can construct complex string types from unions.",
-            "The infer keyword captures a type portion in conditional types.",
-            "Combine these features to build utility types for safer, reusable code.",
+            "Conditional types: T extends U ? X : Y.",
+            "Mapped types transform all properties of a type.",
+            "Template literal types create dynamic string types.",
+            "infer captures a type portion in conditional types.",
           ],
         },
       ],
@@ -2854,8 +1716,7 @@ type UserData = MyReturnType<typeof getUser>;
             "Excludes U from T",
           ],
           correct: 1,
-          explain:
-            "Conditional types work like a ternary — if T is assignable to U, the type is X; otherwise Y.",
+          explain: "Conditional types work like a ternary for types.",
         },
         {
           q: "What does [K in keyof T] do?",
@@ -2866,8 +1727,7 @@ type UserData = MyReturnType<typeof getUser>;
             "Removes keys from T",
           ],
           correct: 1,
-          explain:
-            "keyof T gets all keys, [K in keyof T] iterates to create new mapped type.",
+          explain: "keyof T gets all keys, [K in keyof T] iterates to create new mapped type.",
         },
         {
           q: "What does infer R do in a conditional type?",
@@ -2878,20 +1738,13 @@ type UserData = MyReturnType<typeof getUser>;
             "Infers the return value at runtime",
           ],
           correct: 2,
-          explain:
-            "infer R captures a type portion from another type for reuse.",
+          explain: "infer R captures a type portion from another type for reuse.",
         },
         {
           q: "What is the result of ToArray<string | number>?",
-          choices: [
-            "string[] & number[]",
-            "string[] | number[]",
-            "[string, number]",
-            "never",
-          ],
+          choices: ["string[] & number[]", "string[] | number[]", "[string, number]", "never"],
           correct: 1,
-          explain:
-            "Conditional types distribute over unions; each branch returns a separate array type.",
+          explain: "Conditional types distribute over unions.",
         },
         {
           q: "What does MyReturnType<typeof getUser> evaluate to?",
@@ -2902,47 +1755,27 @@ type UserData = MyReturnType<typeof getUser>;
             "number",
           ],
           correct: 1,
-          explain:
-            "infer captures the return type of getUser, giving { name: string; age: number }.",
+          explain: "infer captures the return type of getUser.",
         },
       ],
       challenge: {
         title: "Advanced Type Challenge",
-        desc: "Combine conditional types, mapped types, template literal types, and infer.",
-        task: `1. Create a mapped type <strong>OptionalGetters&lt;T&gt;</strong> that transforms all properties of T into optional getter functions (e.g., <code>getPropName?: () => Type</code>).
-          2. Create a conditional type <strong>IsStringLiteral&lt;T&gt;</strong> that returns "yes" if T is a string literal type (e.g., "hello"), otherwise "no".
-          3. Test your types using an interface <strong>User</strong> with <strong>name</strong> and <strong>age</strong>.`,
+        desc: "Combine conditional and mapped types.",
+        task: `1. Create <strong>OptionalGetters&lt;T&gt;</strong> mapped type. 2. Create <strong>IsStringLiteral&lt;T&gt;</strong> conditional type. Test with interface User.`,
         starterCode: `interface User { name: string; age: number; }
-
-          // 1. Optional getters mapped type
-          type OptionalGetters<T> = {};
-
-          // 2. Conditional type to check string literal
-          type IsStringLiteral<T> = {};
-
-          // Tests
-          type NameGetter = OptionalGetters<User>;
-          type CheckName = IsStringLiteral<"Alice">; // "yes"
-          type CheckNumber = IsStringLiteral<42>;   // "no"`,
-        hint: `// Optional getters
-          type OptionalGetters<T> = {
-            [K in keyof T as \`get\${Capitalize<string & K>}\`]?: () => T[K];
-          };
-
-          // Conditional type to detect string literal
-          type IsStringLiteral<T> = string extends T ? "no" : "yes";`,
-        checks:
-          'Verify OptionalGetters creates optional getter functions for all keys of a type. IsStringLiteral returns "yes" for string literal types and "no" for non-literals.',
+type OptionalGetters<T> = {};
+type IsStringLiteral<T> = {};
+type NameGetter = OptionalGetters<User>;
+type CheckName = IsStringLiteral<"Alice">;`,
+        hint: `type OptionalGetters<T> = { [K in keyof T as \`get\${Capitalize<string & K>}\`]?: () => T[K]; }; type IsStringLiteral<T> = string extends T ? "no" : "yes";`,
+        checks: 'Verify OptionalGetters and IsStringLiteral are defined correctly.',
       },
     },
   ];
 
-// Generate project suggestions for lessons not explicitly configured
-const projectDifficulty = (lessonId) => {
-  if (lessonId <= 5) return "easy";
-  if (lessonId <= 11) return "medium";
-  return "hard";
-};
+// ══════════════════════════════════════════
+// PROJECT PRESETS
+// ══════════════════════════════════════════
 const projectAscii = { easy: "(^_^)", medium: "(^_~)", hard: ">(>_<)" };
 const projectRewards = { easy: 30, medium: 50, hard: 70 };
 
@@ -2952,159 +1785,23 @@ const projectOptionsByLesson = (lessonId) => {
 };
 
 const projectPresets = {
-  1: {
-    title: "User Profile Project",
-    desc: "Build a typed profile object and simple utility functions.",
-    tasks: {
-      easy: "Define a typed user object with name, age, and email. Log a message using the values.",
-      medium:
-        "Add a roles array and a function `isAdult(user)` that returns a boolean using age checks.",
-    },
-  },
-  2: {
-    title: "Primitives Practice Project",
-    desc: "Use basic primitives and literal/unions to model user status.",
-    tasks: {
-      easy: "Declare typed variables for name:string, age:number, isActive:boolean. Log each value.",
-      medium:
-        "Add nullable and optional variables (string | null, number | undefined) and a function to normalize them.",
-    },
-  },
-  3: {
-    title: "Arrays & Tuples Project",
-    desc: "Apply arrays and tuples to represent structured lists.",
-    tasks: {
-      easy: "Create a string[] of fruits and a tuple [string, number] for an item. Log both.",
-      medium:
-        "Write a function that takes string[] and returns [firstItem, length] as tuple; include safety checks.",
-    },
-  },
-  4: {
-    title: "Objects & Interfaces Project",
-    desc: "Model data with interfaces and typed objects.",
-    tasks: {
-      easy: "Create an interface Product (id: number, name: string, price: number) and a product object.",
-      medium:
-        "Extend Product into DigitalProduct with downloadUrl and a function that prints a summary.",
-    },
-  },
-  5: {
-    title: "Functions Project",
-    desc: "Write typed functions with parameters and return types.",
-    tasks: {
-      easy: "Implement `greet(name: string): string` and `formatAge(age: number): string`.",
-      medium:
-        "Implement `calculateDiscount(price: number, discount?: number): number` and use it with inputs.",
-    },
-  },
-  6: {
-    title: "Union Types Project",
-    desc: "Work with union types and run-time type narrowing.",
-    tasks: {
-      easy: "Create `type Status = 'loading' | 'success' | 'error'` and a function to handle each case.",
-      medium:
-        "Create `type Value = string | number | boolean` and a function that returns a typed message based on typeof checks.",
-    },
-  },
-  7: {
-    title: "Classes Project",
-    desc: "Build a class with methods and encapsulated state.",
-    tasks: {
-      easy: "Implement class `Car` with make/model/year and `getInfo()` method.",
-      medium:
-        "Implement class `BankAccount` with deposit/withdraw/getBalance and private balance.",
-    },
-  },
-  8: {
-    title: "Generics Project",
-    desc: "Use generic functions and interfaces for reusable typed logic.",
-    tasks: {
-      easy: "Write generic `wrapInArray<T>(value: T): T[]` and show usage with two types.",
-      medium:
-        "Create generic `ApiResponse<T>` and function `formatResponse<T>(data: T): ApiResponse<T>`.",
-    },
-  },
-  9: {
-    title: "Enums Project",
-    desc: "Apply enums to define fixed named values and state.",
-    tasks: {
-      easy: "Define `enum Season` and a function `isSummer(season: Season)`.",
-      medium:
-        "Write a `nextSeason(season: Season): Season` using switch and enum values.",
-    },
-  },
-  10: {
-    title: "Type Narrowing Project",
-    desc: "Practice narrowing unions with control flow.",
-    tasks: {
-      easy: "Implement `describe(value: string | number | boolean): string` using typeof checks.",
-      medium:
-        "Extend to handle `null | undefined` and include an impossible `never` branch.",
-    },
-  },
-  11: {
-    title: "Modules Project",
-    desc: "Simulate module exports/imports with interfaces and functions.",
-    tasks: {
-      easy: "Write `interface Person` + `function greet(person: Person): string` and invoke it.",
-      medium:
-        "Create module-style code blocks: one for model exports, one for usage, demonstrating import behavior in comments.",
-    },
-  },
-  12: {
-    title: "Utility Types Project",
-    desc: "Use Omit and Partial to transform types safely.",
-    tasks: {
-      easy: "Define type `PublicProduct = Omit<Product, 'secret'>` and use it.",
-      medium:
-        "Define `UpdateProduct = Partial<PublicProduct>` and apply change objects to a product instance.",
-    },
-  },
-  13: {
-    title: "Decorators Project",
-    desc: "Implement class or method decorators for runtime behavior.",
-    tasks: {
-      easy: "Create `@Frozen` class decorator and apply to class to prevent extensions.",
-      medium:
-        "Add `@Log` method decorator to print name and args when methods are called.",
-    },
-  },
-  14: {
-    title: "tsconfig.json Project",
-    desc: "Model tsconfig options and validate config shapes.",
-    tasks: {
-      easy: "Define an interface for tsconfig and build an object with target/strict/outDir/rootDir.",
-      medium:
-        "Write a function `isStrictConfig(config)` that narrows to strict config with guard checks.",
-    },
-  },
-  15: {
-    title: "TypeScript + React Project",
-    desc: "Create typed component props and render helper logic.",
-    tasks: {
-      easy: "Define `CardProps` and a `renderCard(props: CardProps)` function returning a JSX-like string.",
-      medium:
-        "Add optional `onClick` callback and a `Card` component type that uses it safely.",
-    },
-  },
-  16: {
-    title: "TypeScript + Node.js Project",
-    desc: "Type request/response objects and route handler logic.",
-    tasks: {
-      easy: "Define `interface Request` and `interface Response`, create `handlePost(req, res)` with typed body.",
-      medium:
-        "Implement `validatePost(req)` with type guards and `async createPost(req, res)` flow.",
-    },
-  },
-  17: {
-    title: "Advanced Types Project",
-    desc: "Build sophisticated conditional and mapped type utilities.",
-    tasks: {
-      easy: "Implement `IsArray<T>` using conditional types and test it on multiple types.",
-      medium:
-        "Implement mapped type `ElementType<T>` (array element extraction) and test with tuple/array types.",
-    },
-  },
+  1: { title: "User Profile Project", desc: "Build a typed profile object and simple utility functions.", tasks: { easy: "Define a typed user object with name, age, and email. Log a message using the values.", medium: "Add a roles array and a function `isAdult(user)` that returns a boolean using age checks." } },
+  2: { title: "Primitives Practice Project", desc: "Use basic primitives and literal/unions to model user status.", tasks: { easy: "Declare typed variables for name:string, age:number, isActive:boolean. Log each value.", medium: "Add nullable and optional variables (string | null, number | undefined) and a function to normalize them." } },
+  3: { title: "Arrays & Tuples Project", desc: "Apply arrays and tuples to represent structured lists.", tasks: { easy: "Create a string[] of fruits and a tuple [string, number] for an item. Log both.", medium: "Write a function that takes string[] and returns [firstItem, length] as tuple; include safety checks." } },
+  4: { title: "Objects & Interfaces Project", desc: "Model data with interfaces and typed objects.", tasks: { easy: "Create an interface Product (id: number, name: string, price: number) and a product object.", medium: "Extend Product into DigitalProduct with downloadUrl and a function that prints a summary." } },
+  5: { title: "Functions Project", desc: "Write typed functions with parameters and return types.", tasks: { easy: "Implement `greet(name: string): string` and `formatAge(age: number): string`.", medium: "Implement `calculateDiscount(price: number, discount?: number): number` and use it with inputs." } },
+  6: { title: "Union Types Project", desc: "Work with union types and run-time type narrowing.", tasks: { easy: "Create `type Status = 'loading' | 'success' | 'error'` and a function to handle each case.", medium: "Create `type Value = string | number | boolean` and a function that returns a typed message based on typeof checks." } },
+  7: { title: "Classes Project", desc: "Build a class with methods and encapsulated state.", tasks: { easy: "Implement class `Car` with make/model/year and `getInfo()` method.", medium: "Implement class `BankAccount` with deposit/withdraw/getBalance and private balance." } },
+  8: { title: "Generics Project", desc: "Use generic functions and interfaces for reusable typed logic.", tasks: { easy: "Write generic `wrapInArray<T>(value: T): T[]` and show usage with two types.", medium: "Create generic `ApiResponse<T>` and function `formatResponse<T>(data: T): ApiResponse<T>`." } },
+  9: { title: "Enums Project", desc: "Apply enums to define fixed named values and state.", tasks: { easy: "Define `enum Season` and a function `isSummer(season: Season)`.", medium: "Write a `nextSeason(season: Season): Season` using switch and enum values." } },
+  10: { title: "Type Narrowing Project", desc: "Practice narrowing unions with control flow.", tasks: { easy: "Implement `describe(value: string | number | boolean): string` using typeof checks.", medium: "Extend to handle `null | undefined` and include an impossible `never` branch." } },
+  11: { title: "Modules Project", desc: "Simulate module exports/imports with interfaces and functions.", tasks: { easy: "Write `interface Person` + `function greet(person: Person): string` and invoke it.", medium: "Create module-style code blocks: one for model exports, one for usage." } },
+  12: { title: "Utility Types Project", desc: "Use Omit and Partial to transform types safely.", tasks: { easy: "Define type `PublicProduct = Omit<Product, 'secret'>` and use it.", medium: "Define `UpdateProduct = Partial<PublicProduct>` and apply change objects to a product instance." } },
+  13: { title: "Decorators Project", desc: "Implement class or method decorators for runtime behavior.", tasks: { easy: "Create `@Frozen` class decorator and apply to class to prevent extensions.", medium: "Add `@Log` method decorator to print name and args when methods are called." } },
+  14: { title: "tsconfig.json Project", desc: "Model tsconfig options and validate config shapes.", tasks: { easy: "Define an interface for tsconfig and build an object with target/strict/outDir/rootDir.", medium: "Write a function `isStrictConfig(config)` that narrows to strict config with guard checks." } },
+  15: { title: "TypeScript + React Project", desc: "Create typed component props and render helper logic.", tasks: { easy: "Define `CardProps` and a `renderCard(props: CardProps)` function returning a JSX-like string.", medium: "Add optional `onClick` callback and a `Card` component type that uses it safely." } },
+  16: { title: "TypeScript + Node.js Project", desc: "Type request/response objects and route handler logic.", tasks: { easy: "Define `interface Request` and `interface Response`, create `handlePost(req, res)` with typed body.", medium: "Implement `validatePost(req)` with type guards and `async createPost(req, res)` flow." } },
+  17: { title: "Advanced Types Project", desc: "Build sophisticated conditional and mapped type utilities.", tasks: { easy: "Implement `IsArray<T>` using conditional types and test it on multiple types.", medium: "Implement mapped type `ElementType<T>` (array element extraction) and test with tuple/array types." } },
 };
 
 LESSONS.forEach((lesson) => {
@@ -3112,32 +1809,23 @@ LESSONS.forEach((lesson) => {
   const preset = projectPresets[lesson.id] || {};
   const optionDiffs = projectOptionsByLesson(lesson.id);
 
-  // Support both singular `project` and existing `projects` formats
   if (!lesson.projects || !lesson.projects.length) {
     lesson.projects = optionDiffs.map((difficulty, index) => {
       const idSuffix = index === 0 ? "a" : "b";
       return {
         id: `${lesson.id}${idSuffix}`,
-        title:
-          optionDiffs.length > 1
-            ? `${safeTitle} Project (${difficulty})`
-            : preset.title || `${safeTitle} Project`,
-        desc:
-          preset.desc ||
-          `Build a mini project to apply the concepts learned in ${safeTitle}.`,
-        task:
-          (preset.tasks && preset.tasks[difficulty]) ||
-          preset.task ||
-          `Create a small TypeScript example that uses the main concept from this lesson. Use proper typing and comments explaining what you built.`,
+        title: `${preset.title || safeTitle + " Project"} (${difficulty})`,
+        desc: preset.desc || `Build a mini project to apply the concepts learned in ${safeTitle}.`,
+        task: (preset.tasks && preset.tasks[difficulty]) || `Create a small TypeScript example using the main concept from this lesson.`,
         starterCode: `// Write your project code here\n`,
-        hint: `The project should be open-ended. Start with the lesson concept, and show your typing with ${projectAscii[difficulty]} style output.`,
+        hint: `Start with the lesson concept and use proper TypeScript type annotations.`,
         reward: projectRewards[difficulty],
         difficulty,
         ascii: projectAscii[difficulty],
         requirements: [
-          `Define typed variables or structures for the core concept`,
-          `Add comments explaining your approach`,
-          `Use TypeScript annotations wherever possible`,
+          `Use the core concept from ${safeTitle} with proper TypeScript types`,
+          `Add comments explaining your approach and key decisions`,
+          `Include at least one typed function or interface`,
         ],
       };
     });
@@ -3165,9 +1853,7 @@ function save() {
   localStorage.setItem("ts_progress", JSON.stringify(progress));
 }
 function lessonProgress(id) {
-  return (
-    progress[id] || { learn: false, quiz: false, code: false, project: false }
-  );
+  return progress[id] || { learn: false, quiz: false, code: false, project: false };
 }
 function isLessonDone(id) {
   const p = lessonProgress(id);
@@ -3202,13 +1888,11 @@ function showToast(message, type = "success") {
 // THEME
 // ══════════════════════════════════════════
 function toggleTheme() {
-  const isLight =
-    document.documentElement.getAttribute("data-theme") === "light";
+  const isLight = document.documentElement.getAttribute("data-theme") === "light";
   const next = isLight ? "dark" : "light";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("ts_theme", next);
-  document.getElementById("themeBtn").textContent =
-    next === "light" ? "☀️" : "😴";
+  document.getElementById("themeBtn").textContent = next === "light" ? "☀️" : "😴";
 }
 (function () {
   const t = localStorage.getItem("ts_theme") || "dark";
@@ -3218,8 +1902,7 @@ function toggleTheme() {
   }
   updateContinueLesson();
   const last = getLastLesson();
-  if (last > 1)
-    showToast(`Restored progress: last lesson was ${last}`, "success");
+  if (last > 1) showToast(`Restored progress: last lesson was ${last}`, "success");
 })();
 
 // ══════════════════════════════════════════
@@ -3271,6 +1954,7 @@ function showView(id) {
   document.getElementById("view-" + id).classList.remove("hidden");
 }
 function goBack() {
+  activeLesson = null;
   renderGrid();
   showHeroIntro();
   updateContinueLesson();
@@ -3278,7 +1962,7 @@ function goBack() {
 }
 
 // ══════════════════════════════════════════
-// LESSON GRID — dynamic render
+// LESSON GRID
 // ══════════════════════════════════════════
 function renderGrid() {
   updateStats();
@@ -3289,8 +1973,7 @@ function renderGrid() {
     const done = isLessonDone(l.id);
     const p = lessonProgress(l.id);
     const card = document.createElement("div");
-    card.className =
-      "l-card " + (done ? "done" : !unlocked ? "locked" : "active-now");
+    card.className = "l-card " + (done ? "done" : !unlocked ? "locked" : "active-now");
     if (unlocked) card.onclick = () => openLesson(l.id);
     const badgeClass = done ? "done" : !unlocked ? "locked-b" : "open";
     const badgeText = done ? "✔️" : !unlocked ? "🔒" : "[ >> ]";
@@ -3312,32 +1995,24 @@ function renderGrid() {
 }
 
 // ══════════════════════════════════════════
-// OPEN LESSON
+// OPEN LESSON — always starts at Learn phase
 // ══════════════════════════════════════════
 function openLesson(id) {
-  activeLesson = LESSONS.find(
-    (l) => l.id === id || String(l.id) === String(id),
-  );
+  activeLesson = LESSONS.find((l) => l.id === id || String(l.id) === String(id));
   if (!activeLesson) {
-    console.error("openLesson: lesson not found", id);
-    showToast("Lesson not found, check your data array.", "error");
+    showToast("Lesson not found.", "error");
     return;
   }
-  const p = lessonProgress(id);
   quizState = { idx: 0, answered: false, allCorrect: true };
-  activeProjectId =
-    activeLesson.projects?.[0]?.id || activeLesson.project?.id || null;
-  if (!p.learn) activePhase = "learn";
-  else if (!p.quiz) activePhase = "quiz";
-  else if (!p.code) activePhase = "code";
-  else if (!p.project) activePhase = "project";
-  else activePhase = "learn";
+  activeProjectId = activeLesson.projects?.[0]?.id || activeLesson.project?.id || null;
+  // Always start at learn phase
+  activePhase = "learn";
   renderLearnPhase();
   renderQuizPhase();
   renderCodePhase();
   renderProjectPhase();
   updatePhaseTabs();
-  switchPhase(activePhase);
+  switchPhase("learn");
   setLastLesson(id);
   hideHeroIntro();
   updateContinueLesson();
@@ -3345,7 +2020,7 @@ function openLesson(id) {
 }
 
 // ══════════════════════════════════════════
-// PHASE TABS — now 4
+// PHASE TABS — locked until prior phase done
 // ══════════════════════════════════════════
 function updatePhaseTabs() {
   const p = lessonProgress(activeLesson.id);
@@ -3353,28 +2028,22 @@ function updatePhaseTabs() {
   const tq = document.getElementById("tab-quiz");
   const tc = document.getElementById("tab-code");
   const tp = document.getElementById("tab-project");
-  tl.className = "phase-tab" + (p.learn ? " done-tab" : " active");
-  tq.className =
-    "phase-tab" + (p.quiz ? " done-tab" : p.learn ? "" : " locked-tab");
-  tc.className =
-    "phase-tab" + (p.code ? " done-tab" : p.quiz ? "" : " locked-tab");
-  tp.className =
-    "phase-tab" +
-    (p.project ? " project-done-tab" : p.code ? "" : " locked-tab");
+  tl.className = "phase-tab" + (p.learn ? " done-tab" : "");
+  tq.className = "phase-tab" + (p.quiz ? " done-tab" : !p.learn ? " locked-tab" : "");
+  tc.className = "phase-tab" + (p.code ? " done-tab" : !p.quiz ? " locked-tab" : "");
+  tp.className = "phase-tab" + (p.project ? " project-done-tab" : !p.code ? " locked-tab" : "");
 }
 
 function switchPhase(phase) {
   const p = lessonProgress(activeLesson.id);
-  if (phase === "quiz" && !p.learn) return;
-  if (phase === "code" && !p.quiz) return;
-  if (phase === "project" && !p.code) return;
+  if (phase === "quiz" && !p.learn) { showToast("Complete the lesson first!", "error"); return; }
+  if (phase === "code" && !p.quiz) { showToast("Pass the quiz first!", "error"); return; }
+  if (phase === "project" && !p.code) { showToast("Complete the code challenge first!", "error"); return; }
   activePhase = phase;
   ["learn", "quiz", "code", "project"].forEach((ph) => {
-    document.getElementById("phase-" + ph).style.display =
-      ph === phase ? "block" : "none";
+    document.getElementById("phase-" + ph).style.display = ph === phase ? "block" : "none";
     const tab = document.getElementById("tab-" + ph);
     tab.classList.toggle("active", ph === phase);
-    if (ph === "project") tab.classList.toggle("project-active", ph === phase);
   });
 }
 
@@ -3393,18 +2062,15 @@ function renderLearnPhase() {
 
   l.content.forEach((block) => {
     html += `<div class="content-block">`;
-    if (block.heading)
-      html += `<div class="block-heading">${block.heading}</div>`;
-    if (block.type === "text")
-      html += `<div class="block-text">${block.body}</div>`;
-    else if (block.type === "points")
-      html += `<div class="point-list">${block.points.map((p) => `<div class="point">${p}</div>`).join("")}</div>`;
-    else if (block.type === "code")
-      html += `<div class="code-wrap"><div class="code-top"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="code-fname">${block.file || "example.ts"}</span></div><pre class="code-pre">${escHtml(block.code)}</pre></div>`;
+    if (block.heading) html += `<div class="block-heading">${block.heading}</div>`;
+    if (block.type === "text") html += `<div class="block-text">${block.body}</div>`;
+    else if (block.type === "points") html += `<div class="point-list">${block.points.map((p) => `<div class="point">${p}</div>`).join("")}</div>`;
+    else if (block.type === "code") html += `<div class="code-wrap"><div class="code-top"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="code-fname">${block.file || "example.ts"}</span></div><pre class="code-pre">${escHtml(block.code)}</pre></div>`;
     html += `</div>`;
   });
   document.getElementById("learn-content").innerHTML = html;
 }
+
 function finishLearn() {
   const id = activeLesson.id;
   progress[id] = { ...lessonProgress(id), learn: true };
@@ -3422,13 +2088,13 @@ function finishLearn() {
 function renderQuizPhase() {
   renderQuestion();
 }
+
 function renderQuestion() {
   const q = activeLesson.quiz[quizState.idx];
   const tot = activeLesson.quiz.length;
   const pct = Math.round((quizState.idx / tot) * 100);
   let html = `<div class="quiz-hdr"><div class="quiz-q-num">Question ${quizState.idx + 1} of ${tot}</div><div class="prog-track" style="margin-bottom:16px"><div class="prog-fill" style="width:${pct}%"></div></div><div class="quiz-q-text">${q.q}</div></div>`;
-  if (q.code)
-    html += `<div class="code-wrap" style="margin-bottom:12px"><div class="code-top"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div></div><pre class="code-pre">${escHtml(q.code)}</pre></div>`;
+  if (q.code) html += `<div class="code-wrap" style="margin-bottom:12px"><div class="code-top"><div class="code-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div></div><pre class="code-pre">${escHtml(q.code)}</pre></div>`;
   html += `<div class="choices" id="choices-wrap">`;
   q.choices.forEach((c, i) => {
     html += `<div class="choice" onclick="selectAnswer(${i})"><div class="choice-letter">${String.fromCharCode(65 + i)}</div><div class="choice-text">${escHtml(c)}</div></div>`;
@@ -3436,6 +2102,7 @@ function renderQuestion() {
   html += `</div><div class="feedback-box" id="quiz-feedback"></div>`;
   document.getElementById("quiz-content").innerHTML = html;
 }
+
 function selectAnswer(idx) {
   if (quizState.answered) return;
   quizState.answered = true;
@@ -3443,35 +2110,25 @@ function selectAnswer(idx) {
   const choices = document.querySelectorAll(".choice");
   const fb = document.getElementById("quiz-feedback");
   choices[q.correct].classList.add("correct");
-  if (idx !== q.correct) {
-    choices[idx].classList.add("wrong");
-    quizState.allCorrect = false;
-  }
-  choices.forEach((c, i) => {
-    if (i !== idx && i !== q.correct) c.classList.add("dim");
-  });
+  if (idx !== q.correct) { choices[idx].classList.add("wrong"); quizState.allCorrect = false; }
+  choices.forEach((c, i) => { if (i !== idx && i !== q.correct) c.classList.add("dim"); });
   const ok = idx === q.correct;
-  if (ok) {
-    points += 10;
-    save();
-    updateStats();
-  }
+  if (ok) { points += 10; save(); updateStats(); }
   fb.className = "feedback-box show";
   fb.innerHTML = `<div class="fb-icon">${ok ? "(^_^)" : "(x_x)"}</div><div><div class="fb-title ${ok ? "ok" : "bad"}">${ok ? "Correct!" : "Not quite!"}</div><div class="fb-msg">${q.explain}</div><div class="btn-row" style="margin-top:14px"><button class="btn btn-primary" onclick="nextQuestion()">${quizState.idx + 1 < activeLesson.quiz.length ? "Next Question [ → ]" : "Finish Quiz [ → ]"}</button></div></div>`;
 }
+
 function nextQuestion() {
   quizState.idx++;
   quizState.answered = false;
   if (quizState.idx >= activeLesson.quiz.length) finishQuiz();
   else renderQuestion();
 }
+
 function finishQuiz() {
   const id = activeLesson.id;
   progress[id] = { ...lessonProgress(id), quiz: true };
-  if (quizState.allCorrect) {
-    streak++;
-    points += 20;
-  }
+  if (quizState.allCorrect) { streak++; points += 20; }
   save();
   updateStats();
   updatePhaseTabs();
@@ -3488,17 +2145,17 @@ function renderCodePhase() {
   let html = `<div class="challenge-hdr"><div class="challenge-title">⌨️ Code Challenge</div><div class="challenge-desc">${ch.desc}</div></div>
 <div class="challenge-task"><div class="challenge-task-label">Your Task</div><div class="challenge-task-text">${ch.task}</div></div>
 <div class="editor-wrap"><div class="editor-label">Your TypeScript Code</div><textarea class="code-editor" id="code-editor" spellcheck="false" placeholder="Write your TypeScript code here...">${done ? "// Already completed! Write more to practice.\n" : ch.starterCode}</textarea></div>
-<div class="thinking" id="thinking"><span style="font-family:'JetBrains Mono',monospace">AI is checking your code</span><span class="think-dots"><span>.</span><span>.</span><span>.</span></span></div>
+<div class="thinking" id="thinking"><span style="font-family:'JetBrains Mono',monospace">Checking your code</span><span class="think-dots"><span>.</span><span>.</span><span>.</span></span></div>
 <div class="ai-result" id="ai-result"></div>
 <div class="btn-row">
   <button class="btn btn-cyan" id="hint-btn" onclick="toggleHint()">Show Hint</button>
   <button class="btn btn-primary" id="submit-btn" onclick="submitCode()">Check My Code [ ✓ ]</button>
 </div>
 <div id="hint-box" style="display:none;margin-top:12px;padding:14px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--yellow)">💡 ${ch.hint}</div>`;
-  if (done)
-    html += `<div style="margin-top:16px"><button class="btn btn-primary btn-full" onclick="switchPhase('project')">Go to Project Phase [ → ]</button></div>`;
+  if (done) html += `<div style="margin-top:16px"><button class="btn btn-primary btn-full" onclick="switchPhase('project')">Go to Project Phase [ → ]</button></div>`;
   document.getElementById("code-content").innerHTML = html;
 }
+
 function toggleHint() {
   const hb = document.getElementById("hint-box");
   const btn = document.getElementById("hint-btn");
@@ -3508,7 +2165,7 @@ function toggleHint() {
 }
 
 // ══════════════════════════════════════════
-// PROJECT PHASE
+// PROJECT PHASE — requirements shown inside each option card
 // ══════════════════════════════════════════
 function renderProjectPhase() {
   const projects = activeLesson.projects?.length
@@ -3520,59 +2177,53 @@ function renderProjectPhase() {
   if (!activeProjectId && projects.length > 0) activeProjectId = projects[0].id;
   if (!projects.length) {
     document.getElementById("project-content").innerHTML =
-      `<div class="project-header"><div class="project-title">No project available for this lesson yet.</div><div class="project-subtitle">Complete code challenge first and the project tab unlocks when added.</div></div>`;
+      `<div class="project-header"><div class="project-title">No project available for this lesson yet.</div></div>`;
     return;
   }
-  const selectedProject =
-    projects.find((p) => p.id === activeProjectId) || projects[0];
+  const selectedProject = projects.find((p) => p.id === activeProjectId) || projects[0];
 
-  const projectDifficultyLabel = {
-    easy: "Easy",
-    medium: "Medium",
-    hard: "Hard",
-  };
+  // ── Project option selector — requirements INSIDE each card ──────────
   let selectorHtml = `<div class="project-selector">`;
-  projects.forEach((p) => {
-    const diffClass =
-      p.difficulty === "easy"
-        ? "diff-easy"
-        : p.difficulty === "medium"
-          ? "diff-medium"
-          : "diff-hard";
-    selectorHtml += `<div class="project-option ${activeProjectId === p.id ? "selected" : ""}" onclick="selectProject('${p.id}')">
-      <div class="project-option-num">Project Option</div>
-      <div class="project-option-name">${p.title || p.name}</div>
-      <div class="project-option-level">${projectDifficultyLabel[p.difficulty] || "Custom"} difficulty</div>
-      <div class="project-option-desc">${p.desc}</div>
+  projects.forEach((p, idx) => {
+    const isSelected = activeProjectId === p.id;
+    const diffClass = p.difficulty === "easy" ? "diff-easy" : p.difficulty === "medium" ? "diff-medium" : "diff-hard";
+    const optionLabel = projects.length > 1
+      ? `Option ${String.fromCharCode(65 + idx)} — ${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}`
+      : "Project Option";
+    const reqs = Array.isArray(p.requirements) ? p.requirements : [];
+
+    selectorHtml += `<div class="project-option ${isSelected ? "selected" : ""}" onclick="selectProject('${p.id}')">
+      <div class="project-option-num">${optionLabel}</div>
+      <div class="project-option-name">${p.title || p.name || ""}</div>
+      <div class="project-option-desc">${p.desc || ""}</div>
       <div class="project-difficulty ${diffClass}">⬥ ${p.difficulty}</div>
+      ${reqs.length ? `
+      <div style="margin-top:10px; border-top:1px solid var(--border); padding-top:8px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:6px;">📋 Requirements</div>
+        ${reqs.map(r => `
+        <div style="display:flex; align-items:flex-start; gap:6px; font-size:.75rem; color:var(--muted); margin-bottom:4px; line-height:1.4;">
+          <span style="color:var(--blue); flex-shrink:0;">◆</span>
+          <span>${r}</span>
+        </div>`).join("")}
+      </div>` : ""}
     </div>`;
   });
   selectorHtml += `</div>`;
 
-  const requirements = Array.isArray(selectedProject.requirements)
-    ? selectedProject.requirements
-    : ["Write any TypeScript project code that matches the task scope."];
-  let reqHtml = `<div class="project-requirements"><div class="project-req-label">📋 Requirements</div><div class="project-req-list">`;
-  requirements.forEach((r) => {
-    reqHtml += `<div class="project-req-item"><span class="req-check">◆</span><span>${r}</span></div>`;
-  });
-  reqHtml += `</div></div>`;
-
+  // ── Selected task details + editor ───────────────────────────────────
   let html = `
 <div class="project-header">
   <div class="project-title-bar">
-    <div class="project-icon"></div>
     <div>
-      <div class="project-title">Mini Project — ${selectedProject.name}</div>
-      <div class="project-subtitle">Apply what you've learned in a real mini-project</div>
+      <div class="project-title">🏗️ Mini Project</div>
+      <div class="project-subtitle">Choose an option — each has its own requirements shown above</div>
     </div>
-    <div class="xp-badge">+50 XP</div>
+    <div class="xp-badge">+${selectedProject.reward || 50} XP</div>
   </div>
   ${selectorHtml}
-  ${reqHtml}
-  <div class="project-bonus">
-    <div class="project-bonus-label">⭐ Bonus Challenge</div>
-    <div class="project-bonus-text">${selectedProject.bonus}</div>
+  <div class="challenge-task" style="margin-bottom:16px;">
+    <div class="challenge-task-label">Selected Task</div>
+    <div class="challenge-task-text">${selectedProject.task || ""}</div>
   </div>
 </div>
 <div class="project-editor-wrap">
@@ -3586,7 +2237,7 @@ function renderProjectPhase() {
 <div class="project-result" id="project-result"></div>
 <div class="btn-row">
   <button class="btn btn-ghost" onclick="resetProjectCode()">Reset Starter Code</button>
-  <button class="btn btn-pink" id="project-submit-btn" onclick="submitProject()">Submit Project</button>
+  <button class="btn btn-primary" id="project-submit-btn" onclick="submitProject()">Submit Project</button>
 </div>`;
 
   if (done) {
@@ -3603,14 +2254,12 @@ function selectProject(projectId) {
 function resetProjectCode() {
   const projects = activeLesson.projects?.length
     ? activeLesson.projects
-    : activeLesson.project
-      ? [activeLesson.project]
-      : [];
+    : activeLesson.project ? [activeLesson.project] : [];
   const project = projects.find((p) => p.id === activeProjectId);
-  if (project)
-    document.getElementById("project-editor").value = project.starterCode;
-  document.getElementById("project-result").className = "project-result";
-  document.getElementById("project-result").innerHTML = "";
+  if (project) document.getElementById("project-editor").value = project.starterCode;
+  const r = document.getElementById("project-result");
+  r.className = "project-result";
+  r.innerHTML = "";
 }
 
 // ══════════════════════════════════════════
@@ -3619,29 +2268,17 @@ function resetProjectCode() {
 const PROJECT_VALIDATORS = {
   "1a": function (code) {
     const c = stripComments(code);
-    const hasName =
-      /let\s+name\s*:\s*string/i.test(c) ||
-      /const\s+name\s*:\s*string/i.test(c);
+    const hasName = /let\s+name\s*:\s*string/i.test(c) || /const\s+name\s*:\s*string/i.test(c);
     const hasAge = /age\s*:\s*number/i.test(c);
     const hasOnline = /isOnline\s*:\s*boolean/i.test(c);
     const hasTemplate = /`[^`]*\$\{/i.test(c);
-    if (hasName && hasAge && hasOnline && hasTemplate)
-      return {
-        pass: true,
-        title: "Personal Info Card built!",
-        feedback:
-          "Great job! You declared typed variables for name, age, isOnline and used template literals for your greeting. This is how real TypeScript projects start — with clearly typed data!",
-      };
+    if (hasName && hasAge && hasOnline && hasTemplate) return { pass: true, title: "Personal Info Card built!", feedback: "Great job! You declared typed variables for name, age, isOnline and used template literals." };
     const missing = [];
     if (!hasName) missing.push("name: string variable");
     if (!hasAge) missing.push("age: number variable");
     if (!hasOnline) missing.push("isOnline: boolean variable");
     if (!hasTemplate) missing.push("a template literal greeting with ${}");
-    return {
-      pass: false,
-      title: "Profile incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Profile incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "1b": function (code) {
     const c = stripComments(code);
@@ -3649,23 +2286,13 @@ const PROJECT_VALIDATORS = {
     const hasFahrenheit = /fahrenheit\s*:\s*number/i.test(c);
     const hasKm = /kilometers\s*:\s*number/i.test(c);
     const hasMiles = /miles\s*:\s*number/i.test(c);
-    if (hasCelsius && hasFahrenheit && hasKm && hasMiles)
-      return {
-        pass: true,
-        title: "Unit Converter complete!",
-        feedback:
-          "All four typed variables declared! Your converter handles both temperature and distance units with proper TypeScript type annotations. Well done!",
-      };
+    if (hasCelsius && hasFahrenheit && hasKm && hasMiles) return { pass: true, title: "Unit Converter complete!", feedback: "All four typed variables declared!" };
     const missing = [];
     if (!hasCelsius) missing.push("celsius: number");
     if (!hasFahrenheit) missing.push("fahrenheit: number");
     if (!hasKm) missing.push("kilometers: number");
     if (!hasMiles) missing.push("miles: number");
-    return {
-      pass: false,
-      title: "Converter incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Converter incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "2a": function (code) {
     const c = stripComments(code);
@@ -3673,41 +2300,20 @@ const PROJECT_VALIDATORS = {
     const hasR = /\br\s*:\s*number/i.test(c);
     const isDark = /isDark\s*:\s*boolean/i.test(c);
     const hasOpacity = /opacity\s*:\s*number/i.test(c);
-    if (hasColor && hasR && isDark && hasOpacity)
-      return {
-        pass: true,
-        title: "Color Palette complete!",
-        feedback:
-          "Excellent! All color properties typed correctly: string, numbers, boolean. This is clean, self-documenting TypeScript code!",
-      };
-    return {
-      pass: false,
-      title: "Color properties incomplete",
-      feedback:
-        "Ensure you have colorName: string, r/g/b: number, isDark: boolean, opacity: number.",
-    };
+    if (hasColor && hasR && isDark && hasOpacity) return { pass: true, title: "Color Palette complete!", feedback: "All color properties typed correctly!" };
+    return { pass: false, title: "Color properties incomplete", feedback: "Ensure you have colorName: string, r/g/b: number, isDark: boolean, opacity: number." };
   },
   "2b": function (code) {
     const c = stripComments(code);
     const hasUnknown = /rawData\s*:\s*unknown/i.test(c);
     const hasTypeCheck = /typeof\s+\w+/i.test(c);
     const hasAny = /:\s*any\b/i.test(c);
-    if (hasUnknown && hasTypeCheck && hasAny)
-      return {
-        pass: true,
-        title: "Safe API Handler complete!",
-        feedback:
-          "Perfect! You used unknown for raw data, demonstrated a typeof guard for safe narrowing, and showed why any is dangerous. This is exactly how to handle untrusted data in TypeScript!",
-      };
+    if (hasUnknown && hasTypeCheck && hasAny) return { pass: true, title: "Safe API Handler complete!", feedback: "Used unknown for raw data, typeof guard, and showed any risk!" };
     const missing = [];
     if (!hasUnknown) missing.push("rawData: unknown declaration");
     if (!hasTypeCheck) missing.push("typeof guard for safe narrowing");
     if (!hasAny) missing.push("any type to show the risk");
-    return {
-      pass: false,
-      title: "Handler incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Handler incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "3a": function (code) {
     const c = stripComments(code);
@@ -3715,48 +2321,27 @@ const PROJECT_VALIDATORS = {
     const hasGrades = /grades\s*:\s*number\s*\[\]/i.test(c);
     const hasMap = /\.map\s*\(/i.test(c);
     const hasFilter = /\.filter\s*\(/i.test(c);
-    if (hasStudents && hasGrades && hasMap && hasFilter)
-      return {
-        pass: true,
-        title: "Gradebook complete!",
-        feedback:
-          "Great! You used typed string[] and number[] arrays, then applied .map() and .filter() to process the data. These are essential array operations in TypeScript!",
-      };
+    if (hasStudents && hasGrades && hasMap && hasFilter) return { pass: true, title: "Gradebook complete!", feedback: "Typed string[] and number[] arrays with .map() and .filter()!" };
     const missing = [];
     if (!hasStudents) missing.push("students: string[] array");
     if (!hasGrades) missing.push("grades: number[] array");
-    if (!hasMap) missing.push(".map() to create passed boolean array");
-    if (!hasFilter) missing.push(".filter() to get passing grades");
-    return {
-      pass: false,
-      title: "Gradebook incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    if (!hasMap) missing.push(".map() usage");
+    if (!hasFilter) missing.push(".filter() usage");
+    return { pass: false, title: "Gradebook incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "3b": function (code) {
     const c = stripComments(code);
     const hasRGB = /type\s+RGB\s*=\s*\[/i.test(c);
-    const hasPalette =
-      /readonly\s+RGB\s*\[\]/i.test(c) || /:\s*readonly\s+RGB\[\]/i.test(c);
+    const hasPalette = /readonly\s+RGB\s*\[\]/i.test(c) || /:\s*readonly\s+RGB\[\]/i.test(c);
     const hasDestruct = /const\s+\[\s*r\s*,/i.test(c);
     const hasBrightness = /brightness/i.test(c);
-    if (hasRGB && hasPalette && hasDestruct && hasBrightness)
-      return {
-        pass: true,
-        title: "Color Manager complete!",
-        feedback:
-          "Excellent! You defined an RGB tuple type, created a readonly palette array, used tuple destructuring, and calculated brightness. Real TypeScript color management!",
-      };
+    if (hasRGB && hasPalette && hasDestruct && hasBrightness) return { pass: true, title: "Color Manager complete!", feedback: "RGB tuple type, readonly palette, destructuring, and brightness calculation!" };
     const missing = [];
     if (!hasRGB) missing.push("type RGB = [number, number, number]");
     if (!hasPalette) missing.push("readonly RGB[] palette");
     if (!hasDestruct) missing.push("const [r, g, b] = destructuring");
     if (!hasBrightness) missing.push("brightness calculation");
-    return {
-      pass: false,
-      title: "Color manager incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Color manager incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "4a": function (code) {
     const c = stripComments(code);
@@ -3764,23 +2349,13 @@ const PROJECT_VALIDATORS = {
     const hasLibrary = /interface\s+Library\s*\{/i.test(c);
     const hasReadonlyId = /readonly\s+id\s*:\s*number/i.test(c);
     const hasBooks = /books\s*:\s*Book\s*\[\]/i.test(c);
-    if (hasBook && hasLibrary && hasReadonlyId && hasBooks)
-      return {
-        pass: true,
-        title: "Library System complete!",
-        feedback:
-          "Great design! Book interface with readonly id, Library containing Book[], and 3 book objects. This is exactly how you model real-world data in TypeScript!",
-      };
+    if (hasBook && hasLibrary && hasReadonlyId && hasBooks) return { pass: true, title: "Library System complete!", feedback: "Book interface, Library with Book[], readonly id!" };
     const missing = [];
     if (!hasBook) missing.push("interface Book { ... }");
     if (!hasLibrary) missing.push("interface Library { ... }");
     if (!hasReadonlyId) missing.push("readonly id: number in Book");
     if (!hasBooks) missing.push("books: Book[] in Library");
-    return {
-      pass: false,
-      title: "Library system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Library system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "4b": function (code) {
     const c = stripComments(code);
@@ -3788,23 +2363,13 @@ const PROJECT_VALIDATORS = {
     const hasSocial = /interface\s+SocialProfile\s*\{/i.test(c);
     const hasNested = /address\s*:\s*Address/i.test(c);
     const hasFn = /function\s+displayProfile|displayProfile\s*=/i.test(c);
-    if (hasAddress && hasSocial && hasNested && hasFn)
-      return {
-        pass: true,
-        title: "Social Profile complete!",
-        feedback:
-          "Excellent! You nested Address inside SocialProfile and wrote displayProfile function. Nested interfaces are fundamental to modeling complex data in TypeScript!",
-      };
+    if (hasAddress && hasSocial && hasNested && hasFn) return { pass: true, title: "Social Profile complete!", feedback: "Nested Address in SocialProfile and displayProfile function!" };
     const missing = [];
     if (!hasAddress) missing.push("interface Address");
     if (!hasSocial) missing.push("interface SocialProfile");
     if (!hasNested) missing.push("address: Address inside SocialProfile");
     if (!hasFn) missing.push("displayProfile function");
-    return {
-      pass: false,
-      title: "Profile incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Profile incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "5a": function (code) {
     const c = stripComments(code);
@@ -3812,29 +2377,13 @@ const PROJECT_VALIDATORS = {
     const hasDivide = /function\s+divide\s*\(/i.test(c);
     const hasPower = /function\s+power\s*\(/i.test(c);
     const hasReturn0 = /return\s+0/i.test(c);
-    if (hasAdd && hasDivide && hasPower && !hasReturn0)
-      return {
-        pass: true,
-        title: "Math Library complete!",
-        feedback:
-          "All 5 math functions implemented and typed! divide(10, 0) returning 0 is a great safety practice. This is production-ready utility code!",
-      };
-    if (hasAdd && hasDivide && hasPower)
-      return {
-        pass: false,
-        title: "Functions need implementation",
-        feedback:
-          "Functions found! But some still return 0. Complete all function bodies with actual math.",
-      };
+    if (hasAdd && hasDivide && hasPower && !hasReturn0) return { pass: true, title: "Math Library complete!", feedback: "All math functions implemented and typed!" };
+    if (hasAdd && hasDivide && hasPower) return { pass: false, title: "Functions need implementation", feedback: "Functions found but some still return 0. Complete the function bodies." };
     const missing = [];
     if (!hasAdd) missing.push("function add(a, b): number");
     if (!hasDivide) missing.push("function divide(a, b): number");
-    if (!hasPower) missing.push("function power(base, exp, decimals?): string");
-    return {
-      pass: false,
-      title: "Math library incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    if (!hasPower) missing.push("function power(base, exp): number");
+    return { pass: false, title: "Math library incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "5b": function (code) {
     const c = stripComments(code);
@@ -3842,24 +2391,13 @@ const PROJECT_VALIDATORS = {
     const hasTrunc = /function\s+truncate/i.test(c);
     const hasPad = /function\s+padNumber/i.test(c);
     const hasCurrency = /function\s+formatCurrency/i.test(c);
-    const hasDefault = /=\s*["'][\.\$]/.test(c);
-    if (hasCap && hasTrunc && hasPad && hasCurrency)
-      return {
-        pass: true,
-        title: "String Toolkit complete!",
-        feedback:
-          "All 4 string utilities implemented with optional defaults! truncate with default suffix and formatCurrency with default symbol are clean TypeScript patterns. Excellent work!",
-      };
+    if (hasCap && hasTrunc && hasPad && hasCurrency) return { pass: true, title: "String Toolkit complete!", feedback: "All 4 string utilities implemented!" };
     const missing = [];
     if (!hasCap) missing.push("capitalize function");
     if (!hasTrunc) missing.push("truncate function");
     if (!hasPad) missing.push("padNumber function");
     if (!hasCurrency) missing.push("formatCurrency function");
-    return {
-      pass: false,
-      title: "Toolkit incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Toolkit incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "6a": function (code) {
     const c = stripComments(code);
@@ -3867,23 +2405,13 @@ const PROJECT_VALIDATORS = {
     const hasPriority = /type\s+NotificationPriority\s*=/i.test(c);
     const hasIface = /interface\s+Notification\s*\{/i.test(c);
     const hasGetIcon = /function\s+getIcon/i.test(c);
-    if (hasNotifType && hasPriority && hasIface && hasGetIcon)
-      return {
-        pass: true,
-        title: "Notification System built!",
-        feedback:
-          "You created literal union types for NotificationType and NotificationPriority, a typed Notification interface, and a getIcon function. This is real-world TypeScript UI code!",
-      };
+    if (hasNotifType && hasPriority && hasIface && hasGetIcon) return { pass: true, title: "Notification System built!", feedback: "Union types, interface, and getIcon function all present!" };
     const missing = [];
     if (!hasNotifType) missing.push("type NotificationType union");
     if (!hasPriority) missing.push("type NotificationPriority union");
     if (!hasIface) missing.push("interface Notification");
     if (!hasGetIcon) missing.push("function getIcon");
-    return {
-      pass: false,
-      title: "Notification system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Notification system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "6b": function (code) {
     const c = stripComments(code);
@@ -3891,23 +2419,13 @@ const PROJECT_VALIDATORS = {
     const hasRect = /interface\s+Rectangle\s*\{/i.test(c);
     const hasGetArea = /function\s+getArea/i.test(c);
     const hasSwitch = /switch\s*\(/i.test(c);
-    if (hasCircle && hasRect && hasGetArea && hasSwitch)
-      return {
-        pass: true,
-        title: "Shape Calculator complete!",
-        feedback:
-          "Discriminated union with Circle, Rectangle, Triangle shapes — the switch on kind is exactly the right pattern. TypeScript can verify you handle all cases!",
-      };
+    if (hasCircle && hasRect && hasGetArea && hasSwitch) return { pass: true, title: "Shape Calculator complete!", feedback: "Discriminated union with switch on kind!" };
     const missing = [];
     if (!hasCircle) missing.push("interface Circle with kind");
     if (!hasRect) missing.push("interface Rectangle with kind");
     if (!hasGetArea) missing.push("function getArea(shape: Shape)");
     if (!hasSwitch) missing.push("switch on shape.kind");
-    return {
-      pass: false,
-      title: "Shape calculator incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Shape calculator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "7a": function (code) {
     const c = stripComments(code);
@@ -3915,23 +2433,13 @@ const PROJECT_VALIDATORS = {
     const hasWarrior = /class\s+Warrior\s+extends\s+Character/i.test(c);
     const hasMage = /class\s+Mage\s+extends\s+Character/i.test(c);
     const hasSuper = /super\s*\(/i.test(c);
-    if (hasCharacter && hasWarrior && hasMage && hasSuper)
-      return {
-        pass: true,
-        title: "RPG System complete!",
-        feedback:
-          "Character base class with Warrior and Mage subclasses using super() — textbook OOP inheritance in TypeScript! Your RPG characters have unique abilities while sharing base functionality.",
-      };
+    if (hasCharacter && hasWarrior && hasMage && hasSuper) return { pass: true, title: "RPG System complete!", feedback: "Character base class with Warrior and Mage subclasses using super()!" };
     const missing = [];
     if (!hasCharacter) missing.push("class Character base");
     if (!hasWarrior) missing.push("class Warrior extends Character");
     if (!hasMage) missing.push("class Mage extends Character");
     if (!hasSuper) missing.push("super() call in subclass constructors");
-    return {
-      pass: false,
-      title: "RPG system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "RPG system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "7b": function (code) {
     const c = stripComments(code);
@@ -3940,46 +2448,25 @@ const PROJECT_VALIDATORS = {
     const hasDeposit = /deposit\s*\(\s*amount\s*:\s*number/i.test(c);
     const hasWithdraw = /withdraw\s*\(\s*amount\s*:\s*number/i.test(c);
     const hasReturn = /return\s+(true|false)/i.test(c);
-    if (hasBankAccount && hasPrivate && hasDeposit && hasWithdraw && hasReturn)
-      return {
-        pass: true,
-        title: "Bank Account System complete!",
-        feedback:
-          "Excellent encapsulation! Private balance with controlled public methods, withdraw returning boolean for failure handling. This is production-grade TypeScript class design!",
-      };
+    if (hasBankAccount && hasPrivate && hasDeposit && hasWithdraw && hasReturn) return { pass: true, title: "Bank Account System complete!", feedback: "Private balance with deposit/withdraw/getBalance!" };
     const missing = [];
     if (!hasBankAccount) missing.push("class BankAccount");
     if (!hasPrivate) missing.push("private balance property");
     if (!hasDeposit) missing.push("deposit(amount: number) method");
     if (!hasWithdraw) missing.push("withdraw returning boolean");
-    return {
-      pass: false,
-      title: "Bank account incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Bank account incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "8a": function (code) {
     const c = stripComments(code);
     const hasClass = /class\s+DataStore\s*<\s*T\s*>/i.test(c);
     const hasAdd = /add\s*\(\s*item\s*:\s*T/i.test(c);
     const hasFind = /find\s*\(/i.test(c);
-    const hasTwoCalls = (c.match(/new\s+DataStore/g) || []).length >= 1;
-    if (hasClass && hasAdd && hasFind)
-      return {
-        pass: true,
-        title: "Generic DataStore built!",
-        feedback:
-          "DataStore<T> with typed add, remove, find methods — this is exactly how reusable generic containers are built in TypeScript. The same class works for any type!",
-      };
+    if (hasClass && hasAdd && hasFind) return { pass: true, title: "Generic DataStore built!", feedback: "DataStore<T> with typed add and find methods!" };
     const missing = [];
     if (!hasClass) missing.push("class DataStore<T>");
     if (!hasAdd) missing.push("add(item: T) method");
     if (!hasFind) missing.push("find(predicate) method");
-    return {
-      pass: false,
-      title: "DataStore incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "DataStore incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "8b": function (code) {
     const c = stripComments(code);
@@ -3988,30 +2475,14 @@ const PROJECT_VALIDATORS = {
     const hasCreateError = /function\s+createError\s*<\s*T\s*>/i.test(c);
     const hasUser = /interface\s+User\s*\{/i.test(c);
     const hasProduct = /interface\s+Product\s*\{/i.test(c);
-    if (
-      hasInterface &&
-      hasCreateSuccess &&
-      hasCreateError &&
-      hasUser &&
-      hasProduct
-    )
-      return {
-        pass: true,
-        title: "API Response System complete!",
-        feedback:
-          "Generic ApiResponse<T> with typed success and error factories — this pattern is used in virtually every real TypeScript API project. You've mastered generics in practice!",
-      };
+    if (hasInterface && hasCreateSuccess && hasCreateError && hasUser && hasProduct) return { pass: true, title: "API Response System complete!", feedback: "Generic ApiResponse<T> with typed success and error factories!" };
     const missing = [];
     if (!hasInterface) missing.push("interface ApiResponse<T>");
     if (!hasCreateSuccess) missing.push("function createSuccess<T>");
     if (!hasCreateError) missing.push("function createError<T>");
     if (!hasUser) missing.push("interface User");
     if (!hasProduct) missing.push("interface Product");
-    return {
-      pass: false,
-      title: "API system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "API system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "9a": function (code) {
     const c = stripComments(code);
@@ -4020,24 +2491,14 @@ const PROJECT_VALIDATORS = {
     const hasGetAction = /function\s+getAction/i.test(c);
     const hasGetNext = /function\s+getNextLight/i.test(c);
     const hasLoop = /for\s*\(/i.test(c);
-    if (hasLight && hasAction && hasGetAction && hasGetNext && hasLoop)
-      return {
-        pass: true,
-        title: "Traffic Light Simulator complete!",
-        feedback:
-          "Two string enums, action mapping, state machine logic, and a simulation loop! This is a perfect real-world enum use case — state machines with clear named values.",
-      };
+    if (hasLight && hasAction && hasGetAction && hasGetNext && hasLoop) return { pass: true, title: "Traffic Light Simulator complete!", feedback: "Two string enums, action mapping, state machine logic, and a simulation loop!" };
     const missing = [];
     if (!hasLight) missing.push("enum TrafficLight");
     if (!hasAction) missing.push("enum Action");
     if (!hasGetAction) missing.push("function getAction");
     if (!hasGetNext) missing.push("function getNextLight");
     if (!hasLoop) missing.push("simulation loop");
-    return {
-      pass: false,
-      title: "Simulator incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Simulator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "9b": function (code) {
     const c = stripComments(code);
@@ -4045,23 +2506,13 @@ const PROJECT_VALIDATORS = {
     const hasPerm = /enum\s+Permission\s*\{/i.test(c);
     const hasRecord = /Record\s*<\s*Role/i.test(c);
     const hasFn = /function\s+hasPermission/i.test(c);
-    if (hasRole && hasPerm && hasRecord && hasFn)
-      return {
-        pass: true,
-        title: "Permission System complete!",
-        feedback:
-          "Role and Permission enums + Record<Role, Permission[]> + hasPermission function — this is how real RBAC (Role-Based Access Control) is implemented in TypeScript APIs!",
-      };
+    if (hasRole && hasPerm && hasRecord && hasFn) return { pass: true, title: "Permission System complete!", feedback: "Role and Permission enums + Record + hasPermission function!" };
     const missing = [];
     if (!hasRole) missing.push("enum Role");
     if (!hasPerm) missing.push("enum Permission");
     if (!hasRecord) missing.push("Record<Role, Permission[]> permissions map");
     if (!hasFn) missing.push("function hasPermission");
-    return {
-      pass: false,
-      title: "Permission system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Permission system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "10a": function (code) {
     const c = stripComments(code);
@@ -4069,76 +2520,39 @@ const PROJECT_VALIDATORS = {
     const hasUnion = /type\s+AppEvent\s*=/i.test(c);
     const hasHandler = /function\s+handleEvent/i.test(c);
     const hasSwitch = /switch\s*\(\s*event\.type/i.test(c);
-    if (hasInterfaces && hasUnion && hasHandler && hasSwitch)
-      return {
-        pass: true,
-        title: "Event System complete!",
-        feedback:
-          "Discriminated union with type literals, handleEvent with exhaustive switch — TypeScript guarantees you handle all event types. This pattern is used in React, Redux, and many real systems!",
-      };
+    if (hasInterfaces && hasUnion && hasHandler && hasSwitch) return { pass: true, title: "Event System complete!", feedback: "Discriminated union with exhaustive switch!" };
     const missing = [];
-    if (!hasInterfaces)
-      missing.push(
-        "ClickEvent, KeyEvent, ResizeEvent interfaces with type discriminant",
-      );
+    if (!hasInterfaces) missing.push("ClickEvent, KeyEvent, ResizeEvent interfaces");
     if (!hasUnion) missing.push("type AppEvent = union");
     if (!hasHandler) missing.push("function handleEvent(event: AppEvent)");
     if (!hasSwitch) missing.push("switch on event.type");
-    return {
-      pass: false,
-      title: "Event system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Event system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "10b": function (code) {
     const c = stripComments(code);
     const hasValidInput = /type\s+ValidInput\s*=/i.test(c);
     const hasTypePred = /v\s+is\s+string/i.test(c);
     const hasSanitize = /function\s+sanitize/i.test(c);
-    const hasValidateForm =
-      /function\s+validateForm/i.test(c) || /validateForm\s*=/i.test(c);
-    if (hasValidInput && hasTypePred && hasSanitize)
-      return {
-        pass: true,
-        title: "Input Validator complete!",
-        feedback:
-          "ValidInput union, type predicate guards (v is string), and sanitize function — type predicates are one of TypeScript's most powerful and underused features!",
-      };
+    if (hasValidInput && hasTypePred && hasSanitize) return { pass: true, title: "Input Validator complete!", feedback: "ValidInput union, type predicates, and sanitize function!" };
     const missing = [];
     if (!hasValidInput) missing.push("type ValidInput union");
     if (!hasTypePred) missing.push("type predicate (v is string)");
     if (!hasSanitize) missing.push("function sanitize");
-    return {
-      pass: false,
-      title: "Validator incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Validator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "11a": function (code) {
     const c = stripComments(code);
     const hasMath = /MathUtils\s*=/i.test(c) || /const\s+MathUtils/i.test(c);
-    const hasString =
-      /StringUtils\s*=/i.test(c) || /const\s+StringUtils/i.test(c);
+    const hasString = /StringUtils\s*=/i.test(c) || /const\s+StringUtils/i.test(c);
     const hasArray = /ArrayUtils\s*=/i.test(c) || /const\s+ArrayUtils/i.test(c);
     const hasClamp = /clamp\s*:/i.test(c);
     const hasSlugify = /slugify\s*:/i.test(c);
-    if (hasMath && hasString && hasArray && hasClamp && hasSlugify)
-      return {
-        pass: true,
-        title: "Utility Module System built!",
-        feedback:
-          "MathUtils, StringUtils, ArrayUtils all organized as typed namespace objects — this is the module organization pattern used in many real TypeScript utility libraries!",
-      };
+    if (hasMath && hasString && hasArray && hasClamp && hasSlugify) return { pass: true, title: "Utility Module System built!", feedback: "MathUtils, StringUtils, ArrayUtils organized as typed namespace objects!" };
     const missing = [];
     if (!hasMath || !hasClamp) missing.push("MathUtils with clamp and lerp");
-    if (!hasString || !hasSlugify)
-      missing.push("StringUtils with slugify and wordCount");
+    if (!hasString || !hasSlugify) missing.push("StringUtils with slugify and wordCount");
     if (!hasArray) missing.push("ArrayUtils with unique and chunk");
-    return {
-      pass: false,
-      title: "Utility system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Utility system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "11b": function (code) {
     const c = stripComments(code);
@@ -4146,23 +2560,13 @@ const PROJECT_VALIDATORS = {
     const hasManager = /class\s+PluginManager\s*\{/i.test(c);
     const hasRegister = /register\s*\(\s*plugin\s*:\s*Plugin/i.test(c);
     const hasThreePlugins = (c.match(/const\s+\w+Plugin/g) || []).length >= 3;
-    if (hasInterface && hasManager && hasRegister && hasThreePlugins)
-      return {
-        pass: true,
-        title: "Plugin Architecture complete!",
-        feedback:
-          "Plugin interface, PluginManager class, and 3 concrete plugins — this is exactly the Strategy + Registry design pattern used in Express middleware, Webpack plugins, and many real systems!",
-      };
+    if (hasInterface && hasManager && hasRegister && hasThreePlugins) return { pass: true, title: "Plugin Architecture complete!", feedback: "Plugin interface, PluginManager, and 3 concrete plugins!" };
     const missing = [];
     if (!hasInterface) missing.push("interface Plugin with execute method");
     if (!hasManager) missing.push("class PluginManager");
     if (!hasRegister) missing.push("register(plugin: Plugin) method");
     if (!hasThreePlugins) missing.push("at least 3 Plugin objects");
-    return {
-      pass: false,
-      title: "Plugin system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Plugin system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "12a": function (code) {
     const c = stripComments(code);
@@ -4170,23 +2574,13 @@ const PROJECT_VALIDATORS = {
     const hasUpdateUser = /type\s+UpdateUser\s*=\s*Partial/i.test(c);
     const hasSummary = /type\s+UserSummary\s*=\s*Pick/i.test(c);
     const hasFn = /function\s+createUser/i.test(c);
-    if (hasCreateUser && hasUpdateUser && hasSummary && hasFn)
-      return {
-        pass: true,
-        title: "User Manager complete!",
-        feedback:
-          "CreateUser with Omit, UpdateUser with Partial, UserSummary with Pick — this is exactly how real SaaS applications protect sensitive data and separate DTOs from full models!",
-      };
+    if (hasCreateUser && hasUpdateUser && hasSummary && hasFn) return { pass: true, title: "User Manager complete!", feedback: "CreateUser with Omit, UpdateUser with Partial, UserSummary with Pick!" };
     const missing = [];
     if (!hasCreateUser) missing.push("type CreateUser = Omit<User, 'id'>");
     if (!hasUpdateUser) missing.push("type UpdateUser = Partial<Omit<...>>");
     if (!hasSummary) missing.push("type UserSummary = Pick<...>");
     if (!hasFn) missing.push("function createUser");
-    return {
-      pass: false,
-      title: "User manager incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "User manager incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "12b": function (code) {
     const c = stripComments(code);
@@ -4194,23 +2588,13 @@ const PROJECT_VALIDATORS = {
     const hasOptional = /type\s+OptionalConfig\s*=\s*Partial/i.test(c);
     const hasFull = /type\s+FullConfig\s*=/i.test(c);
     const hasRecord = /Record\s*<\s*ConfigKeys/i.test(c);
-    if (hasRequired && hasOptional && hasFull && hasRecord)
-      return {
-        pass: true,
-        title: "Config System complete!",
-        feedback:
-          "Required+Optional split with & intersection, ConfigKeys with keyof, Record for descriptions — this is advanced type composition at its finest! Real TypeScript config libraries use exactly this.",
-      };
+    if (hasRequired && hasOptional && hasFull && hasRecord) return { pass: true, title: "Config System complete!", feedback: "Required+Optional split with intersection and Record!" };
     const missing = [];
     if (!hasRequired) missing.push("RequiredConfig = Required<Pick<...>>");
     if (!hasOptional) missing.push("OptionalConfig = Partial<Omit<...>>");
     if (!hasFull) missing.push("FullConfig = RequiredConfig & OptionalConfig");
     if (!hasRecord) missing.push("Record<ConfigKeys, string> for descriptions");
-    return {
-      pass: false,
-      title: "Config system incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Config system incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "13a": function (code) {
     const c = stripComments(code);
@@ -4218,25 +2602,13 @@ const PROJECT_VALIDATORS = {
     const hasTimed = /function\s+Timed/i.test(c);
     const hasDescriptor = /descriptor\.value\s*=/i.test(c);
     const hasClass = /class\s+UserForm\s*\{/i.test(c);
-    if (hasMinLength && hasTimed && hasDescriptor && hasClass)
-      return {
-        pass: true,
-        title: "Validation Decorators complete!",
-        feedback:
-          "MinLength, MaxValue, Timed decorators with a decorated class — factory decorators returning functions is the right pattern for parameterized decorators!",
-      };
+    if (hasMinLength && hasTimed && hasDescriptor && hasClass) return { pass: true, title: "Validation Decorators complete!", feedback: "MinLength and Timed decorators with UserForm class!" };
     const missing = [];
-    if (!hasMinLength)
-      missing.push("function MinLength(min: number) decorator factory");
+    if (!hasMinLength) missing.push("function MinLength(min: number) decorator factory");
     if (!hasTimed) missing.push("function Timed method decorator");
-    if (!hasDescriptor)
-      missing.push("descriptor.value = ... wrapping in Timed");
+    if (!hasDescriptor) missing.push("descriptor.value = ... wrapping in Timed");
     if (!hasClass) missing.push("class UserForm with decorators applied");
-    return {
-      pass: false,
-      title: "Validators incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Validators incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "14a": function (code) {
     const c = stripComments(code);
@@ -4244,23 +2616,13 @@ const PROJECT_VALIDATORS = {
     const hasInterface = /interface\s+TsConfig\s*\{/i.test(c);
     const hasFn = /function\s+createConfig/i.test(c);
     const has3Calls = (c.match(/createConfig\s*\(/g) || []).length >= 3;
-    if (hasType && hasInterface && hasFn && has3Calls)
-      return {
-        pass: true,
-        title: "Config Generator complete!",
-        feedback:
-          "Target union type, TsConfig interface, createConfig with defaults, 3 config variants — this is how TypeScript project setup tools like create-react-app generate configs!",
-      };
+    if (hasType && hasInterface && hasFn && has3Calls) return { pass: true, title: "Config Generator complete!", feedback: "Target union, TsConfig interface, createConfig with 3 variant calls!" };
     const missing = [];
     if (!hasType) missing.push("type Target union");
     if (!hasInterface) missing.push("interface TsConfig");
     if (!hasFn) missing.push("function createConfig");
     if (!has3Calls) missing.push("at least 3 config calls");
-    return {
-      pass: false,
-      title: "Generator incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Generator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "15a": function (code) {
     const c = stripComments(code);
@@ -4269,23 +2631,13 @@ const PROJECT_VALIDATORS = {
     const hasOnSubmit = /onSubmit\s*:/i.test(c);
     const hasState = /useState/i.test(c);
     const hasChange = /handleChange|onChange/i.test(c);
-    if (hasFormField && hasFormProps && hasOnSubmit && hasState && hasChange)
-      return {
-        pass: true,
-        title: "Form Builder complete!",
-        feedback:
-          "FormField and FormProps interfaces, typed useState, onChange handlers — this is how real React form libraries like react-hook-form use TypeScript to ensure type-safe form handling!",
-      };
+    if (hasFormField && hasFormProps && hasOnSubmit && hasState && hasChange) return { pass: true, title: "Form Builder complete!", feedback: "FormField and FormProps interfaces, typed useState, onChange handlers!" };
     const missing = [];
     if (!hasFormField) missing.push("interface FormField");
     if (!hasFormProps) missing.push("interface FormProps with onSubmit");
     if (!hasState) missing.push("useState for form values");
     if (!hasChange) missing.push("onChange handler");
-    return {
-      pass: false,
-      title: "Form builder incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Form builder incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "16a": function (code) {
     const c = stripComments(code);
@@ -4294,24 +2646,14 @@ const PROJECT_VALIDATORS = {
     const hasUpdate = /type\s+UpdateTodoDto\s*=\s*Partial/i.test(c);
     const hasApi = /interface\s+ApiResponse\s*<\s*T\s*>/i.test(c);
     const hasHandler = /const\s+getAll\s*=/i.test(c);
-    if (hasTodo && hasCreate && hasUpdate && hasApi && hasHandler)
-      return {
-        pass: true,
-        title: "REST API Simulator complete!",
-        feedback:
-          "Todo CRUD with Omit/Partial DTOs, generic ApiResponse<T>, and typed Express handlers — this is a complete production-ready TypeScript REST API pattern!",
-      };
+    if (hasTodo && hasCreate && hasUpdate && hasApi && hasHandler) return { pass: true, title: "REST API Simulator complete!", feedback: "Todo CRUD with Omit/Partial DTOs, generic ApiResponse<T>, and typed handlers!" };
     const missing = [];
     if (!hasTodo) missing.push("interface Todo");
     if (!hasCreate) missing.push("type CreateTodoDto = Omit<Todo, ...>");
     if (!hasUpdate) missing.push("type UpdateTodoDto = Partial<...>");
     if (!hasApi) missing.push("interface ApiResponse<T>");
     if (!hasHandler) missing.push("typed handler functions");
-    return {
-      pass: false,
-      title: "API simulator incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "API simulator incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   "17a": function (code) {
     const c = stripComments(code);
@@ -4319,24 +2661,13 @@ const PROJECT_VALIDATORS = {
     const hasRequired = /type\s+RequiredFields\s*<\s*T\s*>/i.test(c);
     const hasDeepReadonly = /type\s+DeepReadonly\s*<\s*T\s*>/i.test(c);
     const hasEvent = /type\s+EventHandlerName\s*<\s*T/i.test(c);
-    const hasRecursive = /DeepReadonly\s*<\s*T\s*\[/i.test(c);
-    if (hasNullable && hasRequired && hasDeepReadonly && hasEvent)
-      return {
-        pass: true,
-        title: "Type Schema complete! You've mastered TypeScript! 🎉",
-        feedback:
-          "IsNullable, RequiredFields, OptionalFields, EventHandlerName, DeepReadonly — all defined! You've reached the advanced TypeScript level used by library authors. Congratulations on completing all 17 lessons!",
-      };
+    if (hasNullable && hasRequired && hasDeepReadonly && hasEvent) return { pass: true, title: "Type Schema complete! You've mastered TypeScript! 🎉", feedback: "IsNullable, RequiredFields, DeepReadonly, EventHandlerName — all defined! Congratulations!" };
     const missing = [];
     if (!hasNullable) missing.push("type IsNullable<T>");
     if (!hasRequired) missing.push("type RequiredFields<T>");
     if (!hasDeepReadonly) missing.push("type DeepReadonly<T> (recursive)");
     if (!hasEvent) missing.push("type EventHandlerName<T>");
-    return {
-      pass: false,
-      title: "Type schema incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Type schema incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
 };
 
@@ -4359,18 +2690,11 @@ function submitProject() {
     const validator = PROJECT_VALIDATORS[activeProjectId];
     const result = validator
       ? validator(code)
-      : {
-          pass: true,
-          title: "Project accepted!",
-          feedback: "Great work completing the project!",
-        };
+      : { pass: true, title: "Project accepted!", feedback: "Great work completing the project!" };
     if (result.pass) {
       const id = activeLesson.id;
       const wasAlreadyDone = lessonProgress(id).project;
-      if (!wasAlreadyDone) {
-        points += 50;
-        streak++;
-      }
+      if (!wasAlreadyDone) { points += 50; streak++; }
       progress[id] = { ...lessonProgress(id), project: true };
       save();
       updateStats();
@@ -4378,13 +2702,13 @@ function submitProject() {
       resultEl.className = "project-result pass show";
       resultEl.innerHTML = `
 <div class="project-result-hdr">
-  <div class="project-result-icon"></div>
+  <div class="project-result-icon">🎉</div>
   <div class="project-result-title">${escHtml(result.title)}</div>
   <div class="xp-badge">+50 XP</div>
 </div>
 <div class="project-result-body">${escHtml(result.feedback)}</div>
 <div class="btn-row" style="margin-top:16px">
-  <button class="btn btn-pink" onclick="completionScreen()">Complete Lesson! [ \\o/ ]</button>
+  <button class="btn btn-primary" onclick="completionScreen()">Complete Lesson! [ \\o/ ]</button>
 </div>`;
     } else {
       resultEl.className = "project-result fail show";
@@ -4402,21 +2726,14 @@ function submitProject() {
 }
 
 // ══════════════════════════════════════════
-// CODE CHALLENGE VALIDATORS (abbreviated from original)
+// CODE CHALLENGE VALIDATORS
 // ══════════════════════════════════════════
 function stripComments(code) {
-  return code
-    .replace(/\/\/[^\n]*/g, "")
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  return code.replace(/\/\/[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").trim();
 }
 function hasTypedVar(code, name, type) {
   const c = stripComments(code);
-  return new RegExp(
-    `(let|const|var)\\s+${name}\\s*:\\s*${type}\\s*=`,
-    "i",
-  ).test(c);
+  return new RegExp(`(let|const|var)\\s+${name}\\s*:\\s*${type}\\s*=`, "i").test(c);
 }
 function hasInterface(code, name) {
   const c = stripComments(code);
@@ -4426,87 +2743,32 @@ function hasFunction(code, name) {
   const c = stripComments(code);
   return (
     new RegExp(`function\\s+${name}\\s*\\(`, "i").test(c) ||
-    new RegExp(
-      `(const|let)\\s+${name}\\s*=\\s*(\\(.*\\)|\\w+)\\s*=>`,
-      "i",
-    ).test(c)
+    new RegExp(`(const|let)\\s+${name}\\s*=\\s*(\\(.*\\)|\\w+)\\s*=>`, "i").test(c)
   );
-}
-function hasTypeAlias(code, name, contains) {
-  const c = stripComments(code);
-  const defn = new RegExp(`type\\s+${name}\\s*=`, "i").test(c);
-  if (!defn) return false;
-  if (!contains) return true;
-  return c.includes(contains);
 }
 function hasStringArray(code, name) {
   const c = stripComments(code);
-  return new RegExp(
-    `(let|const|var)\\s+${name}\\s*:\\s*string\\s*\\[\\]`,
-    "i",
-  ).test(c);
+  return new RegExp(`(let|const|var)\\s+${name}\\s*:\\s*string\\s*\\[\\]`, "i").test(c);
 }
 function hasTuple(code, name, types) {
   const c = stripComments(code);
-  return new RegExp(
-    `(let|const|var)\\s+${name}\\s*:\\s*\\[${types}\\]`,
-    "i",
-  ).test(c);
+  return new RegExp(`(let|const|var)\\s+${name}\\s*:\\s*\\[${types}\\]`, "i").test(c);
 }
 
 const VALIDATORS = {
   1: (code) => {
     const hasUsername = hasTypedVar(code, "username", "string");
     const hasYear = hasTypedVar(code, "year", "number");
-    if (hasUsername && hasYear)
-      return {
-        pass: true,
-        title: "Both variables typed correctly!",
-        feedback:
-          "You declared username as string and year as number — exactly right!",
-      };
-    if (!hasUsername && !hasYear)
-      return {
-        pass: false,
-        title: "Missing both type annotations",
-        feedback:
-          'Try:\nlet username: string = "YourName";\nlet year: number = 2026;',
-      };
-    if (!hasUsername)
-      return {
-        pass: false,
-        title: "username type missing",
-        feedback: 'Fix: let username: string = "YourName";',
-      };
-    return {
-      pass: false,
-      title: "year type missing",
-      feedback: "Fix: let year: number = 2026;",
-    };
+    if (hasUsername && hasYear) return { pass: true, title: "Both variables typed correctly!", feedback: "username as string and year as number — exactly right!" };
+    if (!hasUsername && !hasYear) return { pass: false, title: "Missing both type annotations", feedback: 'Try:\nlet username: string = "YourName";\nlet year: number = 2026;' };
+    if (!hasUsername) return { pass: false, title: "username type missing", feedback: 'Fix: let username: string = "YourName";' };
+    return { pass: false, title: "year type missing", feedback: "Fix: let year: number = 2026;" };
   },
   2: (code) => {
-    const ok = [
-      hasTypedVar(code, "city", "string"),
-      hasTypedVar(code, "population", "number"),
-      hasTypedVar(code, "isCapital", "boolean"),
-    ];
-    const missing = [
-      "city: string",
-      "population: number",
-      "isCapital: boolean",
-    ].filter((_, i) => !ok[i]);
-    if (!missing.length)
-      return {
-        pass: true,
-        title: "All three primitives typed!",
-        feedback:
-          "You correctly typed string, number, and boolean. Great work!",
-      };
-    return {
-      pass: false,
-      title: `Missing: ${missing.join(", ")}`,
-      feedback: `Still need:\n${missing.map((m) => `  let ${m} = ...`).join("\n")}`,
-    };
+    const ok = [hasTypedVar(code, "city", "string"), hasTypedVar(code, "population", "number"), hasTypedVar(code, "isCapital", "boolean")];
+    const missing = ["city: string", "population: number", "isCapital: boolean"].filter((_, i) => !ok[i]);
+    if (!missing.length) return { pass: true, title: "All three primitives typed!", feedback: "You correctly typed string, number, and boolean." };
+    return { pass: false, title: `Missing: ${missing.join(", ")}`, feedback: `Still need:\n${missing.map((m) => `  let ${m} = ...`).join("\n")}` };
   },
   3: (code) => {
     const hasFruits = hasStringArray(code, "fruits");
@@ -4514,405 +2776,108 @@ const VALIDATORS = {
     const c = stripComments(code);
     const m = c.match(/fruits\s*(?::\s*string\s*\[\]\s*)?=\s*\[([^\]]*)\]/i);
     const fc = m ? (m[1].match(/,/g) || []).length + 1 : 0;
-    if (hasFruits && hasPerson && fc >= 3)
-      return {
-        pass: true,
-        title: "Array and tuple correct!",
-        feedback:
-          "Your fruits string[] has 3+ items and person [string, number] tuple is perfect!",
-      };
-    if (!hasFruits || fc < 3)
-      return {
-        pass: false,
-        title: "fruits needs 3+ items",
-        feedback: 'const fruits: string[] = ["apple","banana","mango"];',
-      };
-    return {
-      pass: false,
-      title: "person tuple needs annotation",
-      feedback: 'let person: [string, number] = ["Alice", 25];',
-    };
+    if (hasFruits && hasPerson && fc >= 3) return { pass: true, title: "Array and tuple correct!", feedback: "Your fruits string[] has 3+ items and person [string, number] tuple is perfect!" };
+    if (!hasFruits || fc < 3) return { pass: false, title: "fruits needs 3+ items", feedback: 'const fruits: string[] = ["apple","banana","mango"];' };
+    return { pass: false, title: "person tuple needs annotation", feedback: 'let person: [string, number] = ["Alice", 25];' };
   },
   4: (code) => {
     const c = stripComments(code);
-    const ok = [
-      hasInterface(code, "Product"),
-      /readonly\s+id\s*:\s*number/i.test(c),
-      /name\s*:\s*string/i.test(c),
-      /price\s*:\s*number/i.test(c),
-      /:\s*Product/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Interface designed correctly!",
-        feedback:
-          "Product interface with readonly id, name, price — perfectly structured!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "No interface found",
-        feedback:
-          "Start with: interface Product { readonly id: number; name: string; price: number; inStock?: boolean; }",
-      };
-    return {
-      pass: false,
-      title: "Interface incomplete",
-      feedback:
-        "Check: readonly id, name: string, price: number, and a variable typed as Product.",
-    };
+    const ok = [hasInterface(code, "Product"), /readonly\s+id\s*:\s*number/i.test(c), /name\s*:\s*string/i.test(c), /price\s*:\s*number/i.test(c), /:\s*Product/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Interface designed correctly!", feedback: "Product interface with readonly id, name, price — perfectly structured!" };
+    if (!ok[0]) return { pass: false, title: "No interface found", feedback: "Start with: interface Product { readonly id: number; name: string; price: number; inStock?: boolean; }" };
+    return { pass: false, title: "Interface incomplete", feedback: "Check: readonly id, name: string, price: number, and a variable typed as Product." };
   },
   5: (code) => {
     const c = stripComments(code);
-    const ok = [
-      hasFunction(code, "formatName"),
-      /firstName\s*:\s*string/i.test(c),
-      /lastName\s*:\s*string/i.test(c),
-      /\)\s*:\s*string\s*[{=]/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Function typed correctly!",
-        feedback: "formatName has typed params and returns string. Great work!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "No formatName function",
-        feedback:
-          "Write: function formatName(firstName: string, lastName: string): string { ... }",
-      };
-    return {
-      pass: false,
-      title: "Function needs types",
-      feedback:
-        "Check: firstName: string, lastName: string, return type : string",
-    };
+    const ok = [hasFunction(code, "formatName"), /firstName\s*:\s*string/i.test(c), /lastName\s*:\s*string/i.test(c), /\)\s*:\s*string\s*[{=]/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Function typed correctly!", feedback: "formatName has typed params and returns string. Great work!" };
+    if (!ok[0]) return { pass: false, title: "No formatName function", feedback: "Write: function formatName(firstName: string, lastName: string): string { ... }" };
+    return { pass: false, title: "Function needs types", feedback: "Check: firstName: string, lastName: string, return type : string" };
   },
   6: (code) => {
     const c = stripComments(code);
     const rm = c.match(/type\s+Result\s*=([^;]+)/i);
     const tm = c.match(/type\s+Theme\s*=([^;]+)/i);
-    const ok = [
-      rm &&
-        /string/i.test(rm[1]) &&
-        /number/i.test(rm[1]) &&
-        /boolean/i.test(rm[1]),
-      tm && /"light"/i.test(tm[1]) && /"dark"/i.test(tm[1]),
-      /:\s*Theme/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Union types mastered!",
-        feedback: "Result union and Theme literal type both perfect!",
-      };
+    const ok = [rm && /string/i.test(rm[1]) && /number/i.test(rm[1]) && /boolean/i.test(rm[1]), tm && /"light"/i.test(tm[1]) && /"dark"/i.test(tm[1]), /:\s*Theme/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Union types mastered!", feedback: "Result union and Theme literal type both perfect!" };
     const missing = [];
     if (!ok[0]) missing.push("Result = string | number | boolean");
     if (!ok[1]) missing.push('Theme = "light" | "dark"');
     if (!ok[2]) missing.push("a variable typed as Theme");
-    return {
-      pass: false,
-      title: "Type aliases need work",
-      feedback: `Missing:\n${missing.map((m) => "  • type " + m).join("\n")}`,
-    };
+    return { pass: false, title: "Type aliases need work", feedback: `Missing:\n${missing.map((m) => "  • type " + m).join("\n")}` };
   },
   7: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /class\s+Car\s*\{/i.test(c),
-      /(?:public\s+)?make\s*:\s*string/i.test(c),
-      /(?:public\s+)?model\s*:\s*string/i.test(c),
-      /(?:private\s+)?year\s*:\s*number/i.test(c),
-      /getInfo\s*\(\s*\)\s*:\s*string/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Car class built correctly!",
-        feedback:
-          "make, model, year with proper access modifiers and getInfo(): string — perfect!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "No Car class found",
-        feedback:
-          "Start with: class Car { constructor(public make: string, ...) {} getInfo(): string { ... } }",
-      };
-    return {
-      pass: false,
-      title: "Class incomplete",
-      feedback:
-        "Check: public make/model, private year, getInfo(): string method.",
-    };
+    const ok = [/class\s+Car\s*\{/i.test(c), /(?:public\s+)?make\s*:\s*string/i.test(c), /(?:public\s+)?model\s*:\s*string/i.test(c), /(?:private\s+)?year\s*:\s*number/i.test(c), /getInfo\s*\(\s*\)\s*:\s*string/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Car class built correctly!", feedback: "make, model, year with proper access modifiers and getInfo(): string — perfect!" };
+    if (!ok[0]) return { pass: false, title: "No Car class found", feedback: "Start with: class Car { constructor(public make: string, ...) {} getInfo(): string { ... } }" };
+    return { pass: false, title: "Class incomplete", feedback: "Check: public make/model, private year, getInfo(): string method." };
   },
   8: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /function\s+wrapInArray\s*<\s*T\s*>/i.test(c),
-      /value\s*:\s*T\b/i.test(c),
-      /\)\s*:\s*T\s*\[/i.test(c),
-      (c.match(/wrapInArray\s*[(<]/g) || []).length >= 2,
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Generic function perfect!",
-        feedback:
-          "wrapInArray<T> taking T returning T[] called twice — excellent!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "Missing <T> syntax",
-        feedback: "function wrapInArray<T>(value: T): T[] { return [value]; }",
-      };
-    return {
-      pass: false,
-      title: "Almost!",
-      feedback: `Check: parameter as T, return T[], at least 2 calls.`,
-    };
+    const ok = [/function\s+wrapInArray\s*<\s*T\s*>/i.test(c), /value\s*:\s*T\b/i.test(c), /\)\s*:\s*T\s*\[/i.test(c), (c.match(/wrapInArray\s*[(<]/g) || []).length >= 2];
+    if (ok.every(Boolean)) return { pass: true, title: "Generic function perfect!", feedback: "wrapInArray<T> taking T returning T[] called twice — excellent!" };
+    if (!ok[0]) return { pass: false, title: "Missing <T> syntax", feedback: "function wrapInArray<T>(value: T): T[] { return [value]; }" };
+    return { pass: false, title: "Almost!", feedback: "Check: parameter as T, return T[], at least 2 calls." };
   },
   9: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /enum\s+Season\s*\{/i.test(c),
-      /Spring\s*=\s*["']spring["']/i.test(c),
-      /Summer\s*=\s*["']summer["']/i.test(c),
-      /Autumn\s*=\s*["']autumn["']/i.test(c),
-      /Winter\s*=\s*["']winter["']/i.test(c),
-      /:\s*Season/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Enum perfect!",
-        feedback:
-          "All four string members + typed variable. String enums are the modern TypeScript way!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "No Season enum",
-        feedback:
-          'enum Season { Spring = "spring", Summer = "summer", Autumn = "autumn", Winter = "winter" }',
-      };
-    return {
-      pass: false,
-      title: "Enum incomplete",
-      feedback: `Check all four members have string values and declare a Season variable.`,
-    };
+    const ok = [/enum\s+Season\s*\{/i.test(c), /Spring\s*=\s*["']spring["']/i.test(c), /Summer\s*=\s*["']summer["']/i.test(c), /Autumn\s*=\s*["']autumn["']/i.test(c), /Winter\s*=\s*["']winter["']/i.test(c), /:\s*Season/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Enum perfect!", feedback: "All four string members + typed variable!" };
+    if (!ok[0]) return { pass: false, title: "No Season enum", feedback: 'enum Season { Spring = "spring", Summer = "summer", Autumn = "autumn", Winter = "winter" }' };
+    return { pass: false, title: "Enum incomplete", feedback: "Check all four members have string values and declare a Season variable." };
   },
   10: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /function\s+describe\s*\(/i.test(c),
-      /string\s*\|\s*number\s*\|\s*boolean/i.test(c),
-      /typeof\s+\w+\s*===?\s*["']string["']/i.test(c),
-      /typeof\s+\w+\s*===?\s*["']number["']/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Type narrowing mastered!",
-        feedback:
-          "describe() narrows string | number | boolean perfectly with typeof guards!",
-      };
-    if (!ok[0])
-      return {
-        pass: false,
-        title: "No describe function",
-        feedback:
-          "Write: function describe(value: string | number | boolean): string { ... }",
-      };
-    return {
-      pass: false,
-      title: "More narrowing needed",
-      feedback: `Check: union type param, typeof "string" check, typeof "number" check.`,
-    };
+    const ok = [/function\s+describe\s*\(/i.test(c), /string\s*\|\s*number\s*\|\s*boolean/i.test(c), /typeof\s+\w+\s*===?\s*["']string["']/i.test(c), /typeof\s+\w+\s*===?\s*["']number["']/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Type narrowing mastered!", feedback: "describe() narrows string | number | boolean perfectly!" };
+    if (!ok[0]) return { pass: false, title: "No describe function", feedback: "Write: function describe(value: string | number | boolean): string { ... }" };
+    return { pass: false, title: "More narrowing needed", feedback: 'Check: union type param, typeof "string" check, typeof "number" check.' };
   },
   11: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /export\s+function\s+greet\s*\(\s*\w+\s*:\s*string/i.test(c),
-      /export\s+interface\s+Person\s*\{/i.test(c),
-      /name\s*:\s*string/i.test(c),
-      /age\s*:\s*number/i.test(c),
-      /import\s*\{[^}]+\}\s*from/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Modules understood!",
-        feedback:
-          "Exported greet, exported Person interface, and imported them — full module cycle mastered!",
-      };
-    const missing = [
-      "export function greet(name: string): string",
-      "export interface Person { ... }",
-      "name: string in Person",
-      "age: number in Person",
-      "import { greet, Person } from ...",
-    ].filter((_, i) => !ok[i]);
-    return {
-      pass: false,
-      title: "Module exports incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    const ok = [/export\s+function\s+greet\s*\(\s*\w+\s*:\s*string/i.test(c), /export\s+interface\s+Person\s*\{/i.test(c), /name\s*:\s*string/i.test(c), /age\s*:\s*number/i.test(c), /import\s*\{[^}]+\}\s*from/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Modules understood!", feedback: "Exported greet, exported Person interface, and imported them!" };
+    const missing = ["export function greet(name: string): string", "export interface Person { ... }", "name: string in Person", "age: number in Person", "import { greet, Person } from ..."].filter((_, i) => !ok[i]);
+    return { pass: false, title: "Module exports incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   12: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /Omit\s*<\s*Product\s*,/i.test(c),
-      /Partial\s*<\s*PublicProduct\s*>/i.test(c),
-      /type\s+PublicProduct/i.test(c),
-      /type\s+UpdateProduct/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Utility types composed!",
-        feedback:
-          "PublicProduct with Omit, UpdateProduct with Partial — perfect!",
-      };
-    const missing = [
-      'type PublicProduct = Omit<Product, "secret">',
-      "type UpdateProduct = Partial<PublicProduct>",
-    ].filter((_, i) => !ok[i + 2] || !ok[i]);
-    return {
-      pass: false,
-      title: "Utility types incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    const ok = [/Omit\s*<\s*Product\s*,/i.test(c), /Partial\s*<\s*PublicProduct\s*>/i.test(c), /type\s+PublicProduct/i.test(c), /type\s+UpdateProduct/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Utility types composed!", feedback: "PublicProduct with Omit, UpdateProduct with Partial — perfect!" };
+    return { pass: false, title: "Utility types incomplete", feedback: 'Need: type PublicProduct = Omit<Product, "secret">; type UpdateProduct = Partial<PublicProduct>;' };
   },
   13: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /function\s+Frozen\s*\(\s*\w+\s*:\s*Function\s*\)/i.test(c),
-      /Object\.freeze\s*\(/i.test(c),
-      /class\s+AppConfig/i.test(c),
-      /@Frozen/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Decorators applied correctly!",
-        feedback:
-          "Frozen class decorator freezing prototype, applied with @Frozen — perfect TypeScript decorator pattern!",
-      };
-    return {
-      pass: false,
-      title: "Decorator incomplete",
-      feedback:
-        "Need: function Frozen(constructor: Function), Object.freeze(), class AppConfig, @Frozen applied.",
-    };
+    const ok = [/function\s+Frozen\s*\(\s*\w+\s*:\s*Function\s*\)/i.test(c), /Object\.freeze\s*\(/i.test(c), /class\s+AppConfig/i.test(c), /@Frozen/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Decorators applied correctly!", feedback: "Frozen class decorator freezing prototype, applied with @Frozen!" };
+    return { pass: false, title: "Decorator incomplete", feedback: "Need: function Frozen(constructor: Function), Object.freeze(), class AppConfig, @Frozen applied." };
   },
   14: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /target\s*:\s*["']ES2021["']/i.test(c),
-      /strict\s*:\s*true/i.test(c),
-      /outDir\s*:\s*["']\.\/dist["']/i.test(c),
-      /rootDir\s*:\s*["']\.\/src["']/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "tsconfig configured!",
-        feedback:
-          "ES2021, strict, ./dist, ./src — production-ready TypeScript config!",
-      };
-    const missing = [
-      'target: "ES2021"',
-      "strict: true",
-      'outDir: "./dist"',
-      'rootDir: "./src"',
-    ].filter((_, i) => !ok[i]);
-    return {
-      pass: false,
-      title: "Config incomplete",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    const ok = [/target\s*:\s*["']ES2021["']/i.test(c), /strict\s*:\s*true/i.test(c), /outDir\s*:\s*["']\.\/dist["']/i.test(c), /rootDir\s*:\s*["']\.\/src["']/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "tsconfig configured!", feedback: "ES2021, strict, ./dist, ./src — production-ready config!" };
+    const missing = ['target: "ES2021"', "strict: true", 'outDir: "./dist"', 'rootDir: "./src"'].filter((_, i) => !ok[i]);
+    return { pass: false, title: "Config incomplete", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
   15: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /interface\s+CardProps\s*\{/i.test(c),
-      /title\s*:\s*string/i.test(c),
-      /description\s*:\s*string/i.test(c),
-      /onClick\s*\?\s*:\s*\(\s*\)\s*=>\s*void/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "React component typed!",
-        feedback:
-          "CardProps with title, description, optional onClick — perfect modern React TypeScript!",
-      };
-    return {
-      pass: false,
-      title: "Component needs work",
-      feedback:
-        "Check: interface CardProps, title: string, description: string, onClick?: () => void.",
-    };
+    const ok = [/interface\s+CardProps\s*\{/i.test(c), /title\s*:\s*string/i.test(c), /description\s*:\s*string/i.test(c), /onClick\s*\?\s*:\s*\(\s*\)\s*=>\s*void/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "React component typed!", feedback: "CardProps with title, description, optional onClick — perfect!" };
+    return { pass: false, title: "Component needs work", feedback: "Check: interface CardProps, title: string, description: string, onClick?: () => void." };
   },
   16: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /interface\s+PostParams\s*\{/i.test(c),
-      /id\s*:\s*string/i.test(c),
-      /Request\s*<\s*PostParams\s*>/i.test(c),
-      /res\s*:\s*Response/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Express route typed!",
-        feedback:
-          "PostParams, typed Request<PostParams>, res: Response — production-grade Express TypeScript!",
-      };
-    const missing = [
-      "interface PostParams { id: string }",
-      "Request<PostParams> on req",
-      "res: Response parameter",
-    ].filter((_, i) => !ok[i + 0]);
-    return {
-      pass: false,
-      title: "Route handler incomplete",
-      feedback: `Check: PostParams interface, Request<PostParams>, Response.`,
-    };
+    const ok = [/interface\s+PostParams\s*\{/i.test(c), /id\s*:\s*string/i.test(c), /Request\s*<\s*PostParams\s*>/i.test(c), /res\s*:\s*Response/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Express route typed!", feedback: "PostParams, typed Request<PostParams>, res: Response — perfect!" };
+    return { pass: false, title: "Route handler incomplete", feedback: "Check: PostParams interface, Request<PostParams>, Response." };
   },
   17: (code) => {
     const c = stripComments(code);
-    const ok = [
-      /type\s+IsArray\s*<\s*T\s*>/i.test(c),
-      /T\s+extends\s+any\s*\[\]/i.test(c),
-      /\?\s*["']yes["']\s*:\s*["']no["']/i.test(c),
-      /type\s+Test1/i.test(c),
-      /type\s+Test2/i.test(c),
-    ];
-    if (ok.every(Boolean))
-      return {
-        pass: true,
-        title: "Conditional type mastered! All 17 lessons complete! 🎉",
-        feedback:
-          'IsArray<T> uses T extends any[] ? "yes" : "no" — the correct pattern. You\'ve completed the entire TS Academy course!',
-      };
-    const missing = [
-      "type IsArray<T>",
-      "T extends any[] condition",
-      '? "yes" : "no"',
-      "type Test1",
-      "type Test2",
-    ].filter((_, i) => !ok[i]);
-    return {
-      pass: false,
-      title: "Conditional type needs work",
-      feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}`,
-    };
+    const ok = [/type\s+IsArray\s*<\s*T\s*>/i.test(c), /T\s+extends\s+any\s*\[\]/i.test(c), /\?\s*["']yes["']\s*:\s*["']no["']/i.test(c), /type\s+Test1/i.test(c), /type\s+Test2/i.test(c)];
+    if (ok.every(Boolean)) return { pass: true, title: "Conditional type mastered! All 17 lessons complete! 🎉", feedback: 'IsArray<T> uses T extends any[] ? "yes" : "no" — the correct pattern. You\'ve completed the entire TS Academy course!' };
+    const missing = ["type IsArray<T>", "T extends any[] condition", '? "yes" : "no"', "type Test1", "type Test2"].filter((_, i) => !ok[i]);
+    return { pass: false, title: "Conditional type needs work", feedback: `Missing:\n${missing.map((m) => "  • " + m).join("\n")}` };
   },
 };
 
@@ -4922,10 +2887,7 @@ function submitCode() {
   const thinking = document.getElementById("thinking");
   const resultEl = document.getElementById("ai-result");
   const submitBtn = document.getElementById("submit-btn");
-  if (!code || code.replace(/\/\/[^\n]*/g, "").trim() === "") {
-    alert("Please write some code first!");
-    return;
-  }
+  if (!code || code.replace(/\/\/[^\n]*/g, "").trim() === "") { alert("Please write some code first!"); return; }
   editor.classList.add("checking");
   submitBtn.disabled = true;
   thinking.classList.add("show");
@@ -4936,23 +2898,16 @@ function submitCode() {
     editor.classList.remove("checking");
     submitBtn.disabled = false;
     const validator = VALIDATORS[activeLesson.id];
-    const result = validator
-      ? validator(code)
-      : { pass: true, title: "Looks good!", feedback: "Code accepted!" };
+    const result = validator ? validator(code) : { pass: true, title: "Looks good!", feedback: "Code accepted!" };
     if (result.pass) {
       const id = activeLesson.id;
       const was = lessonProgress(id).code;
       progress[id] = { ...lessonProgress(id), code: true };
-      if (!was) {
-        points += 30;
-        streak++;
-        save();
-        updateStats();
-      }
+      if (!was) { points += 30; streak++; save(); updateStats(); }
       save();
       updatePhaseTabs();
       resultEl.className = "ai-result pass show";
-      resultEl.innerHTML = `<div class="ai-result-hdr"><div class="ai-result-icon">(^_^)</div><div class="ai-result-title">${escHtml(result.title)}</div></div><div class="ai-result-body">${escHtml(result.feedback)}</div><div class="btn-row" style="margin-top:16px"><button class="btn btn-primary" onclick="switchPhase('project')">Go to Project Phase</button></div>`;
+      resultEl.innerHTML = `<div class="ai-result-hdr"><div class="ai-result-icon">(^_^)</div><div class="ai-result-title">${escHtml(result.title)}</div></div><div class="ai-result-body">${escHtml(result.feedback)}</div><div class="btn-row" style="margin-top:16px"><button class="btn btn-primary" onclick="switchPhase('project')">Go to Project Phase [ → ]</button></div>`;
     } else {
       resultEl.className = "ai-result fail show";
       resultEl.innerHTML = `<div class="ai-result-hdr"><div class="ai-result-icon">(x_x)</div><div class="ai-result-title">${escHtml(result.title)}</div></div><div class="ai-result-body">${escHtml(result.feedback)}</div><div class="btn-row" style="margin-top:16px"><button class="btn btn-ghost" onclick="submitCode()">Try Again [ → ]</button></div>`;
@@ -4972,24 +2927,23 @@ function completionScreen() {
 <div class="complete-title">Lesson ${l.id} Complete!</div>
 <div class="complete-sub">You finished: Learn → Quiz → Challenge → Project</div>
 <div class="complete-rewards">
-  <div class="reward-card"><div class="reward-val" style="color:var(--yellow)">(*)</div><div class="reward-val" style="color:var(--yellow)">${points}</div><div class="reward-label">Total Points</div></div>
-  <div class="reward-card"><div class="reward-val" style="color:var(--orange)">>_<</div><div class="reward-val" style="color:var(--orange)">${streak}</div><div class="reward-label">Streak</div></div>
-  <div class="reward-card"><div class="reward-val" style="color:var(--cyan)">[@]</div><div class="reward-val" style="color:var(--cyan)">${LESSONS.filter((x) => isLessonDone(x.id)).length}/${LESSONS.length}</div><div class="reward-label">Lessons Done</div></div>
-  <div class="reward-card"><div class="reward-val" style="color:var(--blue)">[P]</div><div class="reward-val" style="color:var(--blue)">${LESSONS.filter((x) => lessonProgress(x.id).project).length}</div><div class="reward-label">Projects Built</div></div>
+  <div class="reward-card"><div class="reward-val" style="color:var(--yellow)">${points}</div><div class="reward-label">Total Points</div></div>
+  <div class="reward-card"><div class="reward-val" style="color:var(--orange)">${streak}</div><div class="reward-label">Streak</div></div>
+  <div class="reward-card"><div class="reward-val" style="color:var(--cyan)">${LESSONS.filter((x) => isLessonDone(x.id)).length}/${LESSONS.length}</div><div class="reward-label">Lessons Done</div></div>
+  <div class="reward-card"><div class="reward-val" style="color:var(--blue)">${LESSONS.filter((x) => lessonProgress(x.id).project).length}</div><div class="reward-label">Projects Built</div></div>
 </div>
 <div class="btn-row" style="justify-content:center">
-  ${hasNext ? `<button class="btn btn-primary" onclick="openLesson(${LESSONS[nextIdx].id})">Next Lesson: ${LESSONS[nextIdx].title} [ → ]</button>` : `<div style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:1.1rem">(^_^) You completed all 17 lessons + all projects!</div>`}
+  ${hasNext
+    ? `<button class="btn btn-primary" onclick="openLesson(${LESSONS[nextIdx].id})">Next Lesson: ${LESSONS[nextIdx].title} [ → ]</button>`
+    : `<div style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:1.1rem">(^_^) You completed all 17 lessons + all projects!</div>`
+  }
   <button class="btn btn-ghost" onclick="goBack()">All Lessons</button>
 </div>`;
   showView("complete");
 }
 
 function escHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // ══════════════════════════════════════════
