@@ -3391,8 +3391,6 @@ function renderLearnPhase() {
   let html = `<div class="learn-lesson-hdr"><div class="learn-icon">${l.icon}</div><div><div class="learn-title">Lesson ${l.id} — ${l.title}</div><div class="learn-sub">${l.desc}</div></div></div>`;
   html += `<div class="content-block"><div class="block-heading">What you'll learn</div><div class="block-text">${whatYoullLearn || "Review the main lesson concepts and examples."}</div></div>`;
 
-
-
   l.content.forEach((block) => {
     html += `<div class="content-block">`;
     if (block.heading)
