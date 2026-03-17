@@ -290,7 +290,7 @@ body::before {
 [data-theme="light"] .intro-panel {
   border-top: 3px solid #50b1de;
   border-right: 3px solid #499dca;
-  background: linear-gradient(90deg, #eff3f8 0%, #1e1e1d 50%, #edf3f2 100%);
+  background: linear-gradient(90deg, #eff3f8 0%, #474745 50%, #edf3f2 100%);
   box-shadow: 0 10px 26px rgba(12, 1, 1, 0.8);
 }
 
@@ -1538,6 +1538,12 @@ textarea.project-editor:focus {
    600px Breakpoint - General Mobile Styles
    ──────────────────────────────────────────── */
 @media (max-width: 600px) {
+
+[data-theme="light"] .intro-panel {
+  
+  background: linear-gradient(90deg, #ffffff 0%, #888888, #ffffff);
+
+}
   .shell {
     padding: 20px 14px 80px;
   }
