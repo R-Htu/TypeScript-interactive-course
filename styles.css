@@ -1244,7 +1244,7 @@ textarea.code-editor {
 }
 [data-theme="light"] textarea.code-editor {
   color: #166534;
-  background: #0776e6;
+  background: #f3f5f7;
 }
 textarea.code-editor:focus {
   border-color: var(--cyan);
