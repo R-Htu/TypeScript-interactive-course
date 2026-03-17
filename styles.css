@@ -1433,7 +1433,344 @@ textarea.project-editor:focus {
     font-size: 0.6rem;
     padding: 12px 6px;
   }
- .ai-result-icon {
+ .ai-result-icon,.fb-icon, .btn-primary {
+    font-size: 0.84rem;
+  }
+  .btn-primary {
+    padding: 5px 3px;
+    border-radius: 10px 0 4px 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE HEADER
+   ═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE HEADER
+   ═══════════════════════════════════════════ */
+
+.hdr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}
+
+/* ────────────────────────────────────────────
+   Brand
+   ──────────────────────────────────────────── */
+.hdr-brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* ────────────────────────────────────────────
+   Progress Bar Section
+   ──────────────────────────────────────────── */
+.hdr-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+}
+
+.hdr-progress .prog-track {
+  flex: 1;
+}
+
+.hdr-progress #prog-pct {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ────────────────────────────────────────────
+   Stats Pills Section
+   ──────────────────────────────────────────── */
+.hdr-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+/* ═══════════════════════════════════════════
+   📱 RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────
+   Tablet (≤ 768px)
+   ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hdr {
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .hdr-stats {
+    gap: 8px;
+  }
+
+  .stat-pill {
+    gap: 4px;
+    padding: 7px 12px;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+  }
+
+  .hdr-progress #prog-pct {
+    font-size: 0.6rem;
+  }
+}
+
+/* ────────────────────────────────────────────
+   Mobile (≤ 480px) - 2 ROWS LAYOUT
+   ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hdr {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Row 1: Brand */
+  .hdr-brand {
+    order: 1;
+    align-self: flex-start;
+    font-size: 1.1rem;
+  }
+
+  /* Row 1: Progress Bar */
+  .hdr-progress {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+    margin-top: -2px;
+  }
+
+  /* Row 2: Stats Grid - 2 pills per row */
+  .hdr-stats {
+    order: 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .stat-pill {
+    width: 100%;
+    padding: 5px 8px;
+    gap: 3px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+  }
+
+  .stat-pill .val {
+    font-size: 0.9rem !important;
+    font-weight: 600;
+  }
+
+  .stat-label {
+    font-size: 0.55rem;
+    line-height: 1.2;
+  }
+}
+
+/* ────────────────────────────────────────────
+   Very Small Phones (≤ 360px)
+   ──────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .hdr {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .hdr-brand {
     font-size: 1rem;
+  }
+
+  .hdr-stats {
+    gap: 5px;
+  }
+
+  .stat-pill {
+    padding: 4px 6px;
+    gap: 2px;
+    border-radius: 5px;
+  }
+
+  .stat-pill .val {
+    font-size: 0.85rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.5rem;
+  }
+
+  .hdr-progress #prog-pct {
+    font-size: 0.55rem;
+  }
+}
+/* ═══════════════════════════════════════════
+   LESSON VIEW - Mobile Fixes
+   ═══════════════════════════════════════════ */
+
+/* Mobile (≤ 480px) - Fix text overflow */
+@media (max-width: 480px) {
+  
+  /* Lesson Title */
+  .learn-lesson-hdr {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .learn-title {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .learn-sub {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .learn-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  /* What you'll learn section */
+  .content-block {
+    padding: 12px;
+  }
+
+  .block-heading {
+    font-size: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+
+  .block-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Phase tabs */
+  .phase-bar {
+    padding: 8px;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .phase-tab {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Back button */
+  .back-btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  /* Content blocks */
+  .point-list .point {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+}
+
+/* Very small phones (≤ 360px) */
+@media (max-width: 360px) {
+  .learn-title {
+    font-size: 1rem;
+  }
+
+  .learn-sub {
+    font-size: 0.8rem;
+  }
+
+  .block-heading {
+    font-size: 0.95rem;
+  }
+
+  .block-text {
+    font-size: 0.8rem;
+  }
+
+  .phase-tab {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE CONTAINER FIX
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  
+  /* Prevent horizontal overflow */
+  body {
+    overflow-x: hidden;
+  }
+
+  .shell {
+    padding: 0 8px;
+    overflow-x: hidden;
+  }
+
+  /* Lesson view wrapper */
+  #view-lesson {
+    padding: 0 8px;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* All text content */
+  .view {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Long words break */
+  h1, h2, h3, h4, h5, h6, p, li, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
