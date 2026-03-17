@@ -19,7 +19,7 @@
   --code: #0a0d14;
 }
 [data-theme="light"] {
-  --bg: #f0f4fa;
+  --bg: #fff;
   --surface: #ffffff;
   --card: #ffffff;
   --card2: #f8fafd;
@@ -185,7 +185,7 @@ body::before {
   font-family: "Syne", sans-serif;
   font-size: 1.35rem;
   font-weight: 900;
-  background: linear-gradient(90deg, #016df1 0%, #dbcabd 50%, #edf3f2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;;
+  background: linear-gradient(90deg, #016df1 0%, #dbcabd 50%, #edf3f2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   line-height: 1.2;
   text-shadow: 0 0 10px rgba(30, 239, 255, 0.1);
 }
@@ -276,39 +276,52 @@ body::before {
 [data-theme="light"] .intro-panel {
   background: linear-gradient(
     135deg,
-    rgba(226, 243, 255, 0.95),
-    rgba(244, 252, 255, 0.95)
+    rgba(253, 254, 255, 0.95),
+    rgba(238, 230, 230, 0.95)
   );
-  border: 1px solid rgba(61, 142, 191, 0.38);
-  box-shadow: 0 8px 18px rgba(67, 103, 133, 0.22);
+  box-shadow: 0 8px 18px rgba(67, 103, 133, 0.1);
 }
 [data-theme="light"] .intro-panel::before {
   background:
-    radial-gradient(
-      circle at 20% 25%,
-      rgba(60, 170, 216, 0.15),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(148, 202, 255, 0.12),
-      transparent 35%
-    );
+  radial-gradient(
+    circle at top left,
+     #f7ffff,#e2edfc, #fcfeff);
   filter: blur(6px);
 }
 [data-theme="light"] .intro-panel h1 {
-  color: #1f496d;
-  text-shadow: 0 0 10px rgba(44, 129, 184, 0.35);
+  background: linear-gradient(90deg, #456345 0%, #0d9089 50%, #01332b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(44, 129, 184, 0.1);
 }
 [data-theme="light"] .intro-panel p,
 [data-theme="light"] .intro-steps li {
   color: #1a436c;
 }
 [data-theme="light"] .hdr-brand {
-  color: #0f6ba8;
+  background: linear-gradient(90deg, #016df1 0%, #dbcabd 50%, #edf3f2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-[data-theme="light"] .hdr-brand span {
-  color: #1d4e80;
+
+
+[data-theme="light"] .intro-steps li{
+  background: radial-gradient(circle at top left, #555757,#e2fcf5, #5c7d9a);
+  color: #030b14;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.34);
+}
+[data-theme="light"] .btn-start {
+  background: radial-gradient(circle at top left, #2e5d62, #7398bb);
+  color: #030b14;
+  box-shadow: 0 6px 16px rgba(0, 13, 18, 0.34);
+}
+
+[data-theme="light"] .intro-continue{
+  background: radial-gradient(circle at top left,#8d9292, #6ba2d1);
+  color: #030b14;
+  box-shadow: 0 6px 16px rgba(0, 13, 18, 0.34);
+}
+
+[data-theme="light"] .hdr{
+  background: radial-gradient(circle at top left,#041111, #28292a);
+  color: #030b14;
+  box-shadow: 0 6px 16px rgba(0, 13, 18, 0.34);
 }
 
 .stat-pill {
