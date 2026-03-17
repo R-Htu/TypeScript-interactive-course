@@ -4001,26 +4001,43 @@ const VALIDATORS = {
       hasFunction(code, "formatName"),
       /firstName\s*:\s*string/i.test(c),
       /lastName\s*:\s*string/i.test(c),
-      /\)\s*:\s*string\s*[{=]/i.test(c),
+      /title\?\s*:\s*string/i.test(c), // Check for optional title
+      /\)\s*:\s*string\s*[{]/i.test(c),
     ];
-    if (ok.every(Boolean))
+
+    // Check if function body is empty (just returns "")
+    const hasEmptyReturn = /return\s*[""'']\s*;/i.test(c);
+    const hasNoLogic = !/if|title|\$\{|\+/i.test(c) || hasEmptyReturn;
+
+    if (ok.every(Boolean) && !hasNoLogic)
       return {
         pass: true,
         title: "Function typed correctly!",
-        feedback: "formatName has typed params and returns string. Great work!",
+        feedback:
+          "formatName has typed params, optional title, returns string, and includes logic. Great work!",
       };
+
     if (!ok[0])
       return {
         pass: false,
         title: "No formatName function",
         feedback:
-          "Write: function formatName(firstName: string, lastName: string): string { ... }",
+          "Write: function formatName(firstName: string, lastName: string, title?: string): string { ... }",
       };
+
+    if (hasNoLogic)
+      return {
+        pass: false,
+        title: "Function needs implementation!",
+        feedback:
+          "The function signature is correct, but you need to implement the logic. Use template literals or string concatenation to format the name. Example: return title ? `${title} ${firstName} ${lastName}` : `${firstName} ${lastName}`;",
+      };
+
     return {
       pass: false,
-      title: "Function needs types",
+      title: "Function needs proper types",
       feedback:
-        "Check: firstName: string, lastName: string, return type : string",
+        "Check: firstName: string, lastName: string, title?: string (optional), return type : string",
     };
   },
   6: (code) => {
