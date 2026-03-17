@@ -25,6 +25,15 @@
             progress in a game-like flow. Perfect for beginners and multitool
             devs who want fast results.
           </p>
+            <div class="stats">
+	<div class="stat"><span class="stat-val">17</span><span class="stat-label">Lessons</span></div>
+	<div class="stat"><span class="stat-val">58</span><span class="stat-label">Quizes</span></div>
+	<div class="stat"><span class="stat-val">17</span><span class="stat-label">Challenges</span></div>
+  <div class="stat"><span class="stat-val">34</span><span class="stat-label">Projects</span></div>
+	<div class="stat"><span class="stat-val">0</span><span class="stat-label">Install</span></div>
+	<div class="stat"><span class="stat-val">100%</span><span class="stat-label">Free</span></div>
+
+</span></div>
           <ul class="intro-steps">
             <li><strong>1.</strong> Complete short lessons in 10-15 minutes</li>
             <li><strong>2.</strong> Solve code tasks and earn points</li>
@@ -42,53 +51,34 @@
     <div class="shell">
       <!-- HEADER -->
       <div class="hdr">
-        <div class="hdr-brand">TS<span>Academy</span></div>
-        <div
-          class="hdr-progress"
-          title="Overall course progress"
-          style="display: flex; align-items: center; gap: 8px"
-        >
-          <div class="prog-track" style="flex: 1">
-            <div class="prog-fill" id="prog-fill" style="width: 0%"></div>
-          </div>
-          <span
-            id="prog-pct"
-            style="
-              font-family: &quot;JetBrains Mono&quot;, monospace;
-              font-size: 0.65rem;
-              color: var(--muted);
-              white-space: nowrap;
-            "
-            >0%</span
-          >
-        </div>
-        <div class="hdr-stats">
-          <div class="stat-pill">
-            <span class="val orange" id="st-streak">0</span
-            ><span style="color: var(--muted); font-size: 0.65rem"
-              >>_< streak</span
-            >
-          </div>
-          <div class="stat-pill">
-            <span class="val yellow" id="st-points">0</span
-            ><span style="color: var(--muted); font-size: 0.65rem"
-              >(*) pts</span
-            >
-          </div>
-          <div class="stat-pill">
-            <span class="val cyan" id="st-done">0</span
-            ><span style="color: var(--muted); font-size: 0.65rem"
-              >[@] done</span
-            >
-          </div>
-          <div class="stat-pill">
-            <span class="val purple" id="st-badges">0</span
-            ><span style="color: var(--muted); font-size: 0.65rem"
-              >🚀 badges</span
-            >
-          </div>
-        </div>
-      </div>
+  <div class="hdr-brand">TS<span>Academy</span></div>
+  
+  <div class="hdr-progress" title="Overall course progress">
+    <div class="prog-track">
+      <div class="prog-fill" id="prog-fill" style="width: 0%"></div>
+    </div>
+    <span id="prog-pct">0%</span>
+  </div>
+  
+  <div class="hdr-stats">
+    <div class="stat-pill">
+      <span class="val orange" id="st-streak">0</span>
+      <span class="stat-label">>_< streak</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val yellow" id="st-points">0</span>
+      <span class="stat-label">(*) pts</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val cyan" id="st-done">0</span>
+      <span class="stat-label">[@] done</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val purple" id="st-badges">0</span>
+      <span class="stat-label">🚀 badges</span>
+    </div>
+  </div>
+</div>
 
       <!-- LESSONS VIEW -->
       <div id="view-lessons" class="view active">
