@@ -57,7 +57,6 @@
             <li><strong>2.</strong> Solve code tasks and earn points</li>
             <li><strong>3.</strong> Unlock next module and build confidence</li>
           </ul>
-
         </div>
         <button id="btn-start-lesson" class="btn-start" onclick="openLesson(1)">
           Start Lesson 1
@@ -439,6 +438,81 @@
         <div class="phase-card">
           <div class="complete-screen" id="complete-content"></div>
         </div>
+      </div>
+    </div>
+    <br /><br />
+    <hr />
+    <hr />
+
+    <section class="extra-projects-section" id="extra-projects-section">
+      <div class="ep-header">
+        <div class="ep-header-label">[ EXTRA ]</div>
+        <h2 class="ep-title">Practice Projects</h2>
+        <p class="ep-subtitle">
+          Medium → Hard challenges. Build real things. Earn bragging rights.
+        </p>
+
+        <!-- filter bar -->
+        <div class="ep-filters" id="ep-filters">
+          <button
+            class="ep-filter active"
+            data-filter="all"
+            onclick="filterProjects('all', this)"
+          >
+            All
+          </button>
+          <button
+            class="ep-filter"
+            data-filter="arrays"
+            onclick="filterProjects('arrays', this)"
+          >
+            Arrays
+          </button>
+          <button
+            class="ep-filter"
+            data-filter="oop"
+            onclick="filterProjects('oop', this)"
+          >
+            OOP / Classes
+          </button>
+          <button
+            class="ep-filter"
+            data-filter="state"
+            onclick="filterProjects('state', this)"
+          >
+            State
+          </button>
+          <button
+            class="ep-filter"
+            data-filter="generics"
+            onclick="filterProjects('generics', this)"
+          >
+            Generics
+          </button>
+          <button
+            class="ep-filter"
+            data-filter="advanced"
+            onclick="filterProjects('advanced', this)"
+          >
+            Advanced
+          </button>
+        </div>
+      </div>
+
+      <div class="ep-grid" id="ep-grid"></div>
+    </section>
+
+    <!-- project detail modal -->
+    <div
+      class="ep-modal-overlay"
+      id="ep-modal-overlay"
+      onclick="closeEpModal(event)"
+    >
+      <div class="ep-modal" id="ep-modal">
+        <button class="ep-modal-close" onclick="closeEpModal()">
+          [ ✕ close ]
+        </button>
+        <div id="ep-modal-body"></div>
       </div>
     </div>
   </body>

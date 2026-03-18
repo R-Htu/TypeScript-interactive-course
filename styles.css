@@ -17,6 +17,10 @@
   --muted: #5a7090;
   --dim: #2a3a50;
   --code: #0a0d14;
+  --ts-moss: #00ff87;
+  --ts-teal: #00d4cc;
+  --ts-wire: #143020;
+  --ts-card: #0a1510;
 }
 [data-theme="light"] {
   --bg: #fff;
@@ -197,7 +201,8 @@ body::before {
 }
 
 .btn-start {
-  border: 1px solid rgba(0, 219, 255, 0.72);
+  border-top: 1px solid rgba(0, 219, 255, 0.72);
+  border-right: 1px solid rgba(0, 219, 255, 0.72);
   background: radial-gradient(circle at top left, #a3dbe1, #0f4f8b);
   color: #030b14;
   font-family: "JetBrains Mono", monospace;
@@ -207,7 +212,7 @@ body::before {
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 173, 255, 0.34);
+  box-shadow: 0 6px 16px rgba(38, 39, 39, 0.34);
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -232,9 +237,6 @@ body::before {
   align-items: center;
   gap: 8px;
   padding: 7px 10px;
-  border-radius: 10px;
-  background: rgba(12, 33, 57, 0.65);
-  box-shadow: 0 2px 3px rgba(0, 161, 241, 0.25);
   color: #def3ff;
   font-size: 0.75rem;
   transition: all 0.3s ease;
@@ -303,10 +305,7 @@ body::before {
 
 [data-theme="light"] .intro-steps li {
   /* background: radial-gradient(circle at top left, #555757, #e2fcf5, #5c7d9a);*/
-  background-color: rgb(229, 234, 250);
-  border-color: #dde4f0;
   color: #0f172a;
-  box-shadow: 2px 2px 7px rgba(3, 3, 3, 0.7);
 }
 [data-theme="light"] .intro-steps li:hover {
   border-color: #0284c7;
@@ -321,15 +320,12 @@ body::before {
 [data-theme="light"] .intro-continue {
   background: linear-gradient(145deg, #e6f0fa, #c8dff5);
   color: #030b14;
-
   padding: 12px 28px;
-  border-radius: 12px;
-  border: 1px solid rgba(173, 216, 230, 0.4);
-
-  /* 3D depth */
+  border-right: 3px solid rgba(7, 197, 244, 0.4);
+  border-top: 2px solid rgba(13, 163, 218, 0.4);
   box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.25),
-    /* bottom shadow */ -4px -4px 10px rgba(255, 255, 255, 0.8); /* top highlight */
+    0px 4px 12px rgba(225, 247, 252, 0.3),
+    0px 8px 24px rgba(228, 239, 241, 0.3);
 }
 
 [data-theme="light"] .hdr {
@@ -1979,4 +1975,579 @@ textarea.project-editor:focus {
     height: 1.4rem;
     font-size: 0.7rem;
   }
+}
+/* ═══════════════════════════════════════════════
+       SECTION WRAPPER  (matches your .shell width)
+    ═══════════════════════════════════════════════ */
+.extra-projects-section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 4rem 1.25rem 6rem;
+}
+
+/* ─── Header ─────────────────────────────────── */
+.ep-header {
+  text-align: center;
+  margin-bottom: 2.75rem;
+}
+
+.ep-header-label {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.22rem 0.75rem;
+  margin-bottom: 0.8rem;
+  transition: background 0.25s;
+}
+
+[data-theme="light"] .ep-header-label {
+  background: var(--accent-dim);
+}
+
+.ep-title {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--fg);
+  margin-bottom: 0.5rem;
+  transition: color 0.25s;
+}
+
+.ep-subtitle {
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  margin-bottom: 1.1rem;
+  transition: color 0.25s;
+}
+
+.ep-meta {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.ep-meta-pill {
+  font-size: 0.68rem;
+  background: var(--card-bg);
+  color: var(--cyan);
+  border: 1px solid var(--border);
+  padding: 0.22rem 0.65rem;
+  border-radius: 2px;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+
+/* ─── Filters ────────────────────────────────── */
+.ep-filters {
+  display: flex;
+  gap: 0.45rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ep-filter {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid transparent ;
+  border-bottom: 4px solid rgba(36, 107, 222, 0.5);
+  border-right: 2px solid rgba(36, 107, 222, 0.5);
+  background: rgba(6, 96, 78, 0.15);
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-radius: 2px;
+}
+
+.ep-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ep-filter.active {
+  background: var(--accent);
+  color:white;
+  border-color: rgb(119, 68, 155);
+  font-weight: 600;
+}
+
+[data-theme="light"] .ep-filter.active {
+  color: black;
+  background: rgb(211, 193, 234);
+  
+}
+
+/* ─── Grid ───────────────────────────────────── */
+.ep-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1rem;
+}
+
+/* ─── Card ───────────────────────────────────── */
+.ep-card {
+  background: var(--card-bg);
+  box-shadow: 4px 4px 10px rgba(9, 227, 239, 0.1);
+  border-right: 1px solid rgb(64, 28, 80);
+  border-radius: 4px;
+  padding: 1.2rem 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    transform 0.2s,
+    background 0.25s,
+    box-shadow 0.2s;
+}
+[daata-theme="light"] .ep-card {
+  box-shadow: 4px 4px 10px rgba(20, 19, 19, 0.1);
+  border-right: 1px solid rgb(78, 222, 12);
+}
+.ep-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ep-card:hover {
+  border-color: var(--card-hover);
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(50, 46, 46, 0.15);
+}
+
+[data-theme="light"] .ep-card:hover {
+  box-shadow: 0 12px 24px rgba(4, 129, 245, 0.08);
+}
+
+.ep-card:hover::before {
+  opacity: 1;
+}
+
+.ep-card.ep-hidden {
+  display: none;
+}
+
+/* card internals */
+.ep-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ep-card-num {
+  font-size: 0.62rem;
+  color: var(--fg-dim);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.38rem;
+  border-radius: 2px;
+  transition:
+    color 0.25s,
+    border-color 0.25s;
+}
+
+.ep-card-difficulty {
+  font-size: 0.6rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 2px;
+  margin-left: auto;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.ep-diff-medium {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.ep-diff-hard {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+.ep-card-title {
+  font-family: "Syne", sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.3;
+  transition: color 0.25s;
+}
+
+.ep-card-goal {
+  font-size: 0.73rem;
+  color: var(--cyan);
+  transition: color 0.25s;
+}
+
+.ep-card-desc {
+  font-size: 0.73rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s;
+}
+
+.ep-card-reqs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.ep-req-tag {
+  font-size: 0.6rem;
+  background: var(--purple-dim);
+  color: var(--purple);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  padding: 0.12rem 0.45rem;
+  border-radius: 2px;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.ep-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+  gap: 0.5rem;
+}
+
+.ep-example-label {
+  font-size: 0.6rem;
+  color: var(--fg-dim);
+  margin-bottom: 0.18rem;
+  transition: color 0.25s;
+}
+
+.ep-example-val {
+  font-size: 0.68rem;
+  color: var(--green);
+  background: var(--green-dim);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  padding: 0.13rem 0.45rem;
+  border-radius: 2px;
+  transition:
+    color 0.25s,
+    background 0.25s;
+}
+
+[data-theme="light"] .ep-example-val {
+  border-color: rgba(21, 128, 61, 0.2);
+}
+
+.ep-open-btn {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 0.38rem 0.9rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    opacity 0.15s,
+    background 0.25s;
+  flex-shrink: 0;
+}
+
+.ep-open-btn:hover {
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════════════ */
+.ep-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+[data-theme="light"] .ep-modal-overlay {
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.ep-modal-overlay.open {
+  display: flex;
+}
+
+.ep-modal {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px var(--border),
+    0 12px 32px rgba(0, 0, 0, 0.25);
+  max-width: 640px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 1.75rem;
+  position: relative;
+  animation: ep-slide-in 0.18s ease;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
+}
+
+@keyframes ep-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ep-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  padding: 0.22rem 0.55rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.ep-modal-close:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.ep-modal h3 {
+  font-family: "Syne", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--fg);
+  margin: 0 0 0.3rem;
+  padding-right: 5.5rem;
+  line-height: 1.3;
+  transition: color 0.25s;
+}
+
+.ep-modal-goal {
+  font-size: 0.78rem;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+  transition: color 0.25s;
+}
+
+.ep-modal-section-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin: 1.1rem 0 0.45rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.28rem;
+  transition:
+    color 0.25s,
+    border-color 0.25s;
+}
+
+.ep-modal-desc {
+  font-size: 0.77rem;
+  color: var(--fg-muted);
+  line-height: 1.7;
+  transition: color 0.25s;
+}
+
+.ep-modal-reqs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ep-modal-reqs-list li {
+  font-size: 0.76rem;
+  color: var(--fg);
+  padding-left: 1.1rem;
+  position: relative;
+  line-height: 1.5;
+  transition: color 0.25s;
+}
+
+.ep-modal-reqs-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.ep-modal-example {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  padding: 0.7rem 1rem;
+  font-size: 0.77rem;
+  color: var(--green);
+  white-space: pre;
+  border-radius: 2px;
+  overflow-x: auto;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+
+.ep-modal-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.ep-modal-tag {
+  font-size: 0.62rem;
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  border: 1px solid rgba(34, 211, 238, 0.18);
+  padding: 0.13rem 0.5rem;
+  border-radius: 2px;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+[data-theme="light"] .ep-modal-tag {
+  border-color: rgba(14, 116, 144, 0.2);
+}
+
+.ep-modal-diff-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.ep-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+
+.ep-modal-btn {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.73rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: opacity 0.15s;
+  border: none;
+}
+
+.ep-modal-btn-primary {
+  background: var(--accent);
+  color: #000;
+}
+
+.ep-modal-btn-secondary {
+  background: transparent;
+  color: var(--fg-muted);
+  border: 1px solid var(--border) !important;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.ep-modal-btn-secondary:hover {
+  border-color: var(--fg-muted) !important;
+  color: var(--fg);
+}
+
+.ep-modal-btn:hover {
+  opacity: 0.82;
+}
+
+/* ── progress bar in modal ── */
+.ep-modal-progress {
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  margin: 0.6rem 0;
+  overflow: hidden;
+}
+
+.ep-modal-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+/* count badge */
+.ep-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  font-size: 0.68rem;
+  color: var(--fg-muted);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 1.2rem;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
+}
+
+.ep-count-badge strong {
+  color: var(--accent);
+}
+
+/* ── Theme transition helper ── */
+body.theme-transitioning * {
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s !important;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

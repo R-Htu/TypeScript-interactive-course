@@ -2505,7 +2505,6 @@ const projectPairMap = {
 
 // ══════════════════════════════════════════
 // LESSONS.forEach — TWO projects per lesson
-// Place BEFORE renderGrid, AFTER projectPresets
 // ══════════════════════════════════════════
 LESSONS.forEach((lesson) => {
   if (!lesson.projects || !lesson.projects.length) {
@@ -4442,3 +4441,462 @@ function escHtml(str) {
 updateStats();
 renderGrid();
 showView("lessons");
+
+const epProjects = {
+  35: {
+    title: "Advanced Todo Filters",
+    goal: "Filter todos dynamically by status and priority.",
+    desc: "Learn how to manipulate arrays of objects using multiple criteria. You'll practice extending existing types and using the .filter() method to create a refined user experience.",
+    reqs: [
+      "Extend Todo with priority: 'low' | 'medium' | 'high'",
+      "Create filter functions for status and priority",
+      "Return filtered results as a new array",
+    ],
+    example: "High Priority Todos:\nBuild App",
+    tags: ["arrays", "state"],
+    diff: "medium",
+  },
+  36: {
+    title: "Shopping Cart System",
+    goal: "Calculate total price of cart items.",
+    desc: "Master the .reduce() method. Simulates real-world e-commerce logic where you iterate through a list of products to derive a single numerical value (the total).",
+    reqs: [
+      "Create CartItem interface (name, price, quantity)",
+      "Add items to a global array",
+      "Use reduce() to calculate the grand total",
+    ],
+    example: "Total: 150",
+    tags: ["arrays"],
+    diff: "medium",
+  },
+  37: {
+    title: "Role Permission Checker",
+    goal: "Check user permissions based on role.",
+    desc: "Focus on Type Guards and Union Types. Build a security-first function that determines if a user can perform actions like 'edit', 'delete', or 'view' based on their role.",
+    reqs: [
+      "Create Role union type: 'admin' | 'editor' | 'viewer'",
+      "Implement hasPermission(user, action) function",
+      "Return true/false based on role logic",
+    ],
+    example: "Admin can delete: true",
+    tags: ["state"],
+    diff: "medium",
+  },
+  38: {
+    title: "API Error Handler",
+    goal: "Handle API states.",
+    desc: "Understand the 'State Pattern'. By using a Union Type for states like 'loading', 'error', and 'success', you ensure that your UI always knows exactly what to display.",
+    reqs: [
+      "Create ApiState union: 'idle' | 'loading' | 'success' | 'error'",
+      "Use a switch statement to return user-friendly messages",
+    ],
+    example: "Loading...",
+    tags: ["state"],
+    diff: "medium",
+  },
+  39: {
+    title: "Product Search Engine",
+    goal: "Search products by keyword.",
+    desc: "Implement basic search logic. Handle user input and use string methods like .includes() to search through a dataset efficiently.",
+    reqs: [
+      "Create Product array with names and categories",
+      "Filter the array using .includes() on the keyword",
+    ],
+    example: "Found: Laptop",
+    tags: ["arrays"],
+    diff: "medium",
+  },
+  40: {
+    title: "Chat Message Formatter",
+    goal: "Format chat messages.",
+    desc: "Learn String Manipulation and Interfaces. Take raw message data and transform it into a readable string format suitable for a chat UI.",
+    reqs: [
+      "Create Message interface (user, text, timestamp)",
+      "Format a string output using Template Literals",
+    ],
+    example: "[10:00] John: Hello!",
+    tags: ["state"],
+    diff: "medium",
+  },
+  41: {
+    title: "Bank Transaction System",
+    goal: "Track account transactions.",
+    desc: "Explore Object-Oriented Programming (OOP). Build a class that manages a private balance and maintains a history of every deposit and withdrawal.",
+    reqs: [
+      "Create Account class with private balance",
+      "Add methods for deposit() and withdraw()",
+      "Store transaction history in an array",
+    ],
+    example: "Balance: 200",
+    tags: ["oop"],
+    diff: "medium",
+  },
+  42: {
+    title: "Game Score Tracker",
+    goal: "Track player scores.",
+    desc: "Practice State Management. Create a system to track multiple players and update their scores dynamically as they progress through a simulated game.",
+    reqs: [
+      "Create Player interface (id, name, score)",
+      "Implement a function to update scores by ID",
+    ],
+    example: "Alice: 50",
+    tags: ["state"],
+    diff: "medium",
+  },
+  43: {
+    title: "Dynamic Form Validator",
+    goal: "Validate dynamic fields.",
+    desc: "Advanced Generics. Create a validation function that works with any object structure, ensuring required fields are present.",
+    reqs: [
+      "Use TypeScript Generics <T>",
+      "Check for missing or empty fields in a dynamic object",
+    ],
+    example: "Missing: email",
+    tags: ["generics"],
+    diff: "hard",
+  },
+  44: {
+    title: "Event Scheduler",
+    goal: "Sort events by date.",
+    desc: "Working with Dates. Learn how to parse date strings and use the .sort() method to arrange events in chronological order.",
+    reqs: [
+      "Create Event interface with a Date property",
+      "Sort the event array from earliest to latest",
+    ],
+    example: "Meeting - 2025",
+    tags: ["arrays"],
+    diff: "medium",
+  },
+  45: {
+    title: "Currency Converter",
+    goal: "Convert currencies.",
+    desc: "Use Enums for fixed data. Uses a Currency Enum and a mapping object to calculate values between different global currencies like USD, EUR, and GBP.",
+    reqs: [
+      "Create enum Currency { USD, EUR, GBP }",
+      "Map conversion rates to an object and calculate the result",
+    ],
+    example: "USD → EUR: 90",
+    tags: ["state"],
+    diff: "medium",
+  },
+  46: {
+    title: "File Upload System",
+    goal: "Simulate file upload states.",
+    desc: "Simulate Asynchronous flows. Manage a 'Status' union to track a file's journey from 'idle' to 'uploading' to 'complete'.",
+    reqs: [
+      "Create Status union type",
+      "Function to update state based on simulated progress",
+    ],
+    example: "Uploading...",
+    tags: ["state"],
+    diff: "medium",
+  },
+  47: {
+    title: "Leaderboard System",
+    goal: "Rank players.",
+    desc: "Data Sorting. Build a leaderboard that automatically ranks players by their score, showing only the Top 3 or Top 5 users.",
+    reqs: [
+      "Sort an array of player objects by 'score' descending",
+      "Slice the array to show top results",
+    ],
+    example: "1. Alice",
+    tags: ["arrays"],
+    diff: "medium",
+  },
+  48: {
+    title: "Notification System",
+    goal: "Send notifications.",
+    desc: "Handle Multi-channel logic. Determine whether to send a 'Push', 'Email', or 'SMS' notification based on the input type.",
+    reqs: [
+      "Create notification types: 'email' | 'sms' | 'push'",
+      "Use a switch statement to trigger the correct format",
+    ],
+    example: "Email sent",
+    tags: ["state"],
+    diff: "medium",
+  },
+  49: {
+    title: "Inventory Restock System",
+    goal: "Restock products.",
+    desc: "Business Logic. Alert the user when stock is low and provide a function to increase the quantity of specific items.",
+    reqs: [
+      "Function to increase 'quantity' property",
+      "Log an alert if 'quantity' falls below a threshold",
+    ],
+    example: "Restocked: Apple",
+    tags: ["state"],
+    diff: "medium",
+  },
+  50: {
+    title: "Blog Post Manager",
+    goal: "Manage blog posts.",
+    desc: "CRUD Operations. Practice managing a list of posts, allowing for new entries to be added and old ones to be removed.",
+    reqs: [
+      "Create Post interface (title, content, author)",
+      "Implement functions to add() and remove() posts by title",
+    ],
+    example: "Post added",
+    tags: ["oop"],
+    diff: "medium",
+  },
+  51: {
+    title: "Weather Reporter",
+    goal: "Describe weather.",
+    desc: "Map Enums to Strings. Uses a Weather Enum to return descriptive, human-readable sentences about current atmospheric conditions.",
+    reqs: [
+      "Create Weather enum (Sunny, Rainy, Cloudy)",
+      "Return custom descriptions for each enum value",
+    ],
+    example: "Sunny day",
+    tags: ["state"],
+    diff: "medium",
+  },
+  52: {
+    title: "Quiz System",
+    goal: "Validate answers.",
+    desc: "Logic Comparison. Build a quiz engine that compares a user's selected answer against a 'correctAnswer' property within a Question interface.",
+    reqs: [
+      "Create Question interface with options and answer",
+      "Function to compare user input and return 'Correct' or 'Wrong'",
+    ],
+    example: "Correct!",
+    tags: ["oop"],
+    diff: "medium",
+  },
+  53: {
+    title: "URL Parser",
+    goal: "Parse URL parts.",
+    desc: "Regex and String Splitting. Take a raw URL string and break it down into its core components like Protocol, Domain, and Path.",
+    reqs: [
+      "Split a URL string using .split() or Regex",
+      "Return an object containing the separated parts",
+    ],
+    example: "Domain: google.com",
+    tags: ["advanced"],
+    diff: "hard",
+  },
+  54: {
+    title: "Pagination System",
+    goal: "Paginate arrays.",
+    desc: "UI Logic. Break large datasets into small 'pages'. A vital skill for building performant web applications with lots of data.",
+    reqs: [
+      "Create a paginate(array, pageNumber, pageSize) function",
+      "Use .slice() to return only the items for the current page",
+    ],
+    example: "Page 1: [1,2,3]",
+    tags: ["arrays"],
+    diff: "medium",
+  },
+  55: {
+    title: "Retry Request Logic",
+    goal: "Retry failed operations.",
+    desc: "Recursion and Error Handling. Implement a 'Retry' mechanism that attempts to run a function multiple times before finally giving up on failure.",
+    reqs: [
+      "Function that takes 'attempts' as an argument",
+      "Use a loop or recursion to retry the task if it fails",
+    ],
+    example: "Retry 1...",
+    tags: ["advanced"],
+    diff: "hard",
+  },
+  56: {
+    title: "Theme Switcher",
+    goal: "Toggle theme.",
+    desc: "State Toggling. Create a simple system to switch between 'light' and 'dark' modes, ensuring only valid theme names can be used.",
+    reqs: [
+      "Create Theme type union: 'light' | 'dark'",
+      "Function to toggle the current value to its opposite",
+    ],
+    example: "Theme: dark",
+    tags: ["state"],
+    diff: "medium",
+  },
+  57: {
+    title: "Data Transformer",
+    goal: "Transform arrays.",
+    desc: "Functional Programming. Use Generics to create a utility that can take an array of any type and apply a transformation function to every element.",
+    reqs: [
+      "Use TypeScript Generics",
+      "Map through an array to change values (e.g., doubling numbers)",
+    ],
+    example: "[2,4,6]",
+    tags: ["generics", "arrays"],
+    diff: "hard",
+  },
+  58: {
+    title: "Logger Utility",
+    goal: "Log messages with levels.",
+    desc: "Advanced Formatting. Build a professional-grade logging utility that prefixes messages with [INFO], [WARN], or [ERROR] tags.",
+    reqs: [
+      "Create log levels enum or union",
+      "Function to format and output strings to the console",
+    ],
+    example: "[ERROR] Failed",
+    tags: ["advanced"],
+    diff: "medium",
+  },
+  59: {
+    title: "User Authentication",
+    goal: "Validate login.",
+    desc: "Security Basics. Simulate a login flow where you check a username and password against a 'database' and return a success or failure object.",
+    reqs: [
+      "Check provided credentials against a mock user object",
+      "Return an object containing 'success' status and a message",
+    ],
+    example: "Login success",
+    tags: ["oop"],
+    diff: "medium",
+  },
+  60: {
+    title: "Drag & Drop State",
+    goal: "Manage drag state.",
+    desc: "Complex UI State. Manage the state of an item being dragged, tracking its original position and whether it is currently 'hovering' over a drop zone.",
+    reqs: [
+      "Create DragState interface (isDragging, targetId)",
+      "Update state values based on simulated mouse events",
+    ],
+    example: "Dragging...",
+    tags: ["state"],
+    diff: "hard",
+  },
+  61: {
+    title: "Markdown Renderer",
+    goal: "Convert markdown to HTML.",
+    desc: "Pattern Matching. Use Regular Expressions to find Markdown syntax (like asterisks) and replace them with HTML tags like <b> or <i>.",
+    reqs: [
+      "Detect **text** and *text* patterns",
+      "Use .replace() with Regex to return an HTML string",
+    ],
+    example: "<b>Hello</b>",
+    tags: ["advanced"],
+    diff: "hard",
+  },
+  62: {
+    title: "Command Parser",
+    goal: "Parse CLI commands.",
+    desc: "CLI Logic. Build a parser that takes a string input (like 'git commit -m') and extracts the primary command and its arguments.",
+    reqs: [
+      "Split string by spaces",
+      "Identify the first word as the command and the rest as arguments",
+    ],
+    example: "Command: run",
+    tags: ["advanced"],
+    diff: "medium",
+  },
+  63: {
+    title: "Cache System",
+    goal: "Store key-value pairs.",
+    desc: "Memory Management. Create a Cache class using the JavaScript 'Map' object to store and retrieve data quickly without recalculating it.",
+    reqs: [
+      "Create a class with get() and set() methods",
+      "Use a Map to store values internally",
+    ],
+    example: "Cache hit",
+    tags: ["oop", "generics"],
+    diff: "hard",
+  },
+  64: {
+    title: "Dependency Graph",
+    goal: "Detect circular dependencies.",
+    desc: "Advanced Algorithms. Use a Depth First Search (DFS) to find if any items in a graph point back to themselves.",
+    reqs: [
+      "Represent items and their dependencies as a Graph",
+      "Implement a loop detection algorithm (DFS)",
+    ],
+    example: "Circular detected!",
+    tags: ["advanced"],
+    diff: "hard",
+  },
+};
+
+/* ── Render cards ─────────────────────────────────────────── */
+function renderEpProjects(filter = "all") {
+  const grid = document.getElementById("ep-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  Object.entries(epProjects).forEach(([id, p]) => {
+    const show = filter === "all" || p.tags.includes(filter);
+    const reqTags = p.reqs
+      .slice(0, 2)
+      .map(
+        (r) =>
+          `<span class="ep-req-tag">${r.length > 32 ? r.slice(0, 30) + "…" : r}</span>`,
+      )
+      .join("");
+
+    const card = document.createElement("div");
+    card.className = "ep-card" + (show ? "" : " ep-hidden");
+    card.dataset.id = id;
+    card.innerHTML = `
+      <div class="ep-card-top">
+        <span class="ep-card-num">#${id}</span>
+        <span class="ep-card-difficulty ep-diff-${p.diff}">${p.diff}</span>
+      </div>
+      <div class="ep-card-title">${p.title}</div>
+      <div class="ep-card-goal">> ${p.goal}</div>
+      <div class="ep-card-desc">${p.desc}</div>
+      <div class="ep-card-reqs">${reqTags}</div>
+      <div class="ep-card-footer">
+        <div>
+          <div class="ep-example-label">output:</div>
+          <div class="ep-example-val">${p.example.split("\n")[0]}</div>
+        </div>
+        <button class="ep-open-btn" onclick="openEpModal(${id}, event)">Open [ → ]</button>
+      </div>
+    `;
+    card.addEventListener("click", () => openEpModal(parseInt(id)));
+    grid.appendChild(card);
+  });
+}
+
+/* ── Filter ───────────────────────────────────────────────── */
+function filterProjects(filter, btn) {
+  document
+    .querySelectorAll(".ep-filter")
+    .forEach((b) => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderEpProjects(filter);
+}
+
+/* ── Modal ────────────────────────────────────────────────── */
+function openEpModal(id, e) {
+  if (e) e.stopPropagation();
+  const p = epProjects[id];
+  if (!p) return;
+
+  const reqItems = p.reqs.map((r) => `<li>${r}</li>`).join("");
+  document.getElementById("ep-modal-body").innerHTML = `
+    <h3>${p.title}</h3>
+    <div class="ep-modal-goal">> Goal: ${p.goal}</div>
+
+    <div class="ep-modal-section-label">[ DESCRIPTION ]</div>
+    <div class="ep-modal-desc">${p.desc}</div>
+
+    <div class="ep-modal-section-label">[ REQUIREMENTS ]</div>
+    <ul class="ep-modal-reqs-list">${reqItems}</ul>
+
+    <div class="ep-modal-section-label">[ EXPECTED OUTPUT ]</div>
+    <pre class="ep-modal-example">${p.example}</pre>
+
+    <div class="ep-modal-actions">
+      <button class="ep-modal-btn ep-modal-btn-primary" onclick="closeEpModal()">Got it [ ✓ ]</button>
+      <button class="ep-modal-btn ep-modal-btn-secondary" onclick="closeEpModal()">[ ← ] Back</button>
+    </div>
+  `;
+  document.getElementById("ep-modal-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeEpModal(e) {
+  if (e && e.target !== document.getElementById("ep-modal-overlay")) return;
+  document.getElementById("ep-modal-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeEpModal();
+});
+
+/* ── Init ─────────────────────────────────────────────────── */
+renderEpProjects();
