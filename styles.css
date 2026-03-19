@@ -145,7 +145,7 @@ body::before {
 }
 
 .intro-panel {
-  border-radius: 40px 0 40px 0;
+  border-radius: 10px 0 40px 0;
   padding: 24px 20px;
   margin: 16px 0 18px;
   box-shadow: 0 5px 10px rgba(1, 192, 250, 0.2);
@@ -209,8 +209,8 @@ body::before {
   font-weight: 700;
   font-size: 0.82rem;
   text-transform: uppercase;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 5px 10px;
+  border-radius: 2px 0 8px 0;
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(38, 39, 39, 0.34);
   transition:
@@ -240,12 +240,14 @@ body::before {
   color: #def3ff;
   font-size: 0.75rem;
   transition: all 0.3s ease;
+
 }
 
 .intro-steps li:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 212, 255, 0.2);
   border-color: rgba(0, 212, 255, 0.4);
+  border-radius: 0 0 4px 0;
 }
 
 .intro-steps li strong {
@@ -269,8 +271,9 @@ body::before {
   font-size: 0.79rem;
   text-align: center;
   background: rgba(24, 40, 73, 0.62);
-  border: 1px solid rgba(0, 212, 255, 0.32);
-  border-radius: 10px;
+  border-top: 1px solid rgba(0, 212, 255, 0.32);
+  border-bottom: 3px solid rgba(0, 212, 255, 0.32);
+  border-radius: 2px 0 8px 0 8px;
   padding: 8px;
   max-width: 370px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
@@ -1812,9 +1815,10 @@ textarea.project-editor:focus {
   align-items: center;
   gap: 6px;
   background: var(--border);
-  border: 1px solid var(--border);
+  border-bottom: 3px solid rgba(7, 206, 246, 0.2);
+  border-right: 2px solid rgba(214, 241, 246, 0.2);
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: 2px 0 4px 0;
   font-family: "JetBrains Mono", monospace;
   transition: all 0.25s ease;
   cursor: default;
@@ -1873,12 +1877,6 @@ textarea.project-editor:focus {
 /* Light mode */
 [data-theme="light"] .stat {
   background: #1f3240;
-  border-color: #e2e8f0;
-}
-
-[data-theme="light"] .stat:hover {
-  border-color: #f58403;
-  box-shadow: 0 3px 10px rgba(2, 199, 133, 0.5);
 }
 
 [data-theme="light"] .stat:last-child {
